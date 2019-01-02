@@ -20,4 +20,13 @@ public class ListUtils {
         }
         return list;
     }
+
+    public static void distinctionList(List<String> list,String target) {
+        Iterator iterator = list.iterator();
+        while (iterator.hasNext()){
+            if (target.equals(iterator.next())){
+                iterator.remove();
+            }
+        }
+    }
 }
