@@ -9,4 +9,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+    fun getCalResult(number1: Int, number2: Int): Int {
+        return number1 + number2
+    }
 }
