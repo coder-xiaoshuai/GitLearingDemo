@@ -19,7 +19,12 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="我是一个按钮"
+        android:text="我是一个按钮"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@color/colorAccent"
         />
 
 </android.support.constraint.ConstraintLayout>
