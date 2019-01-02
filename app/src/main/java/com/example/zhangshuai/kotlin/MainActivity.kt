@@ -1,7 +1,8 @@
-package com.example.zhangshuai.gitlearingdemo
+package com.example.zhangshuai.kotlin
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.zhangshuai.gitlearingdemo.R
 
 class MainActivity : AppCompatActivity() {
 

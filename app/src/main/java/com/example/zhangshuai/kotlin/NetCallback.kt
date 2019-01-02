@@ -1,4 +1,4 @@
-package com.example.zhangshuai.gitlearingdemo
+package com.example.zhangshuai.kotlin
 
 interface NetCallback {
     fun onSuccess(json: String)
