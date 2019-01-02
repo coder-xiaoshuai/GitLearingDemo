@@ -4,4 +4,6 @@ public class Master {
     public void master1(){}
 
     public void master2(){}
+
+    public void master3(){}
 }
