@@ -9,11 +9,4 @@ public class StringUtils {
         return false;
     }
 
-    public static void method_Master1(){
-
-    }
-
-    public static void method_Master2(){
-
-    }
 }
