@@ -7,4 +7,7 @@ package com.example.zhangshuai.java;
  */
 public class FileUtils {
 
+    public static boolean fileIsExist() {
+        return false;
+    }
 }
