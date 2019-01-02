@@ -8,4 +8,8 @@ public class StringUtils {
         }
         return false;
     }
+
+    public static void method_Master1(){
+
+    }
 }
