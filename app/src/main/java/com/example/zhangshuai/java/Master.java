@@ -8,4 +8,6 @@ public class Master {
     public void master3() {}
 
     public void master4() {}
+
+    public void master5() {}
 }
