@@ -19,4 +19,8 @@ class MainActivity : AppCompatActivity() {
     fun getCalResult(number1: Int, number2: Int): Int {
         return number1 + number2
     }
+
+    override fun onRestart() {
+        super.onRestart()
+    }
 }
