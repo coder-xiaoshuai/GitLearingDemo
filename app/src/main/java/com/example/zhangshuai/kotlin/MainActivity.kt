@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.zhangshuai.activity.AutoTextActivity
 import com.example.zhangshuai.activity.ImageVideoDemoActivity
 import com.example.zhangshuai.activity.NineImageActivity
 import com.example.zhangshuai.gitlearingdemo.R
@@ -24,6 +25,11 @@ class MainActivity : AppCompatActivity() {
         }
         btn_nine_image_preview.setOnClickListener {
             var intent = Intent(this@MainActivity, NineImageActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_auto_text.setOnClickListener {
+            var intent = Intent(this@MainActivity, AutoTextActivity::class.java)
             startActivity(intent)
         }
     }

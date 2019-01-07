@@ -26,6 +26,8 @@
         <activity android:name="com.example.zhangshuai.activity.ImageVideoDemoActivity"/>
 
         <activity android:name="com.example.zhangshuai.activity.NineImageActivity"/>
+
+        <activity android:name="com.example.zhangshuai.activity.AutoTextActivity" />
     </application>
 
 </manifest>

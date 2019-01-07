@@ -30,7 +30,7 @@ public class NineFrameLayout extends FrameLayout {
     private void init() {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setStrokeWidth(5);
+        mPaint.setStrokeWidth(0.5f);
         mPaint.setColor(Color.WHITE);
     }
 

@@ -46,6 +46,12 @@
             android:text="九宫格视图demo"
             />
 
+        <Button
+            android:id="@+id/btn_auto_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="智能折行"
+            />
     </LinearLayout>
 
 
