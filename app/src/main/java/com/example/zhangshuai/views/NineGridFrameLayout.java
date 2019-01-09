@@ -9,20 +9,22 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-public class NineFrameLayout extends FrameLayout {
+import com.example.zhangshuai.utils.ViewUtils;
+
+public class NineGridFrameLayout extends FrameLayout {
     private Paint mPaint;
 
-    public NineFrameLayout(@NonNull Context context) {
+    public NineGridFrameLayout(@NonNull Context context) {
         super(context);
         init();
     }
 
-    public NineFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public NineGridFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public NineFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public NineGridFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -30,7 +32,8 @@ public class NineFrameLayout extends FrameLayout {
     private void init() {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setStrokeWidth(0.5f);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setStrokeWidth(ViewUtils.dpToPx(getContext(), 0.1f));
         mPaint.setColor(Color.WHITE);
     }
 
@@ -42,6 +45,6 @@ public class NineFrameLayout extends FrameLayout {
         canvas.drawLine(getWidth() / 3 * 2, 0, getWidth() / 3 * 2, getHeight(), mPaint);
         //横线
         canvas.drawLine(0, getHeight() / 3, getWidth(), getHeight() / 3, mPaint);
-        canvas.drawLine(0, getHeight() / 3*2, getWidth(), getHeight() / 3*2, mPaint);
+        canvas.drawLine(0, getHeight() / 3 * 2, getWidth(), getHeight() / 3 * 2, mPaint);
     }
 }
