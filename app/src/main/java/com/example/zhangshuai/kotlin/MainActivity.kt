@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.zhangshuai.activity.AutoTextActivity
+import com.example.zhangshuai.activity.ClickableSpanActivity
 import com.example.zhangshuai.activity.ImageVideoDemoActivity
 import com.example.zhangshuai.activity.NineImageActivity
 import com.example.zhangshuai.gitlearingdemo.R
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         btn_auto_text.setOnClickListener {
             var intent = Intent(this@MainActivity, AutoTextActivity::class.java)
+            startActivity(intent)
+        }
+        btn_clickable.setOnClickListener {
+            var intent = Intent(this@MainActivity, ClickableSpanActivity::class.java)
             startActivity(intent)
         }
     }

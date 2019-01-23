@@ -47,4 +47,9 @@ public class NineGridFrameLayout extends FrameLayout {
         canvas.drawLine(0, getHeight() / 3, getWidth(), getHeight() / 3, mPaint);
         canvas.drawLine(0, getHeight() / 3 * 2, getWidth(), getHeight() / 3 * 2, mPaint);
     }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
 }

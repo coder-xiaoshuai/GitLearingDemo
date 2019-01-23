@@ -52,6 +52,12 @@
             android:layout_height="wrap_content"
             android:text="智能折行"
             />
+        <Button
+            android:id="@+id/btn_clickable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="富文本"
+            />
     </LinearLayout>
 
 

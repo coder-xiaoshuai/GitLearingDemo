@@ -2,27 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="343dp">
-    <com.example.zhangshuai.views.NineGridFrameLayout
+    android:layout_height="match_parent">
+
+    <com.example.zhangshuai.views.MyGestureImageView
+        android:id="@+id/gestureImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:gest_rotationEnabled="false"
+        android:layout_gravity="center"
         android:background="@color/colorAccent"
-        >
+        />
 
-        <com.alexvasilkov.gestures.views.GestureImageView
-            android:id="@+id/gestureImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:gest_rotationEnabled="false"
-            android:layout_gravity="center"
-            android:background="@color/colorAccent"
-            />
-
-        <com.alexvasilkov.gestures.commons.CropAreaView
-            android:id="@+id/cropAreaView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:gest_borderColor="@android:color/transparent"/>
-
-    </com.example.zhangshuai.views.NineGridFrameLayout>
 </RelativeLayout>

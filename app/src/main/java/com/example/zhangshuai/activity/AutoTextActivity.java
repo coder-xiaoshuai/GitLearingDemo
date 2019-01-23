@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextPaint;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -55,5 +56,22 @@ public class AutoTextActivity extends AppCompatActivity {
         Log.e("zs", "文字长度2:" + length2 + "bound width" + bound2.width() + ",height" + bound2.height());
         TextView commonText = findViewById(R.id.text_common);
         commonText.setText(text + "三分钟前");
+
+        TextPaint textPaint = new TextPaint();
+        textPaint.setTextSize(20);
+        Paint paint1 =new Paint();
+        paint1.setTextSize(20);
+        float length1 = textPaint.measureText("哈哈哈哈                        哈哈哈哈");
+        float length3 = textPaint.measureText("哈哈哈哈哈哈哈哈");
+        float length5 = textPaint.measureText("哈哈哈哈                        哈哈哈哈");
+        float length6 = textPaint.measureText("哈哈哈哈哈哈哈哈");
+        Log.e("zs", "length1:" + length1 + ",length3:" + length3);
+        Log.e("zs", "length5:" + length5 + ",length6:" + length6);
+        TextView text3 = findViewById(R.id.text3);
+        text3.setTextSize(20);
+        text3.setText("哈哈哈哈                        哈哈哈哈");
+        TextView text4 = findViewById(R.id.text4);
+        text4.setTextSize(20);
+        text4.setText("哈哈哈哈哈哈哈哈");
     }
 }

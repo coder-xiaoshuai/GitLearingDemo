@@ -4,18 +4,85 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
-    <TextView
-        android:id="@+id/text_auto"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_common"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/text_auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/text_common"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="sfkasjflasjflkjaslfkjalksjflaskjfoasijfoajdfoiajsfdjaoidjaosifjdoasjfaksjflaksjfl   sajfoasjflk jsafdo aofjdsalf j  asfjoasjf oaj o   asldkfjalskj flaj foafj oasjfdl skajfdo  fasjfdlaksjlf "
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="sjflkasj a hahalj 凯乐科技爱搜覅及解耦我几啊佛诞节佛爱进房间哦啊啊是解放路口来接我我偶就付绿撒扩军佛我阿斯利康付军偶爱军付付付付 看时间佛为甲方拉瑟吉欧埃及藕断丝连看风景了       jjjlskjfoiewjfaksdjfaoifjelkwajlfjaskfjlas "
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="纯文字考虑尽快离开家双方均按时交付卢卡斯记录反馈记录上搭建方来看撒娇法律框架爱上了房间爱了圣诞节法拉盛会计分录卡视角弗兰克是开发据了解萨拉飞机哦我未付款老实交代佛我洪波我捡垃圾工具哦爱发电量达金佛IE我发了拉丝机佛为契机"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="纯文字带空格考虑尽快离开家双        方均按时交付卢卡斯记录反      馈记录上搭建方来看撒娇     法律框架爱上了房间     爱了圣诞节法拉盛会计    分录卡视角弗兰克是开发据了解萨拉飞机哦我未付款老实交代佛我洪波我捡垃圾工具哦爱发电量达金佛IE我发了拉丝机佛为契机"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="文字加英文带空格考虑尽快离开家双        方均按skfjlasjlfkajsfkaslfsdjfoasjfasj时交付卢卡斯记录反      馈记录上搭建方来dsafjklasjflksd看撒娇     法律框架爱上了房间     爱了圣诞节法拉盛会计    分录卡视角弗兰克是开发据了解萨拉飞机哦我未付款老实交代佛我洪波我捡垃圾工具哦爱发电量达金佛IE我发了拉丝机佛为契机"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="sfsfsajfljasofjoasjflkasjo sfew asfw fasfasf asf 文字加英文带空格考虑尽快离开家双        方均按skfjlasjlfkajsfkaslfsdjfoasjfasj时交付卢卡斯记录反      馈记录上搭建方来dsafjklasjflksd看撒娇     法律框架爱上了房间     爱了圣诞节法拉盛会计    分录卡视角弗兰克是开发据了解萨拉飞机哦我未付款老实交代佛我洪波我捡垃圾工具哦爱发电量达金佛IE我发了拉丝机佛为契机"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>
