@@ -74,4 +74,10 @@ public class AutoTextActivity extends AppCompatActivity {
         text4.setTextSize(20);
         text4.setText("哈哈哈哈哈哈哈哈");
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("zs", "onDestroy");
+    }
 }

@@ -3,6 +3,7 @@ package com.example.zhangshuai.kotlin
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.zhangshuai.activity.AutoTextActivity
 import com.example.zhangshuai.activity.ClickableSpanActivity
@@ -45,5 +46,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.e("zs", "isFinishing$isFinishing")
     }
 }
