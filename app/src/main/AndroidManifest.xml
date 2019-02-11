@@ -30,6 +30,10 @@
         <activity android:name="com.example.zhangshuai.activity.AutoTextActivity" />
 
         <activity android:name="com.example.zhangshuai.activity.ClickableSpanActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.PathDemoActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.RvActivity" />
     </application>
 
 </manifest>

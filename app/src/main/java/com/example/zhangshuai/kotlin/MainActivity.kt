@@ -5,10 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.example.zhangshuai.activity.AutoTextActivity
-import com.example.zhangshuai.activity.ClickableSpanActivity
-import com.example.zhangshuai.activity.ImageVideoDemoActivity
-import com.example.zhangshuai.activity.NineImageActivity
+import com.example.zhangshuai.activity.*
 import com.example.zhangshuai.gitlearingdemo.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -38,6 +35,17 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this@MainActivity, ClickableSpanActivity::class.java)
             startActivity(intent)
         }
+
+        btn_path_demo.setOnClickListener { v ->
+            var intent = Intent(this@MainActivity, PathDemoActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_rv.setOnClickListener{
+            var intent = Intent(this@MainActivity,RvActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun getCalResult(number1: Int, number2: Int): Int {
