@@ -72,7 +72,14 @@
                 android:id="@+id/btn_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PATH 练习"
+                android:text="RV 练习"
+                />
+
+            <Button
+                android:id="@+id/btn_praise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="仿抖音点赞"
                 />
         </LinearLayout>
 

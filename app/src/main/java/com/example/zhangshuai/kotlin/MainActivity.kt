@@ -41,8 +41,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btn_rv.setOnClickListener{
-            var intent = Intent(this@MainActivity,RvActivity::class.java)
+        btn_rv.setOnClickListener {
+            var intent = Intent(this@MainActivity, RvActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_praise.setOnClickListener {
+            var intent = Intent(this@MainActivity, PraiseDemoActivity::class.java)
             startActivity(intent)
         }
 
