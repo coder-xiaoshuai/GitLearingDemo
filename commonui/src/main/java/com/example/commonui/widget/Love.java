@@ -39,7 +39,7 @@ public class Love extends RelativeLayout {
         LayoutParams params = new LayoutParams(300, 300);
         params.leftMargin = (int) (event.getX() - 150);
         params.topMargin = (int) (event.getY() - 300);
-        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
+        imageView.setImageDrawable(getResources().getDrawable(R.drawable.heart));
         imageView.setLayoutParams(params);
         addView(imageView);
 
