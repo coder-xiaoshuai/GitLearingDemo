@@ -34,6 +34,8 @@
         <activity android:name="com.example.zhangshuai.activity.PathDemoActivity" />
 
         <activity android:name="com.example.zhangshuai.activity.RvActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.MediaPlayerActivity" />
     </application>
 
 </manifest>
