@@ -81,6 +81,13 @@
                 android:layout_height="wrap_content"
                 android:text="仿抖音点赞"
                 />
+
+            <Button
+                android:id="@+id/btn_nine_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="九宫格容器"
+                />
         </LinearLayout>
 
     </ScrollView>

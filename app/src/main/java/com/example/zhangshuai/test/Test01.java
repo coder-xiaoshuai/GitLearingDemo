@@ -16,7 +16,8 @@ public class Test01 {
         list.add((long) 100006);
         list.add((long) 100007);
 
-        System.out.println("是否包含" + list.contains((long)100000) + list.contains((long)100001));
+        System.out.println("是否包含" + list.contains((long) 100000) + list.contains((long) 100001));
+
 
     }
 }

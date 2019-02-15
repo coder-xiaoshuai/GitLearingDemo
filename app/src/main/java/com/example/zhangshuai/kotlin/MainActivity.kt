@@ -51,6 +51,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_nine_grid.setOnClickListener {
+            var intent = Intent(this@MainActivity, NineGridLayoutActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun getCalResult(number1: Int, number2: Int): Int {

@@ -38,6 +38,8 @@
         <activity android:name="com.example.zhangshuai.activity.MediaPlayerActivity" />
 
         <activity android:name="com.example.zhangshuai.activity.PraiseDemoActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.NineGridLayoutActivity" />
     </application>
 
 </manifest>
