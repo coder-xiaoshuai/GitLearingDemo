@@ -40,6 +40,8 @@
         <activity android:name="com.example.zhangshuai.activity.PraiseDemoActivity" />
 
         <activity android:name="com.example.zhangshuai.activity.NineGridLayoutActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.GifActivity" />
     </application>
 
 </manifest>

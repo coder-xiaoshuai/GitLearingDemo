@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/commonui" />
+            <option value="$PROJECT_DIR$/giflibrary" />
             <option value="$PROJECT_DIR$/network" />
           </set>
         </option>

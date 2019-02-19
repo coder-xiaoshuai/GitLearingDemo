@@ -44,7 +44,7 @@ public class NineGridLayout extends RelativeLayout {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setStrokeWidth(dpToPx(getContext(), 1f));
+        mPaint.setStrokeWidth(1f);
         mPaint.setColor(Color.WHITE);
     }
 

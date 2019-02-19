@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/text_brand_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:letterSpacing="0.08"
+        android:maxLines="2"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
+        android:background="@color/black"
+        android:lineSpacingExtra="5dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginBottom="-5dp"
+        android:layout_marginTop="-5dp"
+        android:text="少时诵诗书所"
+        android:textSize="15sp"/>
+
+    <ImageView
+        android:id="@+id/image_lighting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/icon_brand_lighting"
+        />
+
+</FrameLayout>

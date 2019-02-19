@@ -56,6 +56,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_gif.setOnClickListener{
+            var intent = Intent(this@MainActivity,GifActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun getCalResult(number1: Int, number2: Int): Int {

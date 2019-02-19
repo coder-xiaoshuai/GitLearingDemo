@@ -6,12 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.alexvasilkov.gestures.GestureController;
-import com.alexvasilkov.gestures.commons.CropAreaView;
-import com.alexvasilkov.gestures.views.GestureImageView;
 import com.bumptech.glide.Glide;
 import com.example.zhangshuai.gitlearingdemo.R;
 import com.example.zhangshuai.utils.ViewUtils;
