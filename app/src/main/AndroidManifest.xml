@@ -42,6 +42,8 @@
         <activity android:name="com.example.zhangshuai.activity.NineGridLayoutActivity" />
 
         <activity android:name="com.example.zhangshuai.activity.GifActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.EventTestActivity" />
     </application>
 
 </manifest>

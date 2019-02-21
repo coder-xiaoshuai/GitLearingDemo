@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 public class NineGridLayout extends RelativeLayout {
     private Paint mPaint;
+    private static float DEFAULT_STROKE_WIDTH = 30f;
 
     public boolean isShowGridLine() {
         return showGridLine;
@@ -44,7 +45,7 @@ public class NineGridLayout extends RelativeLayout {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setStrokeWidth(1f);
+        mPaint.setStrokeWidth(DEFAULT_STROKE_WIDTH);
         mPaint.setColor(Color.WHITE);
     }
 
@@ -53,12 +54,20 @@ public class NineGridLayout extends RelativeLayout {
         super.dispatchDraw(canvas);
         Log.e("zs", "dispatchDraw");
         if (showGridLine) {
+            float remainWidth = getWidth() - DEFAULT_STROKE_WIDTH * 2;
+            float remainHeight = getHeight() - DEFAULT_STROKE_WIDTH * 2;
             //竖线
-            canvas.drawLine(getWidth() / 3, 0, getWidth() / 3, getHeight(), mPaint);
-            canvas.drawLine(getWidth() / 3 * 2, 0, getWidth() / 3 * 2, getHeight(), mPaint);
+            canvas.drawLine(remainWidth / 3 + DEFAULT_STROKE_WIDTH / 2, 0, remainWidth / 3 + DEFAULT_STROKE_WIDTH / 2,
+                getHeight(), mPaint);
+
+            canvas.drawLine(remainWidth / 3 * 2 + DEFAULT_STROKE_WIDTH / 2 + DEFAULT_STROKE_WIDTH, 0,
+                remainWidth / 3 * 2 + DEFAULT_STROKE_WIDTH / 2 + DEFAULT_STROKE_WIDTH, getHeight(), mPaint);
+
             //横线
-            canvas.drawLine(0, getHeight() / 3, getWidth(), getHeight() / 3, mPaint);
-            canvas.drawLine(0, getHeight() / 3 * 2, getWidth(), getHeight() / 3 * 2, mPaint);
+            canvas.drawLine(0, remainHeight / 3 + DEFAULT_STROKE_WIDTH / 2, getWidth(),
+                remainHeight / 3 + DEFAULT_STROKE_WIDTH / 2, mPaint);
+            canvas.drawLine(0, remainHeight / 3 * 2 + DEFAULT_STROKE_WIDTH / 2 + DEFAULT_STROKE_WIDTH, getWidth(),
+                remainHeight / 3 * 2 + DEFAULT_STROKE_WIDTH / 2 + DEFAULT_STROKE_WIDTH, mPaint);
         }
     }
 

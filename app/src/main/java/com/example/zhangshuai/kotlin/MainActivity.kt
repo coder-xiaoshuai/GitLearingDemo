@@ -56,8 +56,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btn_gif.setOnClickListener{
-            var intent = Intent(this@MainActivity,GifActivity::class.java)
+        btn_gif.setOnClickListener {
+            var intent = Intent(this@MainActivity, GifActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_event.setOnClickListener {
+            var intent = Intent(this@MainActivity, EventTestActivity::class.java)
             startActivity(intent)
         }
 

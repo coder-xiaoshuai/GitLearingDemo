@@ -95,6 +95,14 @@
                 android:layout_height="wrap_content"
                 android:text="生成GIF"
                 />
+
+            <Button
+                android:id="@+id/btn_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="事件传递测试"
+                />
+
         </LinearLayout>
 
     </ScrollView>
