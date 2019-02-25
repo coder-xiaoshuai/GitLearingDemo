@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btn_path_demo.setOnClickListener { v ->
+        btn_path_demo.setOnClickListener {
             var intent = Intent(this@MainActivity, PathDemoActivity::class.java)
             startActivity(intent)
         }
@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity() {
 
         btn_event.setOnClickListener {
             var intent = Intent(this@MainActivity, EventTestActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_my_butter_knife.setOnClickListener {
+            var intent = Intent(this@MainActivity, MyButterKnifeActivity::class.java)
             startActivity(intent)
         }
 

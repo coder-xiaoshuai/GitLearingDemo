@@ -103,6 +103,13 @@
                 android:text="事件传递测试"
                 />
 
+            <Button
+                android:id="@+id/btn_my_butter_knife"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="依赖注入测试"
+                />
+
         </LinearLayout>
 
     </ScrollView>

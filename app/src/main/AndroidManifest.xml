@@ -44,6 +44,8 @@
         <activity android:name="com.example.zhangshuai.activity.GifActivity" />
 
         <activity android:name="com.example.zhangshuai.activity.EventTestActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.MyButterKnifeActivity" />
     </application>
 
 </manifest>

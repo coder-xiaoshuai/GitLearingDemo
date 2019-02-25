@@ -43,4 +43,8 @@ dependencies {
     implementation project(':commonui')
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     implementation project(':giflibrary')
+
+    implementation project(':lib_annotation')
+    annotationProcessor project(':lib_processor')
+    implementation project(':lib-butterknife')
 }

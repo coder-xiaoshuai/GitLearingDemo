@@ -1,0 +1,179 @@
+Java反射是指运行时获取类信息，进而在运行时动态构造对象、调用对象方法及修改对象属性的机制。百度百科的定义：“JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。
+
+一、反射的用途
+
+Java的反射机制可以做3件事：运行时创建对象、运行时调用方法、运行时读写属性。进而实现以下功能：
+调用一些私有方法，实现黑科技。比如双卡短信发送、设置状态栏颜色、自动挂电话等。
+
+实现序列化与反序列化，比如PO的ORM，Json解析等。
+
+实现跨平台兼容，比如JDK中的SocketImpl的实现。
+
+通过xml或注解，实现依赖注入(DI)，注解处理，动态代理，单元测试等功能。比如Retrofit、Spring或者Dagger。
+
+二、Java反射的优缺点
+
+优点：
+
+（1）能够运行时动态获取类的实例，大大提高系统的灵活性和扩展性。
+（2）与Java动态编译相结合，可以实现无比强大的功能
+
+缺点：
+（1）使用反射的性能较低
+（2）使用反射相对来说不安全
+（3）破坏了类的封装性，可以通过反射获取这个类的私有方法和属性
+
+三、Java反射的用法
+
+主要反射API，用来生成在当前JAVA虚拟机中的类、接口或者对象的信息。
+
+●Class类:反射的核心类，可以获取类的属性，方法等内容信息。
+
+●Field类:Java.lang.reflect.表示类的属性，可以获取和设置类的中属性值。
+
+●Method类:Java.lang.reflect。表示类的方法，它可以用来获取类中方法的信息或者执行方法
+
+Construcor类:Java.lang.reflect。表示类的构造方法。
+
+使用步骤：
+
+●获得想操作类的Java.lang.Class对象
+●调用Class的方法
+●使用反射API来操作这些信息
+
+Class类没有构造方法，获取其对象的三种方法：
+
+对象.getClass（）
+
+类.class
+
+Class.forName();其中，forName( )方法需要重点掌握，因为它可以在类不确定的情况下实例化Class，更具灵活性。
+
+class Test {
+
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        //方式一：
+        Test t = new Test();
+        Class<? extends Test> c1 = t.getClass();
+        System.out.println(c1);
+
+        //方式二：
+        //为了避免特殊性，这里不用Test类，而用java库中的String类
+        Class<String> c2 = String.class;
+        System.out.println(c2);
+
+        //方式三：
+        //forName()方法会抛出异常
+        Class<?> c3 = null;
+        try {
+            c3 = Class.forName("Test");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(c3);
+    }
+}
+
+
+public class Demo {
+    //下面的几个方法抛出来的异常太多，为了代码的紧凑性，这里就直接抛给虚拟机了
+    public static void main(String[] args) throws Exception {
+        Class<?> c = null;
+        try {
+            c = Class.forName("java.lang.String");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        char[] ch = {'h','e','l','l','o'};
+        String s = null;
+        //获得Class类对象的有参构造方法，括号里面参数的写法是：类型.class
+        Constructor<?> con = c.getConstructor(char[].class);
+        //用此构造方法构造一个新的字符串对象，参数为一个char数组
+        s = (String) con.newInstance(ch);
+        System.out.println("构造的字符串：" + s);
+
+//获得Class类对象的有参构造方法，括号里面参数的写法是：类型.class
+        Constructor<?> con = c.getConstructor(char[].class);
+        //用此构造方法构造一个新的字符串对象，参数为一个char数组
+        s = (String) con.newInstance(ch);
+        System.out.println("构造的字符串：" + s);
+
+//这里的getConstructors()方法返回的是一个Constructor数组
+        Constructor<?>[] cons = c.getConstructors();
+        System.out.println(Arrays.toString(cons));
+
+        Class<?>[] in = c.getInterfaces();
+        System.out.println(Arrays.toString(in));
+//只有一个父类
+        Class<?> su = c.getSuperclass();
+        System.out.println(su);
+//获取所有方法
+    Method[] m = c.getMethods();
+        for (int i = 0; i < m.length; i++) {
+            System.out.println(m[i]);
+        }
+//获取所有属性
+    Field[] f = c.getDeclaredFields();
+        for (int i = 0; i < f.length; i++) {
+            System.out.println(f[i]);
+        }
+
+    }
+}
+
+class Person {
+    private String name;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public String toString() {
+        return "姓名： " + this.name;
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) throws Exception {
+        Person p = new Person("王二狗");
+        System.out.println(p);
+        Class<?> c = p.getClass();
+
+        //定义要修改的属性
+        Field f = c.getDeclaredField("name");
+        f.setAccessible(true);
+        //修改属性，传入要设置的对象和值
+        f.set(p, "张二蛋");
+        System.out.println(p);
+
+   //getMethod()方法需要传入方法名，和参数类型
+        Method m1 = c.getMethod("print", int.class);
+        //invoke()表示调用的意思，需要传入对象和参数
+        m1.invoke(p, 10);
+
+        Method m2 = c.getMethod("say", String.class);
+        //这里的null表示不由对象调用，也就是静态方法
+        m2.invoke(null, "你妹");
+    }
+}
+
+四、相关问题：java中如何让一个方法不能被反射调用？
+
+AccessibleObject的setAccessible方法可以使一个private方法（字段）能够被invoke方法调用；同时这种调用存在特例，如Class类的Constructord对象。那么：
+1.我可以写一个方法（字段），使它被setAccessible(true)时抛出SecurityException吗？
+2.存在如同Class类的Constructord对象这样可以抛出SecurityException的方法吗？
+3.如果问题“1”的答案为否，那么Class类的Constructord对象是以何种方式成为特例的呢？
+
+
+1.我可以写一个方法（字段），使它被setAccessible(true)时抛出SecurityException吗？
+我的理解是“不能”，除非你改写jdk源代码。即使你使用了java的安全管理器，也只能管理自己代码的安全策略，当你的代码打成jar包被别人使用时，别人用反射可以访问你的一切，除了你说的类的构造函数。如果你使用了如同stackoverflow上那人写的safeMethod方法，会有一些效果。但那种情况不是阻止别人访问你的method，而是使用反射访问你的method时，该method会主动抛出异常。要想让setAccessible(true)时抛异常，不可能。
+
+2.存在如同Class类的Constructord对象这样可以抛出SecurityException的方法吗？
+存在。例如public Method getDeclaredMethod(String name, Class<?>... parameterTypes)方法，只要违反了安全策略，都可以抛出SecurityException方法。但这依然不能阻止别人使用反射访问你的资源。
+
+3.如果问题“1”的答案为否，那么Class类的Constructord对象是以何种方式成为特例的呢？
+不知道。猜测一下，是否java内置的安全策略就把Class类的Constructor方法设为不可使用反射访问的呢？反正我试了试，直接就抛出了java.lang.NoSuchMethodException异常，还轮不到抛出SecurityException异常。
+
