@@ -1,11 +1,17 @@
 package com.example.zhangshuai.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ThreadLocalTest {
 
     public static void main(String[] args) {
-        ThreadLocal<List<Integer>> numbers = new ThreadLocal<>();
+        ThreadLocal<List<Integer>> numbers = new ThreadLocal<List<Integer>>(){
+            @Override
+            protected List<Integer> initialValue() {
+                return new ArrayList<Integer>();
+            }
+        };
 
         new Thread(() -> {
             for (int i = 0; i < 10; i++) {
