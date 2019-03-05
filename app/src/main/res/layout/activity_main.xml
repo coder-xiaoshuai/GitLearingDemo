@@ -110,6 +110,20 @@
                 android:text="依赖注入测试"
                 />
 
+            <Button
+                android:id="@+id/btn_profiler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="性能监测"
+                />
+
+            <Button
+                android:id="@+id/btn_pre_download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Glide预加载测试"
+                />
+
         </LinearLayout>
 
     </ScrollView>

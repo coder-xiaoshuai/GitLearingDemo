@@ -71,6 +71,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_profiler.setOnClickListener {
+            var intent = Intent(this@MainActivity, ProfilerTestActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_pre_download.setOnClickListener {
+            var intent = Intent(this@MainActivity, PreDownLoadActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun getCalResult(number1: Int, number2: Int): Int {

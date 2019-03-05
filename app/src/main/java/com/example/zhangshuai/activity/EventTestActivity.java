@@ -25,6 +25,9 @@ public class EventTestActivity extends AppCompatActivity{
             case MotionEvent.ACTION_DOWN:
                 Log.e("zs", getClass().getSimpleName() + "的dispatchTouchEvent的MotionEvent.ACTION_DOWN");
                 break;
+            case MotionEvent.ACTION_MOVE:
+                Log.e("zs", getClass().getSimpleName() + "的dispatchTouchEvent的MotionEvent.ACTION_MOVE");
+                break;
             case MotionEvent.ACTION_UP:
                 Log.e("zs", getClass().getSimpleName() + "的dispatchTouchEvent的MotionEvent.ACTION_UP");
                 break;

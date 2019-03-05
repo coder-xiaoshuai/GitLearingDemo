@@ -7,9 +7,9 @@
         android:layout_height="400dp"
         android:background="@color/black"
         >
-        <com.example.zhangshuai.views.MyScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--<com.example.zhangshuai.views.MyScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
             <com.example.zhangshuai.views.MyLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -33,7 +33,7 @@
                     />
 
             </com.example.zhangshuai.views.MyLinearLayout>
-        </com.example.zhangshuai.views.MyScrollView>
+        <!--</com.example.zhangshuai.views.MyScrollView>-->
         y
 
 
