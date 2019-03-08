@@ -1,29 +1,19 @@
 package com.example.zhangshuai.activity;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.Toast;
+import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.example.zhangshuai.adapter.PreDownLoadAdapter;
 import com.example.zhangshuai.gitlearingdemo.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreDownLoadActivity extends AppCompatActivity {
+public class ShowActivity extends AppCompatActivity {
     private List<String> imageUrls;
     private RecyclerView mRecyclerView;
     private PreDownLoadAdapter mAdapter;
@@ -33,38 +23,13 @@ public class PreDownLoadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_download);
         imageUrls = new ArrayList<>();
-        //initRecyclerView();
-        addData();
+        initRecyclerView();
         //initImageUrls();
-        findViewById(R.id.btn_pre_download).setOnClickListener(v -> {
-            RequestOptions options = new RequestOptions();
-            options.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
-            //options.override(1080,500);
-            for (int i = 0; i < imageUrls.size(); i++) {
-                int finalI = i;
-                Glide.with(PreDownLoadActivity.this).load(imageUrls.get(i)).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target,
-                                                boolean isFirstResource) {
-                        Toast.makeText(PreDownLoadActivity.this, "加载失败" + e.toString(), Toast.LENGTH_SHORT).show();
-                        Log.e("zs", e.toString());
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
-                                                   DataSource dataSource, boolean isFirstResource) {
-                        Toast.makeText(PreDownLoadActivity.this, "加载成功" + finalI, Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                }).apply(options).preload();
-            }
-        });
+        findViewById(R.id.btn_pre_download).setVisibility(View.GONE);
 
         findViewById(R.id.btn_show).setOnClickListener(v -> {
-            Intent intent = new Intent(PreDownLoadActivity.this, ShowActivity.class);
-            startActivity(intent);
-        });
+            addData();
+            mAdapter.notifyDataSetChanged();});
     }
 
     private void addData() {

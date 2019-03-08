@@ -51,6 +51,8 @@
 
         <activity android:name="com.example.zhangshuai.activity.PreDownLoadActivity" />
 
+        <activity android:name="com.example.zhangshuai.activity.ShowActivity" />
+
     </application>
 
 </manifest>

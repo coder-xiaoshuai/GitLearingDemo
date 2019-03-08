@@ -37,6 +37,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.8.0'
+//    implementation 'com.github.bumptech.glide:okhttp3-integration:4.0.0-RC1'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+//    implementation 'com.github.bumptech.glide:okhttp3-integration:4.0.0-RC1'
     //增加缩放图片和图片裁剪
     implementation 'com.alexvasilkov:gesture-views:2.5.2'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
