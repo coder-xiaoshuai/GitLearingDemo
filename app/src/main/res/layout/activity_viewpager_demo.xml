@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btn_add_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AddFragment"
+            android:textAllCaps="false"
+            />
+
+        <Button
+            android:id="@+id/btn_remove_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RemoveFragment"
+            android:textAllCaps="false"
+            />
+    </LinearLayout>
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:background="#ffffff"
+        app:tl_textUnselectColor="#00ff00"
+        app:tl_textSelectColor="#000000"
+        app:tl_indicator_height="2dp"
+        app:tl_indicator_color="#ff0000"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_indicator_margin_bottom="5dp"
+        app:tl_indicator_gravity="BOTTOM"
+        app:tl_textsize="14sp"
+        app:tl_textBold="SELECT"
+        tools:ignore="RtlHardcoded"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

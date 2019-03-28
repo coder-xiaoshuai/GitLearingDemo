@@ -123,7 +123,12 @@
                 android:layout_height="wrap_content"
                 android:text="Glide预加载测试"
                 />
-
+            <Button
+                android:id="@+id/btn_viewpager_demo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="viewpager动态增加删除测试"
+                />
         </LinearLayout>
 
     </ScrollView>

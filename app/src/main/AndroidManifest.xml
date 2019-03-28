@@ -53,6 +53,8 @@
 
         <activity android:name="com.example.zhangshuai.activity.ShowActivity" />
 
+        <activity android:name="com.example.zhangshuai.activity.ViewPagerDemoActivity"/>
+
     </application>
 
 </manifest>

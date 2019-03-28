@@ -35,12 +35,12 @@ public class MyGlideApp extends AppGlideModule {
         builder.setDefaultRequestOptions(new RequestOptions().format(DecodeFormat.PREFER_RGB_565));
     }
 
-    @Override
-    public void registerComponents(Context context, Registry registry) {
-        super.registerComponents(context, registry);
-            OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory(GlideProgressManager.getOkHttpClient());
-            registry.replace(GlideUrl.class, InputStream.class, factory);
-    }
+    //@Override
+    //public void registerComponents(Context context, Registry registry) {
+    //    super.registerComponents(context, registry);
+    //        OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory(GlideProgressManager.getOkHttpClient());
+    //        registry.replace(GlideUrl.class, InputStream.class, factory);
+    //}
 
     //@Override
     //public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {

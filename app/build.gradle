@@ -51,4 +51,6 @@ dependencies {
     annotationProcessor project(':lib_processor')
     implementation project(':lib-butterknife')
 
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
 }

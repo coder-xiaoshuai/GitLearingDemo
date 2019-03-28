@@ -81,6 +81,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_viewpager_demo.setOnClickListener{
+            var intent = Intent(this@MainActivity,ViewPagerDemoActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun getCalResult(number1: Int, number2: Int): Int {
