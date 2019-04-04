@@ -3,9 +3,11 @@ package com.example.network.http.basis.interceptor;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.example.network.http.basis.config.HttpConfig;
+
 import java.io.IOException;
 
-import leavesc.hello.network.http.basis.config.HttpConfig;
+
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
