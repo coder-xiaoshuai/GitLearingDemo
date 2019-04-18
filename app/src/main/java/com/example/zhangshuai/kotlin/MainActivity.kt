@@ -81,8 +81,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btn_viewpager_demo.setOnClickListener{
-            var intent = Intent(this@MainActivity,ViewPagerDemoActivity::class.java)
+        btn_viewpager_demo.setOnClickListener {
+            var intent = Intent(this@MainActivity, ViewPagerDemoActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_set_test.setOnClickListener {
+            var intent = Intent(this@MainActivity, SetTestActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_praise2.setOnClickListener {
+            var intent = Intent(this@MainActivity, PraiseDemo2Activity::class.java)
             startActivity(intent)
         }
 

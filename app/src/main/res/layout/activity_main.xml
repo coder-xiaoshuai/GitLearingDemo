@@ -83,6 +83,13 @@
                 />
 
             <Button
+                android:id="@+id/btn_praise2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="点赞2"
+                />
+
+            <Button
                 android:id="@+id/btn_nine_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -128,6 +135,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="viewpager动态增加删除测试"
+                />
+
+            <Button
+                android:id="@+id/btn_set_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="set添加元素测试"
                 />
         </LinearLayout>
 

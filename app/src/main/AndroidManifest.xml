@@ -49,11 +49,15 @@
 
         <activity android:name="com.example.zhangshuai.activity.ProfilerTestActivity"/>
 
-        <activity android:name="com.example.zhangshuai.activity.PreDownLoadActivity" />
+        <activity android:name="com.example.zhangshuai.activity.PreDownLoadActivity"/>
 
-        <activity android:name="com.example.zhangshuai.activity.ShowActivity" />
+        <activity android:name="com.example.zhangshuai.activity.ShowActivity"/>
 
         <activity android:name="com.example.zhangshuai.activity.ViewPagerDemoActivity"/>
+
+        <activity android:name="com.example.zhangshuai.activity.SetTestActivity"/>
+
+        <activity android:name="com.example.zhangshuai.activity.PraiseDemo2Activity"/>
 
     </application>
 
