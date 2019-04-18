@@ -11,4 +11,11 @@ public class Test {
     public static void method1() {}
 
     public static void method2() {}
+
+    /**
+     * 增加list去重方法
+     */
+    public static void listRemoveDuplicates() {
+
+    }
 }
