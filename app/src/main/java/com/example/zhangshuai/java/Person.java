@@ -5,6 +5,16 @@ public class Person {
     private int age;
     private int weight;
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String address;
+
     public Person(String name, int age, int weight) {
         this.name = name;
         this.age = age;
