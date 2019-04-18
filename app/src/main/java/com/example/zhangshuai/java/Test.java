@@ -1,5 +1,8 @@
 package com.example.zhangshuai.java;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Test {
     /**
      * 这是主函数
@@ -15,7 +18,16 @@ public class Test {
     /**
      * 增加list去重方法
      */
-    public static void listRemoveDuplicates() {
-
+    public static <T> List<T> listRemoveDuplicates(List<T> list) {
+        if (list == null) {
+            return null;
+        }
+        List<T> resultList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (!resultList.contains(list.get(i))) {
+                resultList.add(list.get(i));
+            }
+        }
+        return resultList;
     }
 }
