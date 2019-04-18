@@ -11,10 +11,6 @@ public class Test {
         System.out.println("Hello World!");
     }
 
-    public static void method1() {}
-
-    public static void method2() {}
-
     /**
      * 增加list去重方法
      */
