@@ -14,10 +14,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        text.setOnClickListener {
-            Toast.makeText(this@MainActivity, "提示信息", Toast.LENGTH_SHORT).show()
-        }
-
         btn_image_video_demo.setOnClickListener {
             var intent = Intent(this@MainActivity, ImageVideoDemoActivity::class.java)
             startActivity(intent)
@@ -97,5 +93,5 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    
+
 }
