@@ -1,10 +1,6 @@
 package com.example.zhangshuai.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.zhangshuai.adapter.PreDownLoadAdapter;
@@ -12,6 +8,11 @@ import com.example.zhangshuai.gitlearingdemo.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ShowActivity extends AppCompatActivity {
     private List<String> imageUrls;

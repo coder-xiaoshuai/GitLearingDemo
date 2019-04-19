@@ -1,19 +1,20 @@
 package com.example.zhangshuai.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
 import java.util.List;
 
-public class CommonViewPageAdapter extends FragmentStatePagerAdapter{
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
+public class CommonViewPageAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragmentList;
     private List<String> titles;
 
-    public CommonViewPageAdapter(FragmentManager fm,List<Fragment> fragments,List<String> titles) {
+    public CommonViewPageAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
         super(fm);
         this.fragmentList = fragments;
         this.titles = titles;

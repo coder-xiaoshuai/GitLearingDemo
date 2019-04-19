@@ -4,12 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.example.zhangshuai.utils.ViewUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class NineGridFrameLayout extends FrameLayout {
     private Paint mPaint;

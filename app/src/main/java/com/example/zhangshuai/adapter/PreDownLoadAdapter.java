@@ -2,9 +2,6 @@ package com.example.zhangshuai.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +16,13 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.example.zhangshuai.activity.PreDownLoadActivity;
 import com.example.zhangshuai.gitlearingdemo.R;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class PreDownLoadAdapter extends RecyclerView.Adapter<PreDownLoadAdapter.SingleImageViewHolder> {
     private List<String> mData;

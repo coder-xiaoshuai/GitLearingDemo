@@ -4,10 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import java.lang.ref.WeakReference;
+
+import androidx.annotation.Nullable;
 
 /**
  * 维护全局使用的参数，目前只看到的是 context, activity

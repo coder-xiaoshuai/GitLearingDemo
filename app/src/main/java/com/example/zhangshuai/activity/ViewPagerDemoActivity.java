@@ -1,23 +1,14 @@
 package com.example.zhangshuai.activity;
 
-import android.bluetooth.le.AdvertiseData;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
-import com.example.zhangshuai.adapter.CommonViewPageAdapter;
-import com.example.zhangshuai.fragment.CommonFragment;
 import com.example.zhangshuai.fragment.ViewPagerFragment;
 import com.example.zhangshuai.gitlearingdemo.R;
-import com.flyco.tablayout.SlidingTabLayout;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class ViewPagerDemoActivity extends AppCompatActivity {
     //private List<Fragment> fragmentList;

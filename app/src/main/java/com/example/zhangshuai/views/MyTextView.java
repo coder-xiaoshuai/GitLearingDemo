@@ -4,10 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-public class MyTextView extends android.support.v7.widget.AppCompatTextView {
+import androidx.appcompat.widget.AppCompatTextView;
+
+public class MyTextView extends AppCompatTextView {
     public MyTextView(Context context) {
         super(context);
     }

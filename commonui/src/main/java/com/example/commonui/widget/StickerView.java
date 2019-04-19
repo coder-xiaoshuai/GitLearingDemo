@@ -9,7 +9,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -17,6 +16,8 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.example.commonui.R;
+
+import androidx.annotation.Nullable;
 
 public class StickerView extends View implements View.OnTouchListener {
 

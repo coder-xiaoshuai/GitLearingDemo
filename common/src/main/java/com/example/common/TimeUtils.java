@@ -1,6 +1,5 @@
 package com.example.common;
 
-import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 
 import java.text.DateFormat;
@@ -11,6 +10,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 /**
  * 跟时间相关的工具类

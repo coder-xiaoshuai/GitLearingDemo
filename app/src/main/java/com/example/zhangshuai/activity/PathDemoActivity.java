@@ -1,10 +1,11 @@
 package com.example.zhangshuai.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.example.zhangshuai.gitlearingdemo.R;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PathDemoActivity extends AppCompatActivity {
     @Override

@@ -3,8 +3,6 @@ package com.example.zhangshuai.activity;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +12,9 @@ import com.example.zhangshuai.gitlearingdemo.R;
 
 import java.io.File;
 import java.io.IOException;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MediaPlayerActivity extends AppCompatActivity {
     private EditText et_path;

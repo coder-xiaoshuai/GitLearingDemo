@@ -4,10 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 
-public class MyButton extends android.support.v7.widget.AppCompatButton {
+import androidx.appcompat.widget.AppCompatButton;
+
+public class MyButton extends AppCompatButton {
     public MyButton(Context context) {
         super(context);
     }

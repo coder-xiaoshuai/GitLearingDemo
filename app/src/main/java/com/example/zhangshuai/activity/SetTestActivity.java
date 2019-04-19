@@ -1,13 +1,13 @@
 package com.example.zhangshuai.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.example.zhangshuai.gitlearingdemo.R;
 
 import java.util.HashSet;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SetTestActivity extends AppCompatActivity {
     private HashSet<Integer> hashSet = new HashSet<>();

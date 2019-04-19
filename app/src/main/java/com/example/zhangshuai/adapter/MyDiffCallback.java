@@ -1,10 +1,11 @@
 package com.example.zhangshuai.adapter;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
 
 public class MyDiffCallback extends DiffUtil.Callback {
     private List<String> oldData;

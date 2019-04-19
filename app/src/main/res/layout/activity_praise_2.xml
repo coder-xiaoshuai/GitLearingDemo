@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/animation_container"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -33,7 +33,7 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintCircleAngle="0"
             android:alpha="0"
-            />
+            tools:ignore="MissingConstraints"/>
 
         <ImageView
             android:layout_width="8dp"
@@ -43,7 +43,7 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintCircleAngle="45"
             android:alpha="0"
-            />
+            tools:ignore="MissingConstraints"/>
 
         <ImageView
             android:layout_width="5dp"
@@ -53,7 +53,7 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintCircleAngle="90"
             android:alpha="0"
-            />
+            tools:ignore="MissingConstraints"/>
 
         <ImageView
             android:layout_width="13dp"
@@ -63,7 +63,7 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintCircleAngle="120"
             android:alpha="0"
-            />
+            tools:ignore="MissingConstraints"/>
 
         <ImageView
             android:layout_width="6dp"
@@ -73,7 +73,7 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintCircleAngle="135"
             android:alpha="0"
-            />
+            tools:ignore="MissingConstraints"/>
 
         <ImageView
             android:layout_width="8dp"
@@ -83,7 +83,7 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintCircleAngle="235"
             android:alpha="0"
-            />
+            tools:ignore="MissingConstraints"/>
 
         <ImageView
             android:layout_width="5dp"
@@ -93,7 +93,7 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintCircleAngle="270"
             android:alpha="0"
-            />
+            tools:ignore="MissingConstraints"/>
 
         <ImageView
             android:layout_width="3dp"
@@ -103,7 +103,7 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintCircleAngle="305"
             android:alpha="0"
-            />
+            tools:ignore="MissingConstraints"/>
 
         <ImageView
             android:layout_width="5dp"
@@ -113,8 +113,8 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintCircleAngle="350"
             android:alpha="0"
-            />
+            tools:ignore="MissingConstraints"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

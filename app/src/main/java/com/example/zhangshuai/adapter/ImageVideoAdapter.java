@@ -1,20 +1,20 @@
 package com.example.zhangshuai.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.zhangshuai.base.GlideApp;
 import com.example.zhangshuai.entity.ImageVideoEntity;
 import com.example.zhangshuai.gitlearingdemo.R;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ImageVideoAdapter extends RecyclerView.Adapter<ImageVideoAdapter.MyViewHolder> {
     private Context mContext;

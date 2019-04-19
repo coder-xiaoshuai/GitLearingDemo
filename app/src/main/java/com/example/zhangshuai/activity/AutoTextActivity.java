@@ -5,15 +5,16 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Trace;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.example.zhangshuai.gitlearingdemo.R;
 import com.example.zhangshuai.utils.ViewUtils;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AutoTextActivity extends AppCompatActivity {
 
