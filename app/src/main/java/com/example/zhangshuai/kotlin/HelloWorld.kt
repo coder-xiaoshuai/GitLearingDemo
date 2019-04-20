@@ -1,5 +1,7 @@
 package com.example.zhangshuai.kotlin
 
+import java.util.*
+
 class HelloWorld {
     companion object {
         fun max(m: Int, n: Int): Int {
@@ -101,5 +103,26 @@ class HelloWorld {
         }
     }
 
+    /**
+     * 遍历集合
+     */
+    fun iteratorMap() {
+        val map = TreeMap<Char, String>()
+        for (c in 'A'..'F') {
+            val value = Integer.toBinaryString(c.toInt())
+            map[c] = value
+        }
+
+        for ((key, value) in map) {
+            println("key $key,value $value")
+        }
+    }
+
+    fun iteraorList() {
+        val list = arrayListOf<String>("10", "11", "12")
+        for ((index, element) in list.withIndex()) {
+            println("index $index:element:$element")
+        }
+    }
 
 }
