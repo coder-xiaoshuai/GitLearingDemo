@@ -150,8 +150,20 @@ class HelloWorld {
     /**
      * 可变参数函数
      */
-    fun method(vararg values:Int){
+    fun method(vararg values: Int) {
 
+    }
+
+    /**
+     * 键值对的处理 ： 中缀调用和解构生命
+     */
+    fun mapTest() {
+        val map = mapOf(1 to "one", 2 to "two", 3 to "three")
+        for ((key, value) in map.entries) {
+            println("key$key,value$value")
+        }
+        //解构声明
+        val (key, value) = 1 to "one"
     }
 
 }
