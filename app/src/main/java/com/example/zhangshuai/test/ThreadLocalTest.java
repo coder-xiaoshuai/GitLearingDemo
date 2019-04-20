@@ -6,7 +6,7 @@ import java.util.List;
 public class ThreadLocalTest {
 
     public static void main(String[] args) {
-        ThreadLocal<List<Integer>> numbers = new ThreadLocal<List<Integer>>(){
+        ThreadLocal<List<Integer>> numbers = new ThreadLocal<List<Integer>>() {
             @Override
             protected List<Integer> initialValue() {
                 return new ArrayList<Integer>();
