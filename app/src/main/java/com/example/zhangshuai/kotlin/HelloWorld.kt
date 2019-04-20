@@ -154,4 +154,21 @@ class HelloWorld {
 
     }
 
+
+    class User(val id: Int, val name: String, val address: String)
+
+
+    //实际开发中可以把局部函数放到User的扩展函数中
+    fun saveUser(user: User) {
+        //局部函数
+        fun validate(value: String, filedName: String) {
+            if (value.isEmpty()) {
+                throw IllegalArgumentException("Can't save user ${user.id}: empty$filedName")
+            }
+        }
+
+        validate(user.name, "name")
+        validate(user.address, "address")
+    }
+
 }
