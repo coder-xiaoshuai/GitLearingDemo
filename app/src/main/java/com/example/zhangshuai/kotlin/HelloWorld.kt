@@ -130,15 +130,21 @@ class HelloWorld {
         val percentage = if (number in 0..100) number else throw IllegalArgumentException("A percentage value must be between 0 and 100:$number")
     }
 
-    fun  readerNumber(reader:BufferedReader):Int?{
+    fun readerNumber(reader: BufferedReader): Int? {
         return try {
             val line = reader.readLine()
             Integer.parseInt(line)
-        }catch (e:Exception){
+        } catch (e: Exception) {
             null
-        }finally {
+        } finally {
             reader.close()
         }
+    }
+
+    fun collectionTest() {
+        val set = hashSetOf<Int>(0, 1, 2)
+        val list = arrayListOf<Int>(0, 1, 2)
+        val map = hashMapOf<Int, String>(0 to "zero", 1 to "one", 2 to "two")
     }
 
 }
