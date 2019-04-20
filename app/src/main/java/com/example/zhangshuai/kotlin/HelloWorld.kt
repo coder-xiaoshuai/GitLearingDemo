@@ -147,4 +147,11 @@ class HelloWorld {
         val map = hashMapOf<Int, String>(0 to "zero", 1 to "one", 2 to "two")
     }
 
+    /**
+     * 可变参数函数
+     */
+    fun method(vararg values:Int){
+
+    }
+
 }
