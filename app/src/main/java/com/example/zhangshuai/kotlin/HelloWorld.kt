@@ -85,4 +85,21 @@ class HelloWorld {
         }
     }
 
+
+    fun whileTest() {
+        //while的两种方式
+        while (true) {
+        }
+
+        do {
+        } while (true)
+
+        //for循环
+        val oneToTen = 0..10
+        val index = 0
+        for (index in oneToTen step 2) {
+        }
+    }
+
+
 }
