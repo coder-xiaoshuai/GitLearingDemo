@@ -1,5 +1,6 @@
 package com.example.zhangshuai.kotlin
 
+import java.io.BufferedReader
 import java.util.*
 
 class HelloWorld {
@@ -122,6 +123,21 @@ class HelloWorld {
         val list = arrayListOf<String>("10", "11", "12")
         for ((index, element) in list.withIndex()) {
             println("index $index:element:$element")
+        }
+    }
+
+    fun tryTest(number: Int) {
+        val percentage = if (number in 0..100) number else throw IllegalArgumentException("A percentage value must be between 0 and 100:$number")
+    }
+
+    fun  readerNumber(reader:BufferedReader):Int?{
+        return try {
+            val line = reader.readLine()
+            Integer.parseInt(line)
+        }catch (e:Exception){
+            null
+        }finally {
+            reader.close()
         }
     }
 
