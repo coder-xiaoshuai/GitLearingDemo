@@ -91,6 +91,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_verification_code.setOnClickListener{
+            var intent = Intent(this@MainActivity,VerificationCodeActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

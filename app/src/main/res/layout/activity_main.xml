@@ -133,6 +133,13 @@
                 android:layout_height="wrap_content"
                 android:text="set添加元素测试"
                 />
+
+            <Button
+                android:id="@+id/btn_verification_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="验证码测试"
+                />
         </LinearLayout>
 
     </ScrollView>

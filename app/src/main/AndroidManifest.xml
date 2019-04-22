@@ -59,6 +59,8 @@
 
         <activity android:name="com.example.zhangshuai.activity.PraiseDemo2Activity"/>
 
+        <activity android:name="com.example.zhangshuai.activity.VerificationCodeActivity"/>
+
     </application>
 
 </manifest>
