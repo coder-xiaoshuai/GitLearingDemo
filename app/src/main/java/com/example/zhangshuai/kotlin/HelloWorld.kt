@@ -182,6 +182,7 @@ class HelloWorld {
         validate(user.address, "address")
     }
 
+
     /**
      * 单例模式1
      */
