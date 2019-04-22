@@ -6,5 +6,7 @@ public class KotlinTest {
         System.out.println(HelloWorld.Companion.max(5, 8));
 
         HelloWorld.Companion.initPerson("张三", 25, true);
+
+
     }
 }
