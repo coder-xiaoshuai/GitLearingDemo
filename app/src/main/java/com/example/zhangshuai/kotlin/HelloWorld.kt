@@ -182,4 +182,23 @@ class HelloWorld {
         validate(user.address, "address")
     }
 
+    /**
+     * 单例模式1
+     */
+    class Singlon(params1: String? = null, params2: String? = null) {
+        companion object {
+            var instance: Singlon? = null
+                get() {
+                    if (field == null) {
+                        synchronized(Singlon::class.java) {
+                            if (field == null) {
+                                field = Singlon("参数1", "参数2")
+                            }
+                        }
+                    }
+                    return field
+                }
+        }
+    }
+
 }
