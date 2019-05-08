@@ -140,6 +140,13 @@
                 android:layout_height="wrap_content"
                 android:text="验证码测试"
                 />
+
+            <Button
+                android:id="@+id/btn_border_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="圆形描边"
+                />
         </LinearLayout>
 
     </ScrollView>

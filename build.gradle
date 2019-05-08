@@ -21,9 +21,26 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
+        // 私有仓库地址
+        maven { url "http://lib.gcssloop.com:8081/repository/gcssloop-central/" }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    // Android
+    compileSdkVersion = 27
+    minSdkVersion = 19
+    targetSdkVersion = 26
+    buildToolsVersion = '26.0.2'
+
+    // Third-part library
+    dependencies = [
+                    // circle_view
+                    circle_view: 'com.gcssloop.widget:rclayout:1.8.1',
+                    jsBridge: 'com.github.lzyzsd:jsbridge:1.0.4'
+                    ]
 }

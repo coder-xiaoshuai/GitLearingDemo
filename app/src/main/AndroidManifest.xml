@@ -61,6 +61,8 @@
 
         <activity android:name="com.example.zhangshuai.activity.VerificationCodeActivity"/>
 
+        <activity android:name="com.example.zhangshuai.activity.BorderImageViewActivity" />
+
     </application>
 
 </manifest>

@@ -91,10 +91,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btn_verification_code.setOnClickListener{
-            var intent = Intent(this@MainActivity,VerificationCodeActivity::class.java)
+        btn_verification_code.setOnClickListener {
+            var intent = Intent(this@MainActivity, VerificationCodeActivity::class.java)
             startActivity(intent)
         }
+
+        btn_border_image.setOnClickListener {
+            var intent = Intent(this@MainActivity, BorderImageViewActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 }
