@@ -13,10 +13,29 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        archivesBaseName = "git_learning_v_${versionName}_${versionCode}"
     }
-    buildTypes {
+
+    signingConfigs {
         release {
+            storeFile file("gitlearning.jks")
+            keyAlias "gitlearning"
+            storePassword "123456"
+            keyPassword "123456"
+            v2SigningEnabled false
+        }
+    }
+
+    buildTypes {
+        debug {
             minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -59,4 +78,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     //circle_view
     implementation dependencies.circle_view
+
+    //coroutines kotlin协程
+    implementation dependencies.coroutines
 }

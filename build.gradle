@@ -41,6 +41,7 @@ ext {
     dependencies = [
                     // circle_view
                     circle_view: 'com.gcssloop.widget:rclayout:1.8.1',
-                    jsBridge: 'com.github.lzyzsd:jsbridge:1.0.4'
+                    jsBridge: 'com.github.lzyzsd:jsbridge:1.0.4',
+                    coroutines: 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
                     ]
 }
