@@ -101,6 +101,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_rv_see_more.setOnClickListener {
+            var intent = Intent(this@MainActivity, SeeMoreDemoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }
