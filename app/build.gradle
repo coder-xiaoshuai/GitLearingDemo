@@ -81,4 +81,5 @@ dependencies {
 
     //coroutines kotlin协程
     implementation dependencies.coroutines
+    implementation dependencies.overscroll
 }

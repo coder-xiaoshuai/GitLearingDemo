@@ -105,6 +105,21 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this@MainActivity, SeeMoreDemoActivity::class.java)
             startActivity(intent)
         }
+
+        btn_request_layout_test.setOnClickListener {
+            var intent = Intent(this@MainActivity, RequestLayoutActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_drag_test.setOnClickListener {
+            var intent = Intent(this@MainActivity, HoDragActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_drag_test_rv.setOnClickListener {
+            var intent = Intent(this@MainActivity, DragTestActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

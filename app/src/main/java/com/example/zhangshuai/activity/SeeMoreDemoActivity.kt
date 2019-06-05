@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zhangshuai.adapter.ListSeeMoreAdapter
 import com.example.zhangshuai.gitlearingdemo.R
 import com.example.zhangshuai.utils.ViewUtils
+import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator
+import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter
 
 class SeeMoreDemoActivity : AppCompatActivity() {
 
@@ -50,7 +52,7 @@ class SeeMoreDemoActivity : AppCompatActivity() {
 //                return false
 //            }
 //        })
-
+        HorizontalOverScrollBounceEffectDecorator(object : RecyclerViewOverScrollDecorAdapter(recyclerView) {})
         recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -62,7 +64,7 @@ class SeeMoreDemoActivity : AppCompatActivity() {
                     var translationX = rect.width()
                             Log.e("tag", "translationX$translationX")
                     Toast.makeText(this@SeeMoreDemoActivity, "查看更多" + (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition(), Toast.LENGTH_SHORT).show()
-                    recyclerView.scrollBy(-(translationX?.toInt() )!!, 0)
+                    recyclerView.smoothScrollBy(-(translationX?.toInt() )!!,0)
                 }
             }
         })

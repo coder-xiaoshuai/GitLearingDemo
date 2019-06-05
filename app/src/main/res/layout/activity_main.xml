@@ -153,6 +153,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="滑动查看更多"/>
+
+            <Button
+                android:id="@+id/btn_request_layout_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RequestLayout invalidate"/>
+
+            <Button
+                android:id="@+id/btn_drag_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="拖拽测试"
+                />
+
+            <Button
+                android:id="@+id/btn_drag_test_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="拖拽测试2"
+                />
         </LinearLayout>
 
     </ScrollView>

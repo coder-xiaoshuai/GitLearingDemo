@@ -44,7 +44,8 @@ ext {
                     coroutines : 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1',
                     rxjava     : 'io.reactivex.rxjava2:rxjava:2.2.8',
                     rxandroid  : 'io.reactivex.rxjava2:rxandroid:2.1.1',
-                    retrofit2  : 'com.squareup.retrofit2:retrofit:2.5.0'
+                    retrofit2  : 'com.squareup.retrofit2:retrofit:2.5.0',
+                    overscroll : 'me.everything:overscroll-decor-android:1.0.4'
 
     ]
 }

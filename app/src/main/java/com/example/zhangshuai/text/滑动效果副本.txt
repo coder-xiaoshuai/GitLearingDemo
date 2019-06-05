@@ -1,0 +1,182 @@
+package com.flowsns.flow.main.mvp.presenter;
+
+import android.graphics.Rect;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.LinearLayout;
+
+import com.flowsns.flow.R;
+import com.flowsns.flow.common.EmptyUtils;
+import com.flowsns.flow.common.ViewUtils;
+import com.flowsns.flow.commonui.framework.mvp.BasePresenter;
+import com.flowsns.flow.commonui.overscroll.HorizontalOverScrollBounceEffectDecorator;
+import com.flowsns.flow.commonui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
+import com.flowsns.flow.data.model.main.response.CityFeedDataListResponse;
+import com.flowsns.flow.data.model.statistics.PageUserActionStatisticsData;
+import com.flowsns.flow.main.activity.NearActiveActivity;
+import com.flowsns.flow.main.adapter.CityNearOnlineAdapter;
+import com.flowsns.flow.main.mvp.model.ItemCityNearOnlineModel;
+import com.flowsns.flow.main.mvp.view.ItemCityNearOnlineView;
+import com.flowsns.flow.utils.HomePageCommonUtils;
+import com.flowsns.flow.utils.RecyclerViewUtils;
+
+import java.util.List;
+
+/**
+ * 同城附近在线
+ *
+ * @author zhangshuai
+ */
+public class ItemCityNearOnlinePresenter extends BasePresenter<ItemCityNearOnlineView, ItemCityNearOnlineModel> {
+
+    private static final int MIN_RECO_ONLINE_USERS_COUNT = 10;
+
+    public ItemCityNearOnlinePresenter(ItemCityNearOnlineView view) {
+        super(view);
+    }
+
+    @Override
+    public void bind(ItemCityNearOnlineModel model) {
+        initRecommendFollowAdapter(model);
+    }
+
+    private void initRecommendFollowAdapter(ItemCityNearOnlineModel model) {
+        if (EmptyUtils.isEmpty(model.getData())) {
+            return;
+        }
+        final RecyclerView recyclerView = view.getNearOnlineRecycler();
+        recyclerView.setFocusableInTouchMode(false);
+        recyclerView.requestFocus();
+
+        if (model.isRefresh() || recyclerView.getAdapter() == null) {
+            final LinearLayoutManager layoutManager =
+                new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+            recyclerView.setLayoutManager(layoutManager);
+            CityNearOnlineAdapter cityNearOnlineAdapter = new CityNearOnlineAdapter();
+            RecyclerViewUtils.initRecyclerView(recyclerView, cityNearOnlineAdapter, layoutManager);
+            recyclerView.setAdapter(cityNearOnlineAdapter);
+            cityNearOnlineAdapter.setNewData(model.getData());
+            addSeeMoreFooterView(recyclerView, model.getData(), cityNearOnlineAdapter, model.getLatitude(),
+                model.getLongitude());
+            addScrollListener(recyclerView,cityNearOnlineAdapter,model.getLatitude(),
+                model.getLongitude());
+            model.setRefresh(false);
+        }
+
+        recyclerView.setOnFlingListener(null);
+
+        view.getTextSeeMore().setOnClickListener(v -> {
+            NearActiveActivity.launch(view.getContext(), model.getLatitude(), model.getLongitude());
+            HomePageCommonUtils.uploadUserAction(PageUserActionStatisticsData.ActionType.ENTER_NEAR_ACTIVE_PAGE,
+                PageUserActionStatisticsData.PageType.PAGE_OTHER);
+        });
+    }
+
+    private void addScrollListener(RecyclerView recyclerView,CityNearOnlineAdapter cityNearOnlineAdapter,String latitude, String longitude) {
+        new HorizontalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (cityNearOnlineAdapter.getFooterLayoutCount() == 0) {
+                    return;
+                }
+                if (((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition()
+                    == cityNearOnlineAdapter.getData().size()) {
+                    Rect rect = new Rect();
+                    View footerView = ((LinearLayoutManager) recyclerView.getLayoutManager()).findViewByPosition(
+                        cityNearOnlineAdapter.getData().size());
+                    footerView.getLocalVisibleRect(rect);
+                    Log.e("zs","rect"+rect.width());
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE ) {
+                        recyclerView.smoothScrollBy(-rect.width(), 0, new DecelerateInterpolator());
+                        RotateAnimation rotateAnimation =
+                            new RotateAnimation(180f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                                0.5f);
+                        rotateAnimation.setDuration(300);
+                        rotateAnimation.setFillAfter(true);
+                        //箭头旋转
+                        footerView.findViewById(R.id.image_arrow_see_more).startAnimation(rotateAnimation);
+                        if (rect.width() > ViewUtils.dpToPx(50 + 16 * 2) / 2) {
+                            NearActiveActivity.launch(view.getContext(), latitude, longitude);
+                        }
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition()
+                    == cityNearOnlineAdapter.getData().size()) {
+                    Rect rect = new Rect();
+                    View footerView = ((LinearLayoutManager) recyclerView.getLayoutManager()).findViewByPosition(
+                        cityNearOnlineAdapter.getData().size());
+                    footerView.getLocalVisibleRect(rect);
+                    Log.e("zs","dx"+dx);
+                    if (dx > 0) {
+                        Log.e("zs", "state: not idle");
+                        RotateAnimation rotateAnimation =
+                            new RotateAnimation(0f, 180f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                                0.5f);
+                        rotateAnimation.setDuration(300);
+                        rotateAnimation.setFillAfter(true);
+                        //箭头旋转
+                        footerView.findViewById(R.id.image_arrow_see_more).startAnimation(rotateAnimation);
+                    } else {
+
+                    }
+                }
+            }
+        });
+    }
+
+    public void postDelayed(Runnable runnable, long delayMillis) {
+        view.getNearOnlineRecycler().postDelayed(runnable, delayMillis);
+    }
+
+    private void addSeeMoreFooterView(RecyclerView recyclerView,
+                                      List<CityFeedDataListResponse.OnLineListBean> onLineRecoUsers,
+                                      CityNearOnlineAdapter cityNearOnlineAdapter, String latitude, String longitude) {
+        if (onLineRecoUsers.size() < MIN_RECO_ONLINE_USERS_COUNT) {
+            return;
+        }
+        cityNearOnlineAdapter.addFooterView(ViewUtils.newInstance(R.layout.item_see_more_near_online_cell), -1,
+            LinearLayout.HORIZONTAL);
+        //overScrollLayout.setDisallowInterceptTouchEvent(false);
+        //overScrollLayout.setLeftOverScrollEnable(false);
+        //overScrollLayout.setOnOverScrollListener(new SimpleOverScrollAdapter() {
+        //    @Override
+        //    public void onFlingOverScroll() {
+        //        if (ViolenceClickUtils.isViolenceClick()){
+        //            return;
+        //        }
+        //        NearActiveActivity.launch(view.getContext(), latitude, longitude);
+        //        HomePageCommonUtils.uploadUserAction(PageUserActionStatisticsData.ActionType.ENTER_NEAR_ACTIVE_PAGE,
+        //            PageUserActionStatisticsData.PageType.PAGE_OTHER);
+        //    }
+        //
+        //    @Override
+        //    public void onRightOverScroll() {
+        //        if (ViolenceClickUtils.isViolenceClick()){
+        //            return;
+        //        }
+        //        NearActiveActivity.launch(view.getContext(), latitude, longitude);
+        //        HomePageCommonUtils.uploadUserAction(PageUserActionStatisticsData.ActionType.ENTER_NEAR_ACTIVE_PAGE,
+        //            PageUserActionStatisticsData.PageType.PAGE_OTHER);
+        //    }
+        //
+        //    @Override
+        //    public boolean canFlingOverScroll() {
+        //        return ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition() != 0;
+        //    }
+        //});
+    }
+}
