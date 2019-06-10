@@ -151,7 +151,10 @@ class HelloWorld {
      * 可变参数函数
      */
     fun method(vararg values: Int) {
+        var string = "hello world!!!"
+        string.let {  }
 
+        var int1 = 111
     }
 
     /**
