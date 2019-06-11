@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 
 
-class CircleMenuLayout(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ViewGroup(context, attrs, defStyleAttr) {
+class CircleMenuLayoutKotlin(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ViewGroup(context, attrs, defStyleAttr) {
 
     companion object {
         //静态变量

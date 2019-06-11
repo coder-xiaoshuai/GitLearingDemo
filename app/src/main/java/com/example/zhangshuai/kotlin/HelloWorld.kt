@@ -2,6 +2,8 @@ package com.example.zhangshuai.kotlin
 
 import java.io.BufferedReader
 import java.util.*
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 class HelloWorld {
     companion object {
@@ -152,7 +154,7 @@ class HelloWorld {
      */
     fun method(vararg values: Int) {
         var string = "hello world!!!"
-        string.let {  }
+        string.let { }
 
         var int1 = 111
     }
@@ -205,5 +207,135 @@ class HelloWorld {
         }
     }
 
+
+    fun calOptionTest() {
+        var num = 0
+        num += 21
+        num %= 5
+        println("num == $num")
+
+
+        var a = 3
+        var b = 5
+
+    }
+
+    interface Base {
+        fun success()
+    }
+
+    class Derived(b: Base) : Base by b
+
+
+    class NotNullVar<T : Any> : ReadWriteProperty<Any?, T> {
+        var value: T? = null
+        override fun getValue(thisRef: Any?, property: KProperty<*>): T {
+            return value
+                    ?: throw IllegalArgumentException("Property ${property.name} should be initialized before get.")
+        }
+
+        override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+            this.value = value
+        }
+
+    }
+
+    abstract class ObservableProperty<T>(initialValue: T) : ReadWriteProperty<Any?, T> {
+        private var value = initialValue
+
+        protected open fun beforeChange(property: KProperty<*>, oldValue: T, newValue: T): Boolean = true
+
+
+        protected open fun afterChange(property: KProperty<*>, oldValue: T, newValue: T): Unit {}
+
+        public override fun getValue(thisRef: Any?, property: KProperty<*>): T {
+            return value
+        }
+
+        public override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+            val oldValue = this.value //修改前的值
+
+            //beforeChange一直返回true 不知此段代码意义何在
+            if (!beforeChange(property, oldValue, value)) {
+                return
+            }
+            this.value = value //修改后的值
+            //调用上一段代码中重写的方法
+            afterChange(property, oldValue, value)
+        }
+    }
+
+    inline fun <T> observable(initialValue: T, crossinline onChange: (property: KProperty<*>, oldValue: T, newValue: T) -> Unit):
+            ReadWriteProperty<Any?, T> = object : ObservableProperty<T>(initialValue) {
+        override fun afterChange(property: KProperty<*>, oldValue: T, newValue: T) = onChange(property, oldValue, newValue)
+    }
+
+
+    var int2: Int by observable(1) { property, oldValue, newValue ->
+        //oldvalue是修改前的值,newValue是修改后的值
+    }
+
+    val lazyValue: String by lazy {
+        println("havana")
+        ""
+    }
+
+    class UserByMap(val map: Map<String, Any?>) {
+        val name: String by map
+        val age: Int by map
+    }
+
+    val userByMap = UserByMap(mapOf("name" to "John Doe", "age" to 30))
+
+
+    //高阶函数测试
+//    fun <T, R> Collection<T>.fold(initial: R, combine: (acc: R, nextElement: T) -> R): R {
+//        var accumulator: R = initial
+//        for (element: T in this) {
+//            accumulator = combine(accumulator, element)
+//        }
+//        return accumulator
+//    }
+
+
+    fun <T, R> Collection<T>.fold(
+            initial: R,
+            combine: (acc: R, nextElement: T) -> R
+    ): R {
+        var accumulator: R = initial
+        for (element: T in this) {
+            accumulator = combine(accumulator, element)
+        }
+        return accumulator
+    }
+
+    fun foldTest() {
+        val items1 = listOf(1, 2, 3, 4, 5)
+
+// Lambdas 表达式是花括号括起来的代码块。
+        items1.fold(0
+        ) {
+            // 如果一个 lambda 表达式有参数，前面是参数，后跟“->”
+            acc: Int, i: Int ->
+            print("acc = $acc, i = $i, ")
+            val result = acc + i
+            println("result = $result")
+            // lambda 表达式中的最后一个表达式是返回值：
+            result
+        }
+        plusXY(1, 2)
+    }
+
+    var plusXY = fun(x: Int, y: Int): Int = x.plus(y)
+
+
+    //默认参数测试
+    fun methodThreeParams(p1: Int = 1, p2: String = "", p3: Boolean = false) {
+
+    }
+
+    fun methodThreeParamsCall(){
+        methodThreeParams(1)
+    }
 
 }

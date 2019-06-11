@@ -39,13 +39,16 @@ ext {
 
     // Third-part library
     dependencies = [// circle_view
-                    circle_view: 'com.gcssloop.widget:rclayout:1.8.1',
-                    jsBridge   : 'com.github.lzyzsd:jsbridge:1.0.4',
-                    coroutines : 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1',
-                    rxjava     : 'io.reactivex.rxjava2:rxjava:2.2.8',
-                    rxandroid  : 'io.reactivex.rxjava2:rxandroid:2.1.1',
-                    retrofit2  : 'com.squareup.retrofit2:retrofit:2.5.0',
-                    overscroll : 'me.everything:overscroll-decor-android:1.0.4'
+                    circle_view  : 'com.gcssloop.widget:rclayout:1.8.1',
+                    jsBridge     : 'com.github.lzyzsd:jsbridge:1.0.4',
+                    coroutines   : 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1',
+                    rxjava       : 'io.reactivex.rxjava2:rxjava:2.2.8',
+                    rxandroid    : 'io.reactivex.rxjava2:rxandroid:2.1.1',
+                    retrofit2    : 'com.squareup.retrofit2:retrofit:2.5.0',
+                    overscroll   : 'me.everything:overscroll-decor-android:1.0.4',
+                    guava        : 'com.google.guava:guava:27.1-jre',
+                    guava_android: 'com.google.guava:guava:27.1-android',
+                    multidex     : 'com.android.support:multidex:1.0.3'
 
     ]
 }

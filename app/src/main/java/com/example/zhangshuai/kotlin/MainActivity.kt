@@ -120,6 +120,11 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this@MainActivity, DragTestActivity::class.java)
             startActivity(intent)
         }
+
+        btn_event_view.setOnClickListener {
+            var intent = Intent(this@MainActivity, EventViewActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

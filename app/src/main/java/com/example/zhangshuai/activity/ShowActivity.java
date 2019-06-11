@@ -5,9 +5,11 @@ import android.view.View;
 
 import com.example.zhangshuai.adapter.PreDownLoadAdapter;
 import com.example.zhangshuai.gitlearingdemo.R;
+import com.google.common.collect.HashMultimap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,5 +92,18 @@ public class ShowActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(manager);
         mAdapter = new PreDownLoadAdapter(this, imageUrls);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+
+    private void mapTest(){
+        HashMultimap<Integer,String> hashMultimap = HashMultimap.create();
+        hashMultimap.put(1,"sdlkjflaasfddas");
+        hashMultimap.put(1,"sssfsasf");
+        hashMultimap.put(1,"sdlksfjfla");
+        hashMultimap.put(1,"sdlsfkjfla");
+        hashMultimap.put(1,"sdlasfaskjfla");
+        hashMultimap.put(1,"sdlkjsafdfla");
+        hashMultimap.put(1,"sdlkjfsaffla");
+        Set<String> set  = hashMultimap.get(1);
     }
 }

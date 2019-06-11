@@ -71,6 +71,8 @@
 
         <activity android:name="com.example.zhangshuai.activity.DragTestActivity"/>
 
+        <activity android:name="com.example.zhangshuai.activity.EventViewActivity" />
+
     </application>
 
 </manifest>

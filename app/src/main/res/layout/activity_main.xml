@@ -173,6 +173,13 @@
                 android:layout_height="wrap_content"
                 android:text="拖拽测试2"
                 />
+
+            <Button
+                android:id="@+id/btn_event_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自定义view测试"
+                />
         </LinearLayout>
 
     </ScrollView>

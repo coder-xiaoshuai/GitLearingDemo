@@ -14,6 +14,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         archivesBaseName = "git_learning_v_${versionName}_${versionCode}"
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -82,4 +83,7 @@ dependencies {
     //coroutines kotlin协程
     implementation dependencies.coroutines
     implementation dependencies.overscroll
+    implementation dependencies.guava
+    api dependencies.guava_android
+    implementation dependencies.multidex
 }
