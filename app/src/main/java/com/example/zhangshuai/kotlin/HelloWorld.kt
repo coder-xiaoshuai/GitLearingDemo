@@ -334,8 +334,24 @@ class HelloWorld {
 
     }
 
-    fun methodThreeParamsCall(){
+    fun methodThreeParamsCall() {
         methodThreeParams(1)
     }
 
+
+    //内联测试
+    fun method01(p: (a: Int, b: Int) -> Int) {
+
+    }
+
+    inline fun p(a: Int, b: Int): Int {
+        return a.plus(b)
+    }
+
+    fun callMethod01() {
+    }
+
+    fun <T : Number> getNumberType(t: T): String {
+        return ""
+    }
 }

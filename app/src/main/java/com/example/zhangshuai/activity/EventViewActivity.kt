@@ -1,7 +1,7 @@
 package com.example.zhangshuai.activity
 
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.commonui.widget.EventListenerView
 import com.example.zhangshuai.gitlearingdemo.R
@@ -14,35 +14,35 @@ class EventViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_event_listener_view)
         view_event.eventListener = object : EventListenerView.EventListener {
             override fun onDown() {
-                Toast.makeText(this@EventViewActivity, "onDown", Toast.LENGTH_SHORT).show()
+                Log.e("zs", "onDown")
             }
 
             override fun onMove() {
-                Toast.makeText(this@EventViewActivity, "onMove", Toast.LENGTH_SHORT).show()
+//                Log.e("zs", "onMove")
             }
 
             override fun leftSlide() {
-                Toast.makeText(this@EventViewActivity, "leftSlide", Toast.LENGTH_SHORT).show()
+                Log.e("zs", "leftSlide")
             }
 
             override fun rightSlide() {
-                Toast.makeText(this@EventViewActivity, "rightSlide", Toast.LENGTH_SHORT).show()
+                Log.e("zs", "rightSlide")
             }
 
             override fun topSlide() {
-                Toast.makeText(this@EventViewActivity, "topSlide", Toast.LENGTH_SHORT).show()
+                Log.e("zs", "topSlide")
             }
 
             override fun bottomSlide() {
-                Toast.makeText(this@EventViewActivity, "bottomSlide", Toast.LENGTH_SHORT).show()
+                Log.e("zs", "bottomSlide")
             }
 
             override fun onClick() {
-                Toast.makeText(this@EventViewActivity, "onClick", Toast.LENGTH_SHORT).show()
+                Log.e("zs", "onClick")
             }
 
             override fun onUp() {
-                Toast.makeText(this@EventViewActivity, "onUp", Toast.LENGTH_SHORT).show()
+                Log.e("zs", "onUp")
             }
 
         }

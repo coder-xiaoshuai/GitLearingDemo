@@ -64,6 +64,26 @@ class EventListenerView @JvmOverloads constructor(context: Context, attrs: Attri
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        var width = getDefaultSize(widthSize, widthMeasureSpec)
+        var height = getDefaultSize(heightSize, heightMeasureSpec)
+        if (widthMode == MeasureSpec.EXACTLY) {
+            width = widthSize
+        } else if (widthMode == MeasureSpec.AT_MOST) {
+            width = 0
+        }
+
+        if (heightMode == MeasureSpec.EXACTLY) {
+            height = heightSize
+        } else if (widthMode == MeasureSpec.AT_MOST) {
+            height = 0
+        }
+
+        setMeasuredDimension(width, height)
     }
 
     interface EventListener {
