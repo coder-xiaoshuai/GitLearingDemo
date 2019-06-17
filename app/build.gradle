@@ -86,4 +86,6 @@ dependencies {
     implementation dependencies.guava
     api dependencies.guava_android
     implementation dependencies.multidex
+    // Anko Commons
+    implementation dependencies.anko_all
 }

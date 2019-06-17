@@ -125,6 +125,11 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this@MainActivity, EventViewActivity::class.java)
             startActivity(intent)
         }
+
+        btn_dsl_test.setOnClickListener{
+            var intent = Intent(this@MainActivity,DslTestActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }
