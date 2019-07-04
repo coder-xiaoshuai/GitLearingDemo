@@ -35,4 +35,8 @@
             <enum name="SPEED" value="102"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="PieChartView">
+        <attr name="array_texts" format="reference"/>
+    </declare-styleable>
 </resources>

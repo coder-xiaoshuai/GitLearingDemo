@@ -75,6 +75,14 @@
 
         <activity android:name="com.example.zhangshuai.activity.DslTestActivity" />
 
+        <activity android:name="com.example.zhangshuai.activity.CustomShowActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.BActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.ContextTestActivity" />
+
+        <activity android:name="com.example.zhangshuai.activity.ScrollViewActivity" />
+
     </application>
 
 </manifest>

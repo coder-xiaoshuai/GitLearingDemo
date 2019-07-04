@@ -2,9 +2,10 @@ package com.example.zhangshuai.kotlin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-
 import com.example.zhangshuai.activity.*
+import com.example.zhangshuai.entity.IntentDataBean
 import com.example.zhangshuai.gitlearingdemo.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -126,10 +127,64 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btn_dsl_test.setOnClickListener{
-            var intent = Intent(this@MainActivity,DslTestActivity::class.java)
+        btn_dsl_test.setOnClickListener {
+            var intent = Intent(this@MainActivity, DslTestActivity::class.java)
             startActivity(intent)
         }
+
+        btn_custom_show.setOnClickListener {
+            var intent = Intent(this@MainActivity, CustomShowActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_intent_test.setOnClickListener {
+            var intent = Intent(this@MainActivity, BActivity::class.java)
+            var bundle = Bundle()
+            arrayList.clear()
+            arrayList.add("哈哈")
+            arrayList.add("嘻嘻")
+            Log.e("zs", "传递list:$arrayList")
+            bundle.putSerializable(INTENT_KEY_LIST, arrayList)
+
+            Log.e("zs", "传递bean:$intentDataBean")
+            bundle.putSerializable(INTENT_KEY_BEAN, intentDataBean)
+            Log.e("zs", "传递bundle:${bundle.hashCode()}")
+            bundle.putInt(INTENT_KEY_ID, pageId)
+            bundle.putString(INTENT_KEY_STRING, string)
+            intent.putExtras(bundle)
+            Log.e("zs", "传递intent:${intent.hashCode()}")
+            startActivity(intent)
+        }
+
+        btn_get_context.setOnClickListener {
+            var intent = Intent(this@MainActivity, ContextTestActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_get_width.setOnClickListener {
+            var intent = Intent(this@MainActivity, ScrollViewActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private var arrayList = ArrayList<String>()
+    private var intentDataBean = IntentDataBean("张三", 18)
+    private var pageId = 100
+    private var string = "1111111"
+
+    companion object {
+        const val INTENT_KEY_LIST = "intent_key_list"
+        const val INTENT_KEY_BEAN = "intent_key_bean"
+        const val INTENT_KEY_ID = "intent_key_id"
+        const val INTENT_KEY_STRING = "intent_key_string"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("zs", "onResume:$arrayList")
+        Log.e("zs", "onResume:$intentDataBean")
+        Log.e("zs", "onResume:$pageId")
+        Log.e("zs", "onResume:$string")
     }
 
 }

@@ -187,6 +187,36 @@
                 android:layout_height="wrap_content"
                 android:text="动态构建页面测试"
                 />
+
+            <Button
+                android:id="@+id/btn_custom_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自定义view展示"
+                />
+
+            <Button
+                android:id="@+id/btn_intent_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="页面传递数据测试"
+                />
+
+            <Button
+                android:id="@+id/btn_get_context"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="getContext测试"
+                android:textAllCaps="false"
+                />
+
+            <Button
+                android:id="@+id/btn_get_width"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="getWidth和getMeasureWidth区别"
+                android:textAllCaps="false"
+                />
         </LinearLayout>
 
     </ScrollView>
