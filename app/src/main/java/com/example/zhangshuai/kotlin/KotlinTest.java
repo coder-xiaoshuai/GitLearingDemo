@@ -35,6 +35,8 @@ public class KotlinTest {
         }
 
         strs.forEach((str)-> System.out.println(str));
+
+
     }
 
 

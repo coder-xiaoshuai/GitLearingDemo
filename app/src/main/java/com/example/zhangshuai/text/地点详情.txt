@@ -1,0 +1,229 @@
+package com.flowsns.flow.main.fragment;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.flowsns.flow.FlowApplication;
+import com.flowsns.flow.R;
+import com.flowsns.flow.common.CommonUtils;
+import com.flowsns.flow.common.EmptyUtils;
+import com.flowsns.flow.common.RR;
+import com.flowsns.flow.common.ViewUtils;
+import com.flowsns.flow.commonui.framework.fragment.BaseFragment;
+import com.flowsns.flow.commonui.recyclerview.FlowGridLayoutManager;
+import com.flowsns.flow.commonui.recyclerview.GridMutualItemDecoration;
+import com.flowsns.flow.data.model.common.CommonPostBody;
+import com.flowsns.flow.data.model.common.ItemFeedDataEntity;
+import com.flowsns.flow.data.model.main.request.LocationDetailRequest;
+import com.flowsns.flow.data.model.main.response.LocationDetailResponse;
+import com.flowsns.flow.listener.FlowWithRepeatLoginDialogCallback;
+import com.flowsns.flow.main.activity.FeedDetailListPageActivity;
+import com.flowsns.flow.main.activity.LocationDetailActivity;
+import com.flowsns.flow.main.helper.LocationHeaderHelper;
+import com.flowsns.flow.main.mvp.view.LocationActivePeopleView;
+import com.flowsns.flow.subject.adapter.FeedDetailGridItemAdapter;
+import com.flowsns.flow.subject.helper.SubjectHelper;
+import com.flowsns.flow.subject.mvp.model.SubjectDetailPictureModel;
+import com.flowsns.flow.utils.FeedSingleton;
+import com.flowsns.flow.utils.RecyclerViewUtils;
+import com.flowsns.flow.widget.CustomLoadMoreView;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * 位置详情
+ *
+ * @author lyz
+ */
+public class LocationDetailFragment extends BaseFragment {
+    private static final int SPAN_COUNT = 3;
+    private static final int DEFAULT_PAGE = 0;
+    private int pageSize = DEFAULT_PAGE;
+
+    @Bind(R.id.recycle_view) RecyclerView recyclerView;
+    @Bind(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
+    private LocationHeaderHelper locationHeaderHelper;
+    private View headerView;
+
+    private FragmentActivity activity;
+    private FeedDetailGridItemAdapter feedDetailGridItemAdapter;
+    private Set<ItemFeedDataEntity> allLocationDetailFeeds = new LinkedHashSet<>();
+    private String placeName;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = getActivity();
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.fragment_location_detail;
+    }
+
+    @Override
+    protected void onInflated(View contentView, Bundle savedInstanceState) {
+        ButterKnife.bind(this, contentView);
+        locationHeaderHelper = LocationHeaderHelper.getInstance();
+        String placeId = activity.getIntent().getStringExtra(LocationDetailActivity.KEY_PLACE_ID);
+        placeName = activity.getIntent().getStringExtra(LocationDetailActivity.KEY_PLACE_NAME);
+        initLocationDetailAdapter(placeId);
+        initLocationDetailData(DEFAULT_PAGE, placeId);
+    }
+
+    private void initLocationDetailAdapter(String placeId) {
+        feedDetailGridItemAdapter = new FeedDetailGridItemAdapter();
+        addLocationHeaderView();
+        RecyclerViewUtils.initRecyclerView(recyclerView, feedDetailGridItemAdapter,
+            new FlowGridLayoutManager(activity, SPAN_COUNT));
+        feedDetailGridItemAdapter.setLoadMoreView(new CustomLoadMoreView());
+        feedDetailGridItemAdapter.setPreLoadNumber(3);
+        recyclerView.addItemDecoration(new GridMutualItemDecoration(SPAN_COUNT, ViewUtils.dpToPx(1.5f)));
+        recyclerView.setAdapter(feedDetailGridItemAdapter);
+        feedDetailGridItemAdapter.setOnLoadMoreListener(() -> {
+            pageSize++;
+            initLocationDetailData(pageSize, placeId);
+        }, recyclerView);
+        recyclerView.addOnItemTouchListener(new OnLocationDetailItemClickListener());
+    }
+
+    private void addLocationHeaderView() {
+        LocationDetailResponse.LocationDetailData.FeedPlaceInfoBean feedPlaceInfoBean = getFeedPlaceInfoBean();
+        headerView = ViewUtils.newInstance(R.layout.item_location_detail_header);
+        feedDetailGridItemAdapter.addHeaderView(headerView);
+        feedDetailGridItemAdapter.setHeaderAndEmpty(true);
+        if (feedPlaceInfoBean != null) {
+            locationHeaderHelper.processLocationIntroduceText(activity, headerView, feedPlaceInfoBean);
+        }
+    }
+
+    private LocationDetailResponse.LocationDetailData.FeedPlaceInfoBean getFeedPlaceInfoBean() {
+        return (LocationDetailResponse.LocationDetailData.FeedPlaceInfoBean) activity.getIntent()
+            .getSerializableExtra(LocationDetailActivity.KEY_PLACE_BEAN);
+    }
+
+    private void initLocationDetailData(int page, String placeId) {
+        if (page == DEFAULT_PAGE) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+        FlowApplication.getRestDataSource()
+            .getFeedService()
+            .loadPlaceFeeds(new CommonPostBody(new LocationDetailRequest(page, placeId)))
+            .enqueue(new FlowWithRepeatLoginDialogCallback<LocationDetailResponse>() {
+                @Override
+                public void success(LocationDetailResponse result) {
+                    if (result.isOk()) {
+                        refreshCompleted();
+                        if (result.getData() == null) {
+                            //此地点无数据
+                            setEmptyLocation();
+                            return;
+                        }
+                        addLocationDetailFeeds(result);
+                        bindLocationDetailData(result,placeId, page);
+                    }
+                }
+
+                @Override
+                public void failure(int errorCode) {
+                    super.failure(errorCode);
+                    feedDetailGridItemAdapter.loadMoreFail();
+                }
+            });
+    }
+
+    private void addActivePeopleItem(String placeId, List<LocationDetailResponse.LocationDetailData.ActivePeople> activePeopleList) {
+        if (EmptyUtils.isEmpty(activePeopleList)) {
+            return;
+        }
+        LocationActivePeopleView locationActivePeopleView = LocationActivePeopleView.newInstance(recyclerView);
+        locationHeaderHelper.bindActivePeopleData(placeId, placeName, activePeopleList, locationActivePeopleView);
+        feedDetailGridItemAdapter.addHeaderView(locationActivePeopleView);
+    }
+
+    private void bindLocationDetailData(LocationDetailResponse result, String placeId, int page) {
+        if (page == DEFAULT_PAGE) {
+            LocationDetailResponse.LocationDetailData data = result.getData();
+            addActivePeopleItem(placeId, result.getData().getActivePeoples());
+            feedDetailGridItemAdapter.setNewFeedData(getActivity(), data.getHotFeeds(), data.getNewFeeds(), 0,
+                hasIntroduce(data.getFeedPlaceInfo()));
+            locationHeaderHelper.processLocationIntroduceText(activity, headerView,
+                data.getFeedPlaceInfo());
+            if (EmptyUtils.isEmpty(allLocationDetailFeeds)) {
+                feedDetailGridItemAdapter.setEmptyView(CommonUtils.addEmptyView(RR.getString(R.string.text_curt_location_not_feed)));
+            }
+        } else {
+            feedDetailGridItemAdapter.loadMoreComplete();
+            if (EmptyUtils.isEmpty(result.getData().getNewFeeds())) {
+                feedDetailGridItemAdapter.loadMoreEnd(true);
+                return;
+            }
+            SubjectHelper.of(getActivity())
+                .fetchSubjectDetailData(result.getData().getNewFeeds(),
+                    pictures -> feedDetailGridItemAdapter.addData(pictures));
+        }
+    }
+
+    private boolean hasIntroduce(LocationDetailResponse.LocationDetailData.FeedPlaceInfoBean feedPlaceInfo) {
+        if (feedPlaceInfo == null) {
+            return false;
+        }
+        if (EmptyUtils.isEmpty(feedPlaceInfo.getFlowDes()) && EmptyUtils.isEmpty(feedPlaceInfo.getTouchUserDetailList())) {
+            return false;
+        }
+        return true;
+    }
+
+    private void setEmptyLocation() {
+        feedDetailGridItemAdapter.setEmptyView(CommonUtils.addEmptyView(RR.getString(R.string.text_curt_location_not_feed)));
+    }
+
+    private void addLocationDetailFeeds(LocationDetailResponse result) {
+        try {
+            if (EmptyUtils.isNotEmpty(result.getData().getHotFeeds())) {
+                allLocationDetailFeeds.addAll(result.getData().getHotFeeds());
+            }
+            if (EmptyUtils.isNotEmpty(result.getData().getNewFeeds())) {
+                allLocationDetailFeeds.addAll(result.getData().getNewFeeds());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void refreshCompleted() {
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+            swipeRefreshLayout.setEnabled(false);
+            swipeRefreshLayout = null;
+        }
+    }
+
+    public class OnLocationDetailItemClickListener extends OnItemChildClickListener {
+
+        @Override
+        public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            if (view.getId() == R.id.subject_detail_hot_image) {
+                ArrayList<ItemFeedDataEntity> itemFeedDataAllFeeds = new ArrayList<>(allLocationDetailFeeds);
+                if (view.getId() == R.id.subject_detail_hot_image && EmptyUtils.isNotEmpty(itemFeedDataAllFeeds)) {
+                    SubjectDetailPictureModel item = (SubjectDetailPictureModel) adapter.getData().get(position);
+                    FeedSingleton.getInstance().updateFeedDetails(itemFeedDataAllFeeds);
+                    FeedDetailListPageActivity.launch(view.getContext(), RR.getString(R.string.text_picture),
+                        item.getFeedId(), FeedDetailListPageActivity.FromPageType.LOCATION_DETAIL);
+                }
+            }
+        }
+    }
+}

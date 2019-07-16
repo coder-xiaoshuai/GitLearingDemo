@@ -11,8 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zhangshuai.gitlearingdemo.R
 
 class ListSeeMoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private val ITEM_TYPE_NORMAL = 0x01
-    private val ITEM_TYPE_SEE_MORE = 0x02
+
+    companion object {
+        private const val ITEM_TYPE_NORMAL = 0x01
+        private const val ITEM_TYPE_SEE_MORE = 0x02
+    }
+
 
     private val list: ArrayList<String>
     private var context: Context? = null

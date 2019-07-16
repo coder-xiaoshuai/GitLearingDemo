@@ -1,0 +1,451 @@
+package com.xstore.wms.ui.pick
+
+import android.view.KeyEvent
+import android.view.View
+import com.leinyo.android.appbar.AppBar
+import com.xiaoleilu.hutool.util.CollectionUtil
+import com.xstore.wms.R
+import com.xstore.wms.api.common.PICK_TYPE_2
+import com.xstore.wms.base.BaseTitleActivity
+import com.xstore.wms.contract.pick.AllocatePickContract
+import com.xstore.wms.entity.PickSaleModelEnum
+import com.xstore.wms.entity.materials.MaterialDepartEntity
+import com.xstore.wms.entity.pick.PickTaskData
+import com.xstore.wms.entity.pick.PickTaskSku
+import com.xstore.wms.entity.pick.RequestAllocateAccessTaskEntity
+import com.xstore.wms.entity.pick.RequestPickTaskSku
+import com.xstore.wms.presenter.pick.AllocatePickPresenter
+import com.xstore.wms.utils.*
+import com.xstore.wms.widget.CancelConfirmDialogFragment
+import com.xstore.wms.widget.MaterialsDepartDialog
+import kotlinx.android.synthetic.main.activity_allocate_pick.*
+import org.apache.commons.lang3.StringUtils
+import java.math.BigDecimal
+
+class AllocatePickActivity : BaseTitleActivity<AllocatePickPresenter>(), AllocatePickContract.IView, View.OnClickListener {
+
+    private val UPPER_LIMIT = 0.1
+
+    private var mDepartEntities: List<MaterialDepartEntity>? = null
+    private var mSelectDepartEntities: MutableList<MaterialDepartEntity>? = null
+    private var mSelectDepartEntity: MaterialDepartEntity? = null
+
+    var mPickTask: PickTaskData? = null
+    var mCurrentSkuInfo: PickTaskSku? = null
+
+    var numLessDialog: CancelConfirmDialogFragment? = null
+    var stockoutDialog: CancelConfirmDialogFragment? = null
+    var finishDialog: CancelConfirmDialogFragment? = null
+
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_allocate_pick
+    }
+
+    override fun getTitleViewConfig(): AppBar.TitleConfig {
+        return buildDefaultConfig(getString(R.string.title_pick_allocate))
+    }
+
+    override fun initData() {
+        super.initData()
+        setListeners()
+        ViewUtils.showLoadingDialog(this)
+        mPresenter.requestDeptList()
+        mPresenter.requestUnfinishedTask(PICK_TYPE_2.ALLOCATE.value)
+    }
+
+    private fun setListeners() {
+        rl_depart!!.setOnClickListener(this)
+        iv_select_list_num!!.setOnClickListener(this)
+        btn_get_task!!.setOnClickListener(this)
+        btn_next!!.setOnClickListener(this)
+        btn_confirm!!.setOnClickListener(this)
+        tv_clear!!.setOnClickListener(this)
+        et_order_num.setOnKeyListener({ v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                requestTask()
+            }
+            false
+        })
+        et_sku_code.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                parseSkuCode()
+            }
+            false
+        }
+        et_sku_num.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                judgeCommitInfo()
+            }
+            false
+        }
+
+    }
+
+    /**
+     * 判断提交信息是否正确，正确则提交
+     */
+    private fun judgeCommitInfo() {
+        if (codeIsRight()) {
+            if (StringUtils.isEmpty(tv_should_pick_num.text.toString())) {
+                ToastUtils.showToast(getString(R.string.pick_allocate_should_pick_num_empty_hint))
+                return
+            }
+            if (!StringUtil.isNumeric(tv_should_pick_num.text.toString())) {
+                ToastUtils.showToast(getString(R.string.pick_allocate_should_num_format_error))
+                return
+            }
+            if (ll_num.visibility == View.VISIBLE) {//如果数量框可见，以数量框输入的为准
+                tv_have_picked_num.text = et_sku_num.text.toString()
+            }
+            if (StringUtils.isEmpty(tv_have_picked_num.text.toString())) {
+                ToastUtils.showToast(getString(R.string.pick_allocate_have_picked_num_empty_hint))
+                return
+            }
+            if (!StringUtil.isNumeric(tv_have_picked_num.text.toString())) {
+                ToastUtils.showToast(getString(R.string.pick_allocate_have_picked_num_format_error))
+                return
+            }
+            if (BigDecimal(tv_have_picked_num.text.toString()).compareTo(BigDecimal.ZERO) == 0) {//如果数量输入的是0
+                showStockoutDialog()
+                return
+            }
+            when (BigDecimal(tv_have_picked_num.text.toString()).compareTo(BigDecimal(tv_should_pick_num.text.toString()))) {
+                1 -> {
+                    if (mCurrentSkuInfo!!.salePickMode!!.equals(PickSaleModelEnum.BY_WEIGHT.pickSaleModel)) {//称重商品
+                        var maxPickWeight = BigDecimal(tv_should_pick_num.text.toString()).multiply(BigDecimal(1 + UPPER_LIMIT))
+                        maxPickWeight = BigDecimal(NumberUtil.setNumScale(maxPickWeight, 3, NumberUtil.ROUND_HALF_DOWN))
+                        if (BigDecimal(tv_have_picked_num.text.toString()).compareTo(maxPickWeight) == 1) {
+                            ToastUtils.showToast(getString(R.string.pick_allocate_have_picked_num_exceed_max_num_error, NumberUtil.setNumScale(maxPickWeight, 3, NumberUtil.ROUND_HALF_DOWN)))
+                            return
+                        } else {
+                            commit()
+                        }
+                    } else {
+                        ToastUtils.showToast(getString(R.string.pick_task_sku_picked_big))
+                        return
+                    }
+                }
+                0 -> commit()
+                -1 -> {
+                    showNumLessDialog()
+                }
+
+            }
+        }
+    }
+
+    /**
+     * 显示缺货弹框
+     */
+    private fun showStockoutDialog() {
+        if (stockoutDialog == null) {
+            stockoutDialog = CancelConfirmDialogFragment.getInstance(getString(R.string.pick_allocate_stockout_commit_hint), getString(R.string.No), getString(R.string.Yes))
+            stockoutDialog!!.setOnViewClickListener(object : CancelConfirmDialogFragment.OnViewClickListener {
+                override fun onCancelClick() {
+                }
+
+                override fun onConfirmClick() {
+                    commit()
+                }
+            })
+        }
+        if (stockoutDialog!!.dialog == null || !stockoutDialog!!.dialog.isShowing) {
+            stockoutDialog!!.show(supportFragmentManager, "stockout")
+        }
+    }
+
+
+    /**
+     * 显示数量小于应拣弹框
+     */
+    private fun showNumLessDialog() {
+        if (numLessDialog == null) {
+            numLessDialog = CancelConfirmDialogFragment.getInstance(getString(R.string.pick_allocate_have_picked_num_less_hint), getString(R.string.No), getString(R.string.Yes))
+            numLessDialog!!.setOnViewClickListener(object : CancelConfirmDialogFragment.OnViewClickListener {
+                override fun onCancelClick() {
+                }
+
+                override fun onConfirmClick() {
+                    commit()
+                }
+            })
+        }
+        if (numLessDialog!!.dialog == null || !numLessDialog!!.dialog.isShowing) {
+            numLessDialog!!.show(supportFragmentManager, "num_less")
+        }
+    }
+
+    private fun commit() {
+        var entity = RequestPickTaskSku()
+        entity.pickMode = PICK_TYPE_2.ALLOCATE.value
+        entity.pickSubMode = mPickTask!!.pickSubMode
+        entity.docNo = mPickTask!!.docNo
+        entity.wmsSkuId = mCurrentSkuInfo!!.wmsSkuId
+        entity.pktItemNoList = mCurrentSkuInfo!!.pktItemNoList
+        entity.locNo = mCurrentSkuInfo!!.locNo
+        if (mCurrentSkuInfo!!.salePickMode.equals(PickSaleModelEnum.BY_PIECE_WEIGHT)) {//称重计件
+            entity.actualPickNum = BigDecimal(tv_have_picked_num.text.toString())
+        } else {
+            entity.actualQty = BigDecimal(tv_have_picked_num.text.toString())
+        }
+        mPresenter.requestCommit(entity)
+
+
+    }
+
+
+    /**
+     * 解析扫描的条码
+     */
+    private fun parseSkuCode(): Boolean {
+        if (!codeIsRight()) {
+            return true
+        }
+        return if (ll_num.visibility == View.GONE) {//数量输入框不可见
+            var totalNum = if (StringUtils.isEmpty(tv_have_picked_num.text.toString())) BigDecimal.ZERO else BigDecimal(tv_have_picked_num.text.toString())
+            val skuCode = et_sku_code.text.toString()
+            if (BalanceCodeParseUtils.isBalanceSign(skuCode)) {
+                totalNum = totalNum.add(BalanceCodeParseUtils.getWeight(skuCode))
+                tv_have_picked_num.text = totalNum.toString()
+                et_sku_code.selectAll()//设置条码框里面的内容选中，保证下一次扫码的时候内容能被覆盖
+            }
+            true
+        } else {
+            et_sku_num.requestFocus()
+            et_sku_num.setSelection(if (StringUtils.isEmpty(et_sku_num.text.toString())) 0 else et_sku_num.text.toString().length)
+            false
+        }
+    }
+
+    /**
+     * 判断扫描的商品条码是否正确
+     */
+    private fun codeIsRight(): Boolean {
+        if (mCurrentSkuInfo == null) {
+            ToastUtils.showToast(getString(R.string.pick_allocate_current_skuinfo_empty_hint))
+            return false
+        }
+        var skuCode = et_sku_code.text.toString()
+        if (StringUtils.isEmpty(skuCode)) {
+            ToastUtils.showToast(getString(R.string.pick_allocate_input_skucode_hint))
+            return false
+        }
+        if (BalanceCodeParseUtils.isBalanceSign(skuCode)) {
+            skuCode = BalanceCodeParseUtils.getSkuId(skuCode)
+        }
+        if (!HelpUtil.checkBarcode(skuCode, mCurrentSkuInfo!!.upcCodes, mCurrentSkuInfo!!.skuId.toString())) {
+            ToastUtils.showToast(getString(R.string.pick_allocate_error_skucode_hint))
+            return false
+        }
+        return true
+    }
+
+
+    override fun onClick(v: View?) {
+        if (v != null) {
+            when (v.id) {
+                R.id.rl_depart -> {
+                    if (CollectionUtil.isNotEmpty(mDepartEntities)) {
+                        showDeptDialog()
+                    } else {
+                        ToastUtils.showToast(getString(R.string.pick_allocate_dept_list_empty_hint))
+                    }
+                }
+                R.id.iv_select_list_num -> {
+                    if (iv_select_list_num!!.isSelected && StringUtils.isNotEmpty(et_order_num.text.toString()) && mPickTask != null) {
+                        ToastUtils.showToast(getString(R.string.pick_allocate_have_unfinish_task_hint))
+                        return
+                    }
+                    iv_select_list_num!!.isSelected = !iv_select_list_num!!.isSelected
+                    if (!iv_select_list_num!!.isSelected) {
+                        et_order_num.text = null
+                        et_order_num.clearFocus()
+                        et_order_num.isEnabled = false
+                    } else {
+                        et_order_num.isEnabled = true
+                        et_order_num.requestFocus()
+                    }
+                }
+                R.id.btn_get_task -> {
+                    if (mPickTask != null) {
+                        ToastUtils.showToast(getString(R.string.pick_allocate_finish_current_task_first))
+                        return
+                    }
+                    requestTask()
+
+                }
+                R.id.btn_next -> {
+                    if (mCurrentSkuInfo == null) {
+                        mCurrentSkuInfo = mPresenter.getFirstPickTask(mPickTask)
+                        refreshView()
+                    } else {
+                        val nextSkuInfo = mPresenter.getNextTask(mPickTask, mCurrentSkuInfo)
+                        if (nextSkuInfo == null || nextSkuInfo.uuid!!.equals(mCurrentSkuInfo!!.uuid!!)) {
+                            ToastUtils.showToast(getString(R.string.pick_allocate_last_goods_hint))
+                        } else {
+                            mCurrentSkuInfo = nextSkuInfo
+                            refreshView()
+                        }
+                    }
+                }
+                R.id.btn_confirm -> {
+                    judgeCommitInfo()
+                }
+                R.id.tv_clear -> {
+                    tv_have_picked_num.setText("0")
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取任务
+     */
+    private fun requestTask() {
+        if (mPickTask != null) {
+            ToastUtils.showToast(getString(R.string.pick_allocate_finish_current_task_first))
+            return
+        }
+        if (mSelectDepartEntity == null) {
+            ToastUtils.showToast(getString(R.string.pick_allocate_select_dept_hint))
+            return
+        }
+        if (iv_select_list_num.isSelected && StringUtils.isEmpty(et_order_num.text.toString())) {
+            ToastUtils.showToast(getString(R.string.pick_allocate_input_order_num_hint))
+            return
+        }
+        val entity = RequestAllocateAccessTaskEntity()
+        entity.pickMode = PICK_TYPE_2.ALLOCATE.value
+        entity.deptCode = mSelectDepartEntity!!.code
+        if (iv_select_list_num.isSelected) {
+            entity.doNo = et_order_num.text.toString()
+        }
+        mPresenter.requestAccessTask(entity)
+    }
+
+    private fun showDeptDialog() {
+        val dialog = MaterialsDepartDialog.createDialogFragment(mDepartEntities, mSelectDepartEntities)
+        dialog.setDepartSelectedListener { materialDepartEntities ->
+            if (CollectionUtil.isNotEmpty(materialDepartEntities)) {//选择了部门
+                mSelectDepartEntity = materialDepartEntities.get(materialDepartEntities.size - 1)
+                mSelectDepartEntities = materialDepartEntities
+                tv_select_depart!!.text = mSelectDepartEntity!!.name
+            } else {//没有选中任何部门
+                mSelectDepartEntity = null
+                if (CollectionUtil.isNotEmpty(mSelectDepartEntities))
+                    mSelectDepartEntities!!.clear()
+                tv_select_depart!!.text = getString(R.string.stock_consumables_select_depart_hint)
+            }
+        }
+        dialog.show(supportFragmentManager, "dept")
+    }
+
+    override fun onGetDeptList(deptList: List<MaterialDepartEntity>?) {
+        mDepartEntities = deptList
+    }
+
+    override fun onGetUnfinishedTask(unfinishedTask: PickTaskData?) {
+        setCurrentPickTask(unfinishedTask)
+    }
+
+
+    override fun onGetAccessTask(task: PickTaskData?) {
+        setCurrentPickTask(task)
+    }
+
+    private fun setCurrentPickTask(task: PickTaskData?) {
+        if (task != null) {
+            mPickTask = task
+            if (CollectionUtil.isNotEmpty(mPickTask!!.pktSkuInfoList)) {
+                mCurrentSkuInfo = mPresenter.getFirstPickTask(mPickTask)
+                refreshView()
+            }
+        }
+    }
+
+    /**
+     * 刷新页面
+     */
+    private fun refreshView() {
+        if (mCurrentSkuInfo != null) {
+            tv_loc.text = mCurrentSkuInfo!!.locCode
+            tv_sku_name.text = mCurrentSkuInfo!!.skuName
+            tv_sku_code.text = mCurrentSkuInfo!!.upcCodes
+            tv_sku_unit.text = mCurrentSkuInfo!!.uom
+            if (mCurrentSkuInfo!!.salePickMode.equals(PickSaleModelEnum.BY_PIECE_WEIGHT.pickSaleModel)) {//计件称重商品
+                tv_should_pick_num.text = NumberUtil.setNumScale(mCurrentSkuInfo!!.expectedPickNum, 3, NumberUtil.ROUND_HALF_DOWN)
+                tv_have_picked_num.text = NumberUtil.setNumScale(mCurrentSkuInfo!!.actualPickNum, 3, NumberUtil.ROUND_HALF_DOWN)
+                tv_should_pick_num_unit.text = "个"
+                tv_have_picked_num_unit.text = "个"
+
+            } else {
+                tv_should_pick_num.text = NumberUtil.setNumScale(mCurrentSkuInfo!!.expectedQty, 3, NumberUtil.ROUND_HALF_DOWN)
+                tv_have_picked_num.text = NumberUtil.setNumScale(mCurrentSkuInfo!!.actualQty, 3, NumberUtil.ROUND_HALF_DOWN)
+                tv_should_pick_num_unit.text = mCurrentSkuInfo!!.uom
+                tv_have_picked_num_unit.text = mCurrentSkuInfo!!.uom
+            }
+            if (mCurrentSkuInfo!!.salePickMode.equals(PickSaleModelEnum.BY_WEIGHT.pickSaleModel) && mCurrentSkuInfo!!.expectedQty.compareTo(BigDecimal(99.999)) != 1) {//称重商品并且应拣数量小于99.999不显示数量输入框
+                ll_num.visibility = View.GONE
+            } else {
+                ll_num.visibility = View.VISIBLE
+            }
+            et_sku_code.requestFocus()
+            et_sku_code.text = null
+            et_sku_num.text = null
+        }
+    }
+
+    override fun onCommit(isSuccess: Boolean) {
+        if (isSuccess) {
+            mPresenter.setCurrentItemStatus(mPickTask, mCurrentSkuInfo)
+            clearData()
+            if (mPresenter.hasUnfinishedSku(mPickTask)) {
+                mCurrentSkuInfo = mPresenter.getNextTask(mPickTask, mCurrentSkuInfo)
+                refreshView()
+            } else {
+                showFinishDialog()
+            }
+        }
+    }
+
+    /**
+     * 拣货完成弹框
+     */
+    private fun showFinishDialog() {
+        if (finishDialog == null) {
+            finishDialog = CancelConfirmDialogFragment.getInstance(getString(R.string.pick_allocate_finish_hint), getString(R.string.No), getString(R.string.Yes))
+            finishDialog!!.setOnCancelGone()
+            finishDialog!!.setOnViewClickListener(object : CancelConfirmDialogFragment.OnViewClickListener {
+                override fun onCancelClick() {
+                }
+
+                override fun onConfirmClick() {
+                    mPickTask = null
+                    mCurrentSkuInfo = null
+                    et_order_num.text = null
+                }
+
+            })
+        }
+        if (finishDialog!!.dialog == null || !finishDialog!!.dialog.isShowing) {
+            finishDialog!!.show(supportFragmentManager, "finish")
+        }
+    }
+
+    /**
+     * 清空页面数据
+     */
+    fun clearData() {
+        tv_loc.text = null
+        tv_sku_name.text = null
+        tv_sku_code.text = null
+        tv_sku_unit.text = null
+        tv_should_pick_num.text = null
+        tv_should_pick_num_unit.text = null
+        tv_have_picked_num.text = null
+        tv_have_picked_num_unit.text = null
+        et_sku_code.text = null
+        et_sku_num.text = null
+    }
+}

@@ -77,6 +77,14 @@ dependencies {
     implementation project(':lib-butterknife')
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    def paging_version = "1.0.0"
+    //这是 Paging的依赖
+    implementation "android.arch.paging:runtime:$paging_version"
+    // alternatively - without Android dependencies for testing
+    testImplementation "android.arch.paging:common:$paging_version"
+    // optional - RxJava support, currently in release candidate
+    implementation 'android.arch.paging:rxjava2:1.0.0-rc1'
+
     //circle_view
     implementation dependencies.circle_view
 
