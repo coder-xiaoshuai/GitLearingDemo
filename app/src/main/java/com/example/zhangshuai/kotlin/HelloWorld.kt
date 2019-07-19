@@ -354,4 +354,29 @@ class HelloWorld {
     fun <T : Number> getNumberType(t: T): String {
         return ""
     }
+
+    fun lamTest(lam: (Int, Int) -> Unit, lam2: (String, String) -> Unit) {
+        lam
+        lam2
+    }
+
+
+    fun lamTest2(lam: Params1, lam2: Params2) {
+        lam
+        lam2
+    }
+
+
+    fun callLam() {
+        val lam: Params1 = { n1: Int, n2: Int ->
+            n1.plus(n2)
+        }
+        lamTest(lam, ({ s1, s2 -> s1.plus(s2) }))
+    }
+
 }
+
+
+typealias Params1 = (Int, Int) -> Unit
+
+typealias Params2 = (String, String) -> Unit
