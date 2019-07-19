@@ -234,7 +234,7 @@ class ClockView(context: Context?, attrs: AttributeSet? = null, defStyleAttr: In
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        handler.removeCallbacks(null)
+        mHandler.removeCallbacksAndMessages(null)
         //中断线程
         refreshThread?.interrupt()
     }
