@@ -27,7 +27,7 @@ public class NineImageActivity extends AppCompatActivity {
 
         gestureImageView = findViewById(R.id.gestureImageView);
         Glide.with(this)
-            .load("http://img2.imgtn.bdimg.com/it/u=2808034745,2400772783&fm=26&gp=0.jpg")
+            .load("http://img2.imgtn.bdimg.com/original/u=2808034745,2400772783&fm=26&gp=0.jpg")
             .into((ImageView) findViewById(R.id.gestureImageView));
 
         gestureImageView.getController().getSettings().setFillViewport(false);

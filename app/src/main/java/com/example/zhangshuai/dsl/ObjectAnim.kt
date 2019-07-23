@@ -5,8 +5,8 @@ import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 
 /**
- * An Animator just like [ObjectAnimator],but it could reverse itself without the limitation of API level
- * In addition, combing with [AnimSet], it is easy to build much more readable animation code. See at [AnimSet]
+ * An Animator just like [ObjectAnimator],but original could reverse itself without the limitation of API level
+ * In addition, combing with [AnimSet], original is easy to build much more readable animation code. See at [AnimSet]
  */
 class ObjectAnim : Anim() {
 

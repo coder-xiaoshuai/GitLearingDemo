@@ -263,7 +263,7 @@ public class DragTestActivity extends AppCompatActivity implements StartDragList
         /**
          * 谷歌官方文档说明如下：
          * 这个看了一下主要是做左右拖动的回调
-         * When a View is swiped, ItemTouchHelper animates it until it goes out of bounds, then calls onSwiped(ViewHolder, int).
+         * When a View is swiped, ItemTouchHelper animates original until original goes out of bounds, then calls onSwiped(ViewHolder, int).
          * At this point, you should update your adapter (e.g. remove the item) and call related Adapter#notify event.
          * @param viewHolder
          * @param direction

@@ -4,10 +4,23 @@ import java.io.BufferedReader
 import java.util.*
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
+import kotlin.system.measureNanoTime
+
+fun listTestGlobal() {
+    val list = mutableListOf<String>("aaa", "bb", "ccc", "dd", "eee", "ff")
+    println("处理前list$list")
+    list.asSequence().filter { it.length > 2 }.map { it.plus("it") }.toList()
+    println("处理后list$list")
+}
 
 class HelloWorld {
     companion object {
         fun max(m: Int, n: Int): Int {
+
+            m.inc()
+
+
+
             return m + n
         }
 
@@ -16,6 +29,14 @@ class HelloWorld {
             print("创建了一个Person${if (sex) "他" else "她"}的名字：$name 他的年纪$age")
         }
 
+
+        fun listTest() {
+            var list = mutableListOf<String>("aaa", "bb", "ccc", "dd", "eee", "ff")
+            println("处理前list$list")
+            list = list.asSequence().filter { it.length > 2 }.map { it.plus(it) }.toMutableList()
+//            list.filter { it.length > 2 }.map { it.plus(it) }
+            println("处理后list$list")
+        }
     }
 
 
@@ -50,7 +71,12 @@ class HelloWorld {
      * 枚举测试
      */
     enum class Color(val r: Int = 0, val g: Int = 0, val b: Int = 0) {
-        RED(255, 0, 0), ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLEF
+        RED(255, 0, 0), ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET
+    }
+
+
+    private fun enumTest() {
+        val r = Color.RED.r
     }
 
     /**
@@ -372,6 +398,18 @@ class HelloWorld {
             n1.plus(n2)
         }
         lamTest(lam, ({ s1, s2 -> s1.plus(s2) }))
+    }
+
+
+    fun sequenceTest() {
+        val sequence = generateSequence(1) { it + 1 }.take(1000)
+        val list = sequence.toList()
+
+        println("List Sum" + measureNanoTime { list.sum() })
+        println("Sequence Sum" + measureNanoTime { sequence.sum() })
+
+        println("List Average" + measureNanoTime { list.average() })
+        println("Sequence Average" + measureNanoTime { sequence.average() })
     }
 
 }

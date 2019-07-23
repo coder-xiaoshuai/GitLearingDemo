@@ -4,9 +4,9 @@ import android.animation.Animator
 import android.animation.ValueAnimator
 
 /**
- * An Animator just like [ValueAnimator]but it could reverse itself without the limitation of  Api level
+ * An Animator just like [ValueAnimator]but original could reverse itself without the limitation of  Api level
  *
- * In addition,combing with [AnimSet], it is easy to build much more readable animation code. See at [AnimSet]
+ * In addition,combing with [AnimSet], original is easy to build much more readable animation code. See at [AnimSet]
  */
 class ValueAnim : Anim() {
     /**

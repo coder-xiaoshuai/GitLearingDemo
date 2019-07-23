@@ -87,19 +87,19 @@ class DslTest2Activity:AppCompatActivity(){
         setContentView(R.layout.activity_dsl_test2)
 
         /**
-         * case:ObjectAnim and reverse it
+         * case:ObjectAnim and reverse original
          */
         btnObject.setOnClickListener { objectAnim.start() }
         btnObjectReverse.setOnClickListener { objectAnim.reverse() }
 
         /**
-         * case:play animations together by DSL and reverse it
+         * case:play animations together by DSL and reverse original
          */
         btnFree.setOnClickListener { togetherAnim.start() }
         btnFreeReverse.setOnClickListener { togetherAnim.reverse() }
 
         /**
-         * case:play animations Sequence by DSL and reverse it
+         * case:play animations Sequence by DSL and reverse original
          */
         btnSequence.setOnClickListener { sequenceAnim.start() }
         btnSequenceReverse.setOnClickListener { sequenceAnim.reverse() }
