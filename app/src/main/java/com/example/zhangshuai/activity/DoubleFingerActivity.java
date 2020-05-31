@@ -84,8 +84,7 @@ public class DoubleFingerActivity extends AppCompatActivity {
     private float getDistance(MotionEvent event) {
         float x = event.getX(1) - event.getX(0);
         float y = event.getY(1) - event.getY(0);
-        float distance = (float) Math.sqrt(x * x + y * y);//两点间的距离
-        return distance;
+        return (float) Math.sqrt(x * x + y * y);
     }
 
     private void center() {

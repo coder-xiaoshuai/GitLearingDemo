@@ -16,6 +16,19 @@ class HelloWorld {
 
     }
 
+    /**
+     * 新增方法 测试git stash用法
+     */
+    fun getImageHeight(){
+    }
+
+
+    /**
+     * 新增方法2
+     */
+    fun getImageWidth(){
+
+    }
 
     fun getShape(shape: SHAPE): String {
         return when (shape) {

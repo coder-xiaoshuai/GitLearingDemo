@@ -96,8 +96,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+//        btn_border_image.setOnClickListener {
+//            var intent = Intent(this@MainActivity, BorderImageViewActivity::class.java)
+//            startActivity(intent)
+//        }
+
         btn_border_image.setOnClickListener {
-            var intent = Intent(this@MainActivity, BorderImageViewActivity::class.java)
+            var intent = Intent(this@MainActivity, AgeChoiceActivity::class.java)
             startActivity(intent)
         }
 
