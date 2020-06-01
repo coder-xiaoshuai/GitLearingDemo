@@ -147,6 +147,12 @@
                 android:layout_height="wrap_content"
                 android:text="圆形描边"
                 />
+            <Button
+                android:id="@+id/btn_age_choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="圆形描边"
+                />
         </LinearLayout>
 
     </ScrollView>
