@@ -4,5 +4,13 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
+    <bytecodeTargetLevel target="1.7">
+      <module name="GitLearningDemo.app" target="1.8" />
+      <module name="GitLearningDemo.common" target="1.8" />
+      <module name="GitLearningDemo.commonui" target="1.8" />
+      <module name="GitLearningDemo.giflibrary" target="1.8" />
+      <module name="GitLearningDemo.lib-butterknife" target="1.8" />
+      <module name="GitLearningDemo.network" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

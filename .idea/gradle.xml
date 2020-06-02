@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/giflibrary" />
             <option value="$PROJECT_DIR$/lib-butterknife" />
             <option value="$PROJECT_DIR$/lib_annotation" />
+            <option value="$PROJECT_DIR$/lib_java_test" />
             <option value="$PROJECT_DIR$/lib_processor" />
             <option value="$PROJECT_DIR$/network" />
           </set>
