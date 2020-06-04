@@ -1,5 +1,8 @@
 package com.example.lib_java_test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AlgorithmTest {
 
     public static void main(String[] args) {
@@ -33,6 +36,7 @@ public class AlgorithmTest {
      * 给定一个数组A[0,1,...,n-1],请构建一个数组B[0,1,...,n-1],
      * 其中B中的元素B[i]=A[0]*A[1]*...*A[i-1]*A[i+1]*...*A[n-1]。不能使用除法。
      * （注意：规定B[0] = A[1] * A[2] * ... * A[n-1]，B[n-1] = A[0] * A[1] * ... * A[n-2];）
+     *
      * @param A
      * @return
      */
@@ -55,27 +59,54 @@ public class AlgorithmTest {
 
     /**
      * 待定 总觉的有问题
+     *
      * @param A
      * @return
      */
     public int[] multiply2(int[] A) {
-        int length=A.length;
-        int[] B=new int[length];
-        if (length!=0) {
-            B[0]=1;
+        int length = A.length;
+        int[] B = new int[length];
+        if (length != 0) {
+            B[0] = 1;
             //计算下三角连乘
             for (int i = 1; i < B.length; i++) {
-                B[i]=B[i-1]*A[i-1];
+                B[i] = B[i - 1] * A[i - 1];
             }
             //B[n]就会在第一个循环的时候，计算好，而把B[0]则在下一个循环的时候计算好。
-            int temp=1;
+            int temp = 1;
             //计算上三角
-            for (int j = length-2; j >= 0; j--) {
-                temp*=A[j+1];
-                B[j]*=temp;
+            for (int j = length - 2; j >= 0; j--) {
+                temp *= A[j + 1];
+                B[j] *= temp;
             }
         }
         return B;
+    }
+
+
+    /**
+     * 在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，
+     * 但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。
+     * 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。
+     *
+     * @param numbers
+     * @param length
+     * @param duplication
+     * @return
+     */
+    public static boolean duplicate(int numbers[], int length, int[] duplication) {
+        if (numbers == null || length <= 0) {
+            return false;
+        }
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < length; i++) {
+            boolean addSuccess = set.add(numbers[i]);
+            if (!addSuccess) {
+                duplication[0] = numbers[i];
+                return true;
+            }
+        }
+        return false;
     }
 
 }
