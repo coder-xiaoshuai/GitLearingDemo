@@ -109,4 +109,37 @@ public class AlgorithmTest {
         return false;
     }
 
+    /**
+     * 一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。  注意这青蛙也可以跳上n级 所以并不是斐波那契数列
+     * 求该青蛙跳上一个n级的台阶总共有多少种跳法。
+     *
+     * @param target
+     * @return
+     */
+    public int JumpFloorII(int target) {
+        int result=2;
+        if(target==1)
+            return 1;
+        if(target==2)
+            return 2;
+        return 2*JumpFloorII(target-1);
+    }
+
+    /**
+     *
+     * 青蛙问题不是斐波那契数列 注意！！！！！！
+     * 通项公式
+     * @param target
+     * @return
+     */
+    public int JumpFloorII2(int target){
+        if (target == 0){
+            return 0;
+        }
+        if (target == 1){
+            return 1;
+        }
+        return (int) ((Math.pow((1 + Math.sqrt(5)) / 2, target) - Math.pow((1 - Math.sqrt(5)) / 2, target)) / Math.sqrt(5));
+    }
+
 }
