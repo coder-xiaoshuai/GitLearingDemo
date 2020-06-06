@@ -117,29 +117,39 @@ public class AlgorithmTest {
      * @return
      */
     public int JumpFloorII(int target) {
-        int result=2;
-        if(target==1)
+        int result = 2;
+        if (target == 1)
             return 1;
-        if(target==2)
+        if (target == 2)
             return 2;
-        return 2*JumpFloorII(target-1);
+        return 2 * JumpFloorII(target - 1);
     }
 
     /**
-     *
      * 青蛙问题不是斐波那契数列 注意！！！！！！
      * 通项公式
+     *
      * @param target
      * @return
      */
-    public int JumpFloorII2(int target){
-        if (target == 0){
+    public int JumpFloorII2(int target) {
+        if (target == 0) {
             return 0;
         }
-        if (target == 1){
+        if (target == 1) {
             return 1;
         }
         return (int) ((Math.pow((1 + Math.sqrt(5)) / 2, target) - Math.pow((1 - Math.sqrt(5)) / 2, target)) / Math.sqrt(5));
+    }
+
+    /**
+     * 请实现一个函数用来找出字符流中第一个只出现一次的字符。
+     * 例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。
+     * 当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。
+     * @param string
+     */
+    public void FirstAppearingOnce(String string) {
+
     }
 
 }
