@@ -146,10 +146,58 @@ public class AlgorithmTest {
      * 请实现一个函数用来找出字符流中第一个只出现一次的字符。
      * 例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。
      * 当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。
+     *
      * @param string
      */
     public void FirstAppearingOnce(String string) {
 
+    }
+
+    class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+
+        public TreeNode(int val) {
+            this.val = val;
+
+        }
+
+    }
+
+    /**
+     * 输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）
+     * 形成树的一条路径，最长路径的长度为树的深度。
+     *
+     * @param root
+     * @return
+     */
+    public int TreeDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int maxLeft = TreeDepth(root.left);
+        int maxRight = TreeDepth(root.right);
+
+        return Math.max(maxLeft, maxRight) + 1;
+    }
+
+    /**
+     * 判断是否是平成二叉树
+     *
+     * @param root
+     * @return
+     */
+    public boolean IsBalanced_Solution(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        int maxLeft = TreeDepth(root.left);
+        int maxRight = TreeDepth(root.right);
+        if (Math.abs(maxLeft - maxRight) <= 1) {
+            return true;
+        }
+        return false;
     }
 
 }
