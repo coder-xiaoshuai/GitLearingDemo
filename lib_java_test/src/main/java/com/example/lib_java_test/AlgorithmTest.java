@@ -200,4 +200,25 @@ public class AlgorithmTest {
         return false;
     }
 
+    /**
+     * 统计一个数字在排序数组中出现的次数。
+     *
+     * @param array
+     * @param k
+     * @return
+     */
+    public int GetNumberOfK(int[] array, int k) {
+        int count = 0;
+        int length = array.length;
+        for (int i = 0; i < length; i++) {
+            if (array[i] == k) {
+                count++;
+                if ((i + 1) < length && array[i + 1] != k) {
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
 }
