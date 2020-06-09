@@ -2,6 +2,7 @@ package com.example.lib_java_test;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 public class AlgorithmTest {
 
@@ -219,6 +220,26 @@ public class AlgorithmTest {
             }
         }
         return count;
+    }
+
+    public String ReverseSentence(String str) {
+        int len=str.length();
+        String str_rever="";
+        str=" "+str;
+        Stack<Character> stack=new Stack<>();
+        for (int i = str.length()-1; i>=0; i--) {
+            if (str.charAt(i)!=' ') {
+                stack.push(str.charAt(i));
+            }else {
+                while (!stack.isEmpty()) {
+                    str_rever+=stack.pop();
+                }
+                str_rever+=" ";
+            }
+        }
+
+
+        return str_rever.substring(0, len);
     }
 
 }
