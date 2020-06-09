@@ -207,7 +207,7 @@ public class AlgorithmTest {
      * @param k
      * @return
      */
-    public int GetNumberOfK(int[] array, int k) {
+    public int getAppearCountOfK(int[] array, int k) {
         int count = 0;
         int length = array.length;
         for (int i = 0; i < length; i++) {

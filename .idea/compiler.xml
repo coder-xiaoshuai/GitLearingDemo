@@ -11,6 +11,9 @@
       <module name="GitLearningDemo.giflibrary" target="1.8" />
       <module name="GitLearningDemo.lib-butterknife" target="1.8" />
       <module name="GitLearningDemo.network" target="1.8" />
+      <module name="lib_annotation" target="1.7" />
+      <module name="lib_java_test" target="1.7" />
+      <module name="lib_processor" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
