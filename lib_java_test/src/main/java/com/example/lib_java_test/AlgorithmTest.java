@@ -223,18 +223,18 @@ public class AlgorithmTest {
     }
 
     public String ReverseSentence(String str) {
-        int len=str.length();
-        String str_rever="";
-        str=" "+str;
-        Stack<Character> stack=new Stack<>();
-        for (int i = str.length()-1; i>=0; i--) {
-            if (str.charAt(i)!=' ') {
+        int len = str.length();
+        String str_rever = "";
+        str = " " + str;
+        Stack<Character> stack = new Stack<>();
+        for (int i = str.length() - 1; i >= 0; i--) {
+            if (str.charAt(i) != ' ') {
                 stack.push(str.charAt(i));
-            }else {
+            } else {
                 while (!stack.isEmpty()) {
-                    str_rever+=stack.pop();
+                    str_rever += stack.pop();
                 }
-                str_rever+=" ";
+                str_rever += " ";
             }
         }
 
@@ -242,4 +242,25 @@ public class AlgorithmTest {
         return str_rever.substring(0, len);
     }
 
+    /**
+     * 求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+     *
+     * @param n
+     * @return
+     */
+    public int Sum_Solution(int n) {
+        int sum = (int) (Math.pow(n, 2) + n);
+        return sum >> 1;
+    }
+
+    /**
+     * 采用递归，利用逻辑与的短路特性
+     * @param n
+     * @return
+     */
+    public int Sum_Solution2(int n) {
+        int ans = n;
+        boolean flag = ans > 0 && (ans += Sum_Solution2(n - 1)) > 0;
+        return ans;
+    }
 }
