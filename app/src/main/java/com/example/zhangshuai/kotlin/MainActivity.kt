@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
 import com.example.zhangshuai.activity.*
+import com.example.zhangshuai.dialog.JoinTeamGuideDialog
 import com.example.zhangshuai.gitlearingdemo.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -106,6 +107,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_show_dialog.setOnClickListener {
+            val dialog = JoinTeamGuideDialog(this@MainActivity)
+            dialog.show()
+        }
+
     }
+
 
 }

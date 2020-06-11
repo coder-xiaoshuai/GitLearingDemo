@@ -9,4 +9,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- dialog的动画 -->
+    <style name="bottom_in_out_dialog_anim">
+        <item name="android:windowEnterAnimation">@anim/live_group_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/live_group_dialog_out</item>
+    </style>
+
 </resources>

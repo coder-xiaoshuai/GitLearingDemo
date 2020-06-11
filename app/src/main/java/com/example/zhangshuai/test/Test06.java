@@ -9,6 +9,8 @@ public class Test06 {
         queue.offer(10);
         queue.add(9);
         printQueue(queue);
+
+        ZhengZeTest.INSTANCE.test();
     }
 
     private static void printQueue(Queue queue) {
