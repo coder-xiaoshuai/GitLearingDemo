@@ -1,6 +1,7 @@
 package com.example.network.http.basis.interceptor;
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import java.io.IOException;
 

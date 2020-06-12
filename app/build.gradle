@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.zhangshuai.gitlearingdemo"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -88,3 +88,30 @@ dependencies {
     // Optional -- Mockito framework（可选，用于模拟一些依赖对象，以达到隔离依赖的效果）
     testImplementation 'org.mockito:mockito-core:2.19.0'
 }
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.projectKey", "gitlearning" //projectkey
+        property "sonar.projectName", project.name //projectname
+        property "sonar.sources", android.sourceSets.main.java.srcDirs //源码，写这个就行
+        property "sonar.projectVersion", project.version //版本，随意
+        property "sonar.binaries", "build/intermediates/classes"
+    }
+}
+
+//property "sonar.host.url", "http://localhost:9000/" //我本地SonarQube平台的配置
+//property "sonar.projectName", project.name  //projectname
+//property "sonar.projectKey", "admin" //projectkey
+//property "sonar.language", "java"  //语言
+//property "sonar.sourceEncoding", "UTF-8" //编码
+//property "sonar.sources", android.sourceSets.main.java.srcDirs //源码，写这个就行
+//property "sonar.projectVersion", "1.0.0"  //版本，随意
+//
+//property "sonar.language", "java"
+//property "sonar.dynamicAnalysis", "reuseReports"
+////property "sonar.tests", android.sourceSets.instrumentTest.java.srcDirs
+//property "sonar.java.binaries", "build/intermediates/classes"
+////property 'sonar.jacoco.reportPath', "build/jacoco/testReleaseUnitTest.exec"
+////property "sonar.jacoco.itReportPath", "$buildDir/jacoco/testReleaseUnitTest.exec"
+//property "sonar.cobertura.reportPath", "build/reports/coverage/debug/report.xml"
+//property "sonar.core.codeCoveragePlugin", "cobertura"

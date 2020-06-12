@@ -1,11 +1,15 @@
 package com.example.network.http.basis.interceptor;
 
-import android.support.annotation.NonNull;
+
+
+import androidx.annotation.NonNull;
+
+import com.example.network.http.basis.exception.ConnectionException;
+import com.example.network.http.basis.exception.ResultInvalidException;
 
 import java.io.IOException;
 
-import leavesc.hello.network.http.basis.exception.ConnectionException;
-import leavesc.hello.network.http.basis.exception.ResultInvalidException;
+
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;

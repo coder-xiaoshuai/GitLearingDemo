@@ -1,9 +1,10 @@
 package com.example.network.viewmodel.base;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 /**
  * 作者：leavesC

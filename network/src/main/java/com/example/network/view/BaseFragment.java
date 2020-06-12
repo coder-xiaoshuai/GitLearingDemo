@@ -1,11 +1,14 @@
 package com.example.network.view;
 
 import android.app.ProgressDialog;
-import android.arch.lifecycle.ViewModel;
+
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 
 import com.example.network.event.BaseActionEvent;
 import com.example.network.viewmodel.base.IViewModelAction;

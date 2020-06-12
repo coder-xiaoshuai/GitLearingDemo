@@ -1,7 +1,8 @@
 package com.example.network.http.basis.interceptor;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import com.example.network.http.basis.config.HttpConfig;
 

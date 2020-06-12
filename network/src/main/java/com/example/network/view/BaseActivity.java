@@ -2,14 +2,15 @@ package com.example.network.view;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.arch.lifecycle.ViewModel;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
 
 import com.example.network.event.BaseActionEvent;
 import com.example.network.viewmodel.base.IViewModelAction;

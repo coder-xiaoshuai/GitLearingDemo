@@ -1,6 +1,8 @@
 package com.example.network.viewmodel.base;
 
-import android.arch.lifecycle.MutableLiveData;
+
+
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.network.event.BaseActionEvent;
 
