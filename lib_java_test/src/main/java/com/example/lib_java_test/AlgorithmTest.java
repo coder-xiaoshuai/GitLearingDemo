@@ -7,7 +7,7 @@ import java.util.Stack;
 public class AlgorithmTest {
 
     public static void main(String[] args) {
-        System.out.println(cutRope(4));
+        System.out.println(Sum_Solution2(4));
     }
 
     /**
@@ -258,7 +258,7 @@ public class AlgorithmTest {
      * @param n
      * @return
      */
-    public int Sum_Solution2(int n) {
+    public static int Sum_Solution2(int n) {
         int ans = n;
         boolean flag = ans > 0 && (ans += Sum_Solution2(n - 1)) > 0;
         return ans;
