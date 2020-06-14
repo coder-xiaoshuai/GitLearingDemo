@@ -1,5 +1,6 @@
 package com.example.lib_java_test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
@@ -7,7 +8,9 @@ import java.util.Stack;
 public class AlgorithmTest {
 
     public static void main(String[] args) {
-        System.out.println(Sum_Solution2(4));
+//        System.out.println(Sum_Solution2(4));
+
+        System.out.println(maxInWindows(new int[]{2, 3, 4, 2, 6, 2, 5, 1}, 3));
     }
 
     /**
@@ -255,6 +258,7 @@ public class AlgorithmTest {
 
     /**
      * 采用递归，利用逻辑与的短路特性
+     *
      * @param n
      * @return
      */
@@ -262,5 +266,52 @@ public class AlgorithmTest {
         int ans = n;
         boolean flag = ans > 0 && (ans += Sum_Solution2(n - 1)) > 0;
         return ans;
+    }
+
+    /**
+     * 给定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值。
+     * 例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，
+     * 他们的最大值分别为{4,4,6,6,6,5}； 针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个：
+     * {[2,3,4],2,6,2,5,1}， {2,[3,4,2],6,2,5,1}， {2,3,[4,2,6],2,5,1}， {2,3,4,[2,6,2],5,1}， {2,3,4,2,[6,2,5],1}， {2,3,4,2,6,[2,5,1]}。
+     *
+     * @param num
+     * @param size
+     * @return
+     */
+    public static ArrayList<Integer> maxInWindows(int[] num, int size) {
+            ArrayList<Integer> result = new ArrayList<>();
+            if (num == null || size == 0 || size > num.length) {
+                return result;
+            }
+            int resultSize = num.length - size + 1;
+            for (int i = 0; i < resultSize; i++) {
+                int max = num[i];
+                for (int j = i; j < i + size; j++) {
+                    if (num[j] > max) {
+                        max = num[j];
+                    }
+                }
+                result.add(max);
+            }
+            return result;
+    }
+
+    public int[] maxSlidingWindow(int[] nums, int size) {
+
+        if (nums == null || size == 0 || size > nums.length) {
+            return new int[]{};
+        }
+        int resultSize = nums.length - size + 1;
+        int[] result = new int[resultSize];
+        for (int i = 0; i < resultSize; i++) {
+            int max = nums[i];
+            for (int j = i; j < i + size; j++) {
+                if (nums[j] > max) {
+                    max = nums[j];
+                }
+            }
+            result[i] = max;
+        }
+        return result;
     }
 }
