@@ -345,4 +345,51 @@ public class AlgorithmTest {
         return result;
 
     }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode result = new ListNode(0);
+        ListNode header = result;
+        int temp = 0;
+        int jinwei = 0;
+        while (l1 != null && l2 != null) {
+            temp = l1.val + l2.val + jinwei;
+            jinwei = 0;
+            if (temp >= 10) {
+                header.val = temp - 10;
+                jinwei = 1;
+            } else {
+                header.val = temp;
+            }
+            l1 = l1.next;
+            l2 = l2.next;
+            header.next = new ListNode(0);
+            header = header.next;
+        }
+        while (l1 != null) {
+            header.val = l1.val + jinwei;
+            jinwei = 0;
+            l1 = l1.next;
+            header.next = new ListNode(0);
+            header = header.next;
+        }
+        while (l2 != null) {
+            header.val = l2.val + jinwei;
+            jinwei = 0;
+            l2 = l2.next;
+            header.next = new ListNode(0);
+            header = header.next;
+        }
+        return result;
+    }
+
+
 }
