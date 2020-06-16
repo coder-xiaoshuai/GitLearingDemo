@@ -356,13 +356,20 @@ public class AlgorithmTest {
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode result = new ListNode(0);
+        ListNode result = null;
         ListNode header = result;
         int temp = 0;
         int jinwei = 0;
         while (l1 != null && l2 != null) {
             temp = l1.val + l2.val + jinwei;
             jinwei = 0;
+            if (header == null) {
+                header = new ListNode(0);
+                result = header;
+            } else {
+                header.next = new ListNode(0);
+                header = header.next;
+            }
             if (temp >= 10) {
                 header.val = temp - 10;
                 jinwei = 1;
@@ -371,22 +378,52 @@ public class AlgorithmTest {
             }
             l1 = l1.next;
             l2 = l2.next;
-            header.next = new ListNode(0);
-            header = header.next;
         }
+
+        int jinwei2 = 0;
         while (l1 != null) {
-            header.val = l1.val + jinwei;
+            if (header.next == null) {
+                header.next = new ListNode(0);
+                header = header.next;
+            }
+            int temp1 = l1.val + jinwei + jinwei2;
+            jinwei2 = 0;
             jinwei = 0;
+            if (temp1 >= 10) {
+                jinwei2 = 1;
+            }
+            header.val = temp1 >= 10 ? temp1 - 10 : temp;
             l1 = l1.next;
-            header.next = new ListNode(0);
-            header = header.next;
         }
+
         while (l2 != null) {
-            header.val = l2.val + jinwei;
+            if (header.next == null) {
+                header.next = new ListNode(0);
+                header = header.next;
+            }
+            int temp1 = l2.val + jinwei + jinwei2;
+            jinwei2 = 0;
             jinwei = 0;
+            if (temp1 >= 10) {
+                jinwei2 = 1;
+            }
+            header.val = temp1 >= 10 ? temp1 - 10 : temp;
             l2 = l2.next;
-            header.next = new ListNode(0);
-            header = header.next;
+        }
+        if (jinwei != 0) {
+            if (header.next == null) {
+                header.next = new ListNode(0);
+                header = header.next;
+            }
+            header.val = jinwei;
+        }
+
+        if (jinwei2 != 0) {
+            if (header.next == null) {
+                header.next = new ListNode(0);
+                header = header.next;
+            }
+            header.val = jinwei2;
         }
         return result;
     }
