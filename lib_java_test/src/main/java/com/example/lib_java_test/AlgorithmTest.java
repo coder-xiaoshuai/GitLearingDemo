@@ -11,6 +11,14 @@ public class AlgorithmTest {
 //        System.out.println(Sum_Solution2(4));
 
         System.out.println(maxInWindows(new int[]{2, 3, 4, 2, 6, 2, 5, 1}, 3));
+
+
+        ListNode  l1 = new ListNode(1);
+        ListNode l11 = new ListNode(8);
+        l1.next = l11;
+        ListNode l2 = new ListNode(0);
+
+        addTwoNumbers(l1,l2);
     }
 
     /**
@@ -346,7 +354,7 @@ public class AlgorithmTest {
 
     }
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 
@@ -355,20 +363,22 @@ public class AlgorithmTest {
         }
     }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode result = null;
-        ListNode header = result;
+        ListNode header = null;
         int temp = 0;
         int jinwei = 0;
         while (l1 != null && l2 != null) {
             temp = l1.val + l2.val + jinwei;
             jinwei = 0;
+            //临时节点
+            ListNode tempNode = new ListNode(0);
             if (header == null) {
-                header = new ListNode(0);
+                header = tempNode;
                 result = header;
             } else {
-                header.next = new ListNode(0);
-                header = header.next;
+                header.next = tempNode;
+                header = tempNode;
             }
             if (temp >= 10) {
                 header.val = temp - 10;
@@ -382,6 +392,7 @@ public class AlgorithmTest {
 
         int jinwei2 = 0;
         while (l1 != null) {
+            //临时节点
             if (header.next == null) {
                 header.next = new ListNode(0);
                 header = header.next;
@@ -392,7 +403,7 @@ public class AlgorithmTest {
             if (temp1 >= 10) {
                 jinwei2 = 1;
             }
-            header.val = temp1 >= 10 ? temp1 - 10 : temp;
+            header.val = temp1 >= 10 ? temp1 - 10 : temp1;
             l1 = l1.next;
         }
 
@@ -407,7 +418,7 @@ public class AlgorithmTest {
             if (temp1 >= 10) {
                 jinwei2 = 1;
             }
-            header.val = temp1 >= 10 ? temp1 - 10 : temp;
+            header.val = temp1 >= 10 ? temp1 - 10 : temp1;
             l2 = l2.next;
         }
         if (jinwei != 0) {
@@ -429,4 +440,77 @@ public class AlgorithmTest {
     }
 
 
+    /**
+     * 网上实现
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+
+        boolean liHasNext = true;
+        boolean l2HasNext = true;
+
+        int sum = 0;
+        ListNode listNode = new ListNode(0);
+        ListNode endlistNode = new ListNode(0);
+        listNode.next = endlistNode;
+        while (liHasNext || l2HasNext || sum > 0) {
+            int val = 0;
+            int va2 = 0;
+            if (liHasNext) {
+                val = l1.val;
+                l1 = l1.next;
+                if (l1 == null) {
+                    liHasNext = false;
+                }
+            } else {
+                liHasNext = false;
+            }
+            if (l2HasNext) {
+                va2 = l2.val;
+                l2 = l2.next;
+                if (l2 == null) {
+                    l2HasNext = false;
+                }
+            } else {
+                l2HasNext = false;
+            }
+
+            sum += val + va2;
+            ListNode listNode1 = new ListNode(sum % 10);
+            endlistNode.next = listNode1;
+            endlistNode = listNode1;
+            sum /= 10;
+        }
+        return listNode.next.next;
+    }
+
+
+    /**
+     * 网上实现
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public static ListNode addTwoNumbers3(ListNode l1, ListNode l2) {
+        ListNode root = new ListNode(0);
+        ListNode cursor = root;
+        int carry = 0;
+        while (l1 != null || l2 != null || carry != 0) {
+            int l1Val = l1 != null ? l1.val : 0;
+            int l2Val = l2 != null ? l2.val : 0;
+            int sumVal = l1Val + l2Val + carry;
+            carry = sumVal / 10;
+
+            ListNode sumNode = new ListNode(sumVal % 10);
+            cursor.next = sumNode;
+            cursor = sumNode;
+
+            if (l1 != null) l1 = l1.next;
+            if (l2 != null) l2 = l2.next;
+        }
+
+        return root.next;
+    }
 }
