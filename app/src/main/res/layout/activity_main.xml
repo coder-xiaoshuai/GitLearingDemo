@@ -161,6 +161,20 @@
                 android:layout_height="wrap_content"
                 android:text="弹窗动画测试"
                 />
+
+            <Button
+                android:id="@+id/btn_null_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="kotlin null test"
+                />
+
+            <Button
+                android:id="@+id/btn_presenter_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="presenter test"
+                />
         </LinearLayout>
 
     </ScrollView>

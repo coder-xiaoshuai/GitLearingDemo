@@ -2,6 +2,7 @@ package com.example.lib_java_test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -13,12 +14,14 @@ public class AlgorithmTest {
         System.out.println(maxInWindows(new int[]{2, 3, 4, 2, 6, 2, 5, 1}, 3));
 
 
-        ListNode  l1 = new ListNode(1);
-        ListNode l11 = new ListNode(8);
-        l1.next = l11;
-        ListNode l2 = new ListNode(0);
+//        ListNode l1 = new ListNode(1);
+//        ListNode l11 = new ListNode(8);
+//        l1.next = l11;
+//        ListNode l2 = new ListNode(0);
+//
+//        addTwoNumbers(l1, l2);
 
-        addTwoNumbers(l1,l2);
+        System.out.println(lengthOfLongestSubstring("pwwkew"));
     }
 
     /**
@@ -442,6 +445,7 @@ public class AlgorithmTest {
 
     /**
      * 网上实现
+     *
      * @param l1
      * @param l2
      * @return
@@ -489,6 +493,7 @@ public class AlgorithmTest {
 
     /**
      * 网上实现
+     *
      * @param l1
      * @param l2
      * @return
@@ -512,5 +517,35 @@ public class AlgorithmTest {
         }
 
         return root.next;
+    }
+
+
+    /**
+     * 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+     *
+     * @param s
+     * @return
+     */
+    public static int lengthOfLongestSubstring(String s) {
+        if (s == null || "".equals(s)) {
+            return 0;
+        }
+        Set<Character> set = new HashSet();
+        int length = s.length();
+        int result = 0;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < length; i++) {
+            set.clear();
+            for (int j = i; j < length; j++) {
+                if (set.add(s.charAt(j))) {
+                    if (set.size() > result) {
+                        result = set.size();
+                    }
+                }else {
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }

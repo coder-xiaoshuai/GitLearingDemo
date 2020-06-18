@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.zhangshuai.gitlearingdemo"
-    >
+    package="com.example.zhangshuai.gitlearingdemo">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,57 +12,58 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <activity android:name="com.example.zhangshuai.kotlin.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.zhangshuai.activity.ImageVideoDemoActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.ImageVideoDemoActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.NineImageActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.NineImageActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.AutoTextActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.AutoTextActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.ClickableSpanActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.ClickableSpanActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.PathDemoActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.PathDemoActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.RvActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.RvActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.MediaPlayerActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.MediaPlayerActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.PraiseDemoActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.PraiseDemoActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.NineGridLayoutActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.NineGridLayoutActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.GifActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.GifActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.EventTestActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.EventTestActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.MyButterKnifeActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.MyButterKnifeActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.ProfilerTestActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.ProfilerTestActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.PreDownLoadActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.PreDownLoadActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.ShowActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.ShowActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.ViewPagerDemoActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.ViewPagerDemoActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.SetTestActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.SetTestActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.PraiseDemo2Activity"/>
+        <activity android:name="com.example.zhangshuai.activity.PraiseDemo2Activity" />
 
-        <activity android:name="com.example.zhangshuai.activity.VerificationCodeActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.VerificationCodeActivity" />
 
         <activity android:name="com.example.zhangshuai.activity.BorderImageViewActivity" />
 
-        <activity android:name="com.example.zhangshuai.activity.AgeChoiceActivity"/>
+        <activity android:name="com.example.zhangshuai.activity.AgeChoiceActivity" />
+
+        <activity android:name="com.example.zhangshuai.mvp.PresenterTestActivity" />
 
     </application>
 

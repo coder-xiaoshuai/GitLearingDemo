@@ -1,12 +1,14 @@
-  package com.example.zhangshuai.kotlin
+package com.example.zhangshuai.kotlin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 import com.example.zhangshuai.activity.*
 import com.example.zhangshuai.dialog.JoinTeamGuideDialog
 import com.example.zhangshuai.gitlearingdemo.R
+import com.example.zhangshuai.mvp.PresenterTestActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -112,6 +114,19 @@ class MainActivity : AppCompatActivity() {
             dialog.show()
         }
 
+        btn_null_test.setOnClickListener {
+//            nullTest(null!!)
+        }
+
+        btn_presenter_test.setOnClickListener {
+            val intent = Intent(MainActivity@ this, PresenterTestActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    fun nullTest(string: String) {
+        Log.i("zs", string)
     }
 
 
