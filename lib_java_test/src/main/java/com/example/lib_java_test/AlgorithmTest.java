@@ -21,8 +21,11 @@ public class AlgorithmTest {
 //
 //        addTwoNumbers(l1, l2);
 
-        System.out.println(lengthOfLongestSubstring("pwwkew"));
+//        System.out.println(lengthOfLongestSubstring("pwwkew"));
+
+        System.out.println(reverse(1534236469));
     }
+
 
     /**
      * 算法题：剪绳子
@@ -547,5 +550,21 @@ public class AlgorithmTest {
             }
         }
         return result;
+    }
+
+    /**
+     * 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+     * @param x
+     * @return
+     */
+    public static int reverse(int x) {
+        long res = 0;
+        while (x != 0) {
+            int temp = x % 10;
+            x = x / 10;
+            res = res * 10 + temp;
+        }
+        if (res > Integer.MAX_VALUE || res < Integer.MIN_VALUE) return 0;
+        return (int) res;
     }
 }
