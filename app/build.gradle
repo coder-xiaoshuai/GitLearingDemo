@@ -43,6 +43,13 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def newName = "gitlearning_" + variant.buildType.name + "_v" + versionName + "_" + versionCode + ".apk"
+            outputFileName = newName
+        }
+    }
 }
 
 dependencies {
