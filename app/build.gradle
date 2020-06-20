@@ -13,7 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        archivesBaseName = "git_learning_v_${versionName}_${versionCode}"
+        archivesBaseName = "gitlearning_v_${versionName}_${versionCode}"
     }
 
     signingConfigs {
