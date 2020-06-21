@@ -23,7 +23,16 @@ public class AlgorithmTest {
 
 //        System.out.println(lengthOfLongestSubstring("pwwkew"));
 
-        System.out.println(reverse(1534236469));
+//        System.out.println(reverse(1534236469));
+
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(4);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        reverseList2(node1);
     }
 
 
@@ -571,6 +580,7 @@ public class AlgorithmTest {
 
     /**
      * 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+     *
      * @param s
      * @return
      */
@@ -593,12 +603,13 @@ public class AlgorithmTest {
 
     /**
      * 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
-     *
+     * <p>
      * 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
-     *
+     * <p>
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     *
      * @param nums
      * @return
      */
@@ -618,4 +629,108 @@ public class AlgorithmTest {
         }
         return set.size();
     }
+
+
+    /**
+     * 合并两个有序链表
+     * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+     *
+     * @param l1
+     * @param l2
+     * @return
+     */
+//    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+//        while (l1 != null && l2 != null) {
+//            ListNode temp = new ListNode(0);
+//            if (l1.val > l2.val){
+//                temp = l1.next;
+//
+//            }
+//        }
+//    }
+
+
+    /**
+     * 翻转链表-- 迭代法
+     *
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        ListNode preNode = null;
+        if (head == null) {
+            return null;
+        }
+        //每一次循环都释放一个Node
+        while (head != null) {
+            //用来保存下一个node
+            ListNode tempNext = head.next;
+            head.next = preNode;
+            //preNode其实就是最后翻转后链表的head
+            preNode = head;
+            //遍历head指向下一个Node
+            head = tempNext;
+        }
+        return preNode;
+    }
+
+
+    /**
+     * 递归法
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode reverseList2(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode p = reverseList2(head.next);
+        head.next.next = head;
+        head.next = null;
+        return p;
+    }
+
+
+    public int squareSum(int n) {
+        int sum = 0;
+        while(n > 0){
+            int digit = n % 10;
+            sum += digit * digit;
+            n /= 10;
+        }
+        return sum;
+    }
+
+    /**
+     * 编写一个算法来判断一个数 n 是不是快乐数。
+     *
+     * 「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为  1，那么这个数就是快乐数。
+     *
+     * 如果 n 是快乐数就返回 True ；不是，则返回 False 。
+     *
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode-cn.com/problems/happy-number
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     *
+     *
+     *
+     * 解题思路：
+     *根据我们的探索，我们猜测会有以下三种可能。
+     *
+     *     最终会得到 111。
+     *     最终会进入循环。
+     *     值会越来越大，最后接近无穷大。（这种情况通过分析不会出现）
+     *
+     * @param n
+     * @return
+     */
+    public boolean isHappy(int n) {
+        int slow = n, fast = squareSum(n);
+        while (slow != fast){
+            slow = squareSum(slow);
+            fast = squareSum(squareSum(fast));
+        };
+        return slow == 1;
+    }
+
+
 }
