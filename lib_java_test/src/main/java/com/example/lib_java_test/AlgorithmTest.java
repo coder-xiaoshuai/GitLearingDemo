@@ -1,6 +1,7 @@
 package com.example.lib_java_test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,14 +26,15 @@ public class AlgorithmTest {
 
 //        System.out.println(reverse(1534236469));
 
-        ListNode node1 = new ListNode(1);
-        ListNode node2 = new ListNode(2);
-        ListNode node3 = new ListNode(3);
-        ListNode node4 = new ListNode(4);
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        reverseList2(node1);
+//        ListNode node1 = new ListNode(1);
+//        ListNode node2 = new ListNode(2);
+//        ListNode node3 = new ListNode(3);
+//        ListNode node4 = new ListNode(4);
+//        node1.next = node2;
+//        node2.next = node3;
+//        node3.next = node4;
+//        reverseList2(node1);
+        System.out.println(countPrimes(10));
     }
 
 
@@ -692,7 +694,7 @@ public class AlgorithmTest {
 
     public int squareSum(int n) {
         int sum = 0;
-        while(n > 0){
+        while (n > 0) {
             int digit = n % 10;
             sum += digit * digit;
             n /= 10;
@@ -702,35 +704,258 @@ public class AlgorithmTest {
 
     /**
      * 编写一个算法来判断一个数 n 是不是快乐数。
-     *
+     * <p>
      * 「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为  1，那么这个数就是快乐数。
-     *
+     * <p>
      * 如果 n 是快乐数就返回 True ；不是，则返回 False 。
-     *
+     * <p>
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode-cn.com/problems/happy-number
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-     *
-     *
-     *
+     * <p>
+     * <p>
+     * <p>
      * 解题思路：
-     *根据我们的探索，我们猜测会有以下三种可能。
-     *
-     *     最终会得到 111。
-     *     最终会进入循环。
-     *     值会越来越大，最后接近无穷大。（这种情况通过分析不会出现）
+     * 根据我们的探索，我们猜测会有以下三种可能。
+     * <p>
+     * 最终会得到 111。
+     * 最终会进入循环。
+     * 值会越来越大，最后接近无穷大。（这种情况通过分析不会出现）
      *
      * @param n
      * @return
      */
     public boolean isHappy(int n) {
         int slow = n, fast = squareSum(n);
-        while (slow != fast){
+        while (slow != fast) {
             slow = squareSum(slow);
             fast = squareSum(squareSum(fast));
-        };
+        }
+        ;
         return slow == 1;
     }
 
+
+    public static boolean isZhiShu(int n) {
+        if (n < 0) {
+            return false;
+        }
+        if (n <= 2) {
+            return true;
+        }
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // 判断整数 n 是否是素数
+    boolean isPrime(int n) {
+        for (int i = 2; i < n; i++)
+            if (n % i == 0)
+                // 有其他整除因子
+                return false;
+        return true;
+    }
+
+
+    /**
+     * 可以进行优化
+     *
+     *
+     * 换句话说，i 不需要遍历到 n，而只需要到 sqrt(n) 即可。为什么呢，我们举个例子，假设 n = 12。
+     *
+     * 12 = 2 × 6
+     * 12 = 3 × 4
+     * 12 = sqrt(12) × sqrt(12)
+     * 12 = 4 × 3
+     * 12 = 6 × 2
+     *
+     * 作者：labuladong
+     * 链接：https://leetcode-cn.com/problems/count-primes/solution/ru-he-gao-xiao-pan-ding-shai-xuan-su-shu-by-labula/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     * @param n
+     * @return
+     */
+    boolean isPrime2(int n) {
+        for (int i = 2; i < n; i++)
+            if (n % i == 0)
+                // 有其他整除因子
+                return false;
+        return true;
+    }
+
+    public static int countPrimes(int n) {
+        if (n < 0) {
+            return 0;
+        }
+        int result = 0;
+        for (int i = 2; i < n; i++) {
+            if (isZhiShu(i)) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 最优解法
+     * @param n
+     * @return
+     */
+    private int countPrimes2(int n) {
+        boolean[] isPrim = new boolean[n];
+        Arrays.fill(isPrim, true);
+        for (int i = 2; i * i < n; i++)
+            if (isPrim[i])
+                for (int j = i * i; j < n; j += i)
+                    isPrim[j] = false;
+
+        int count = 0;
+        for (int i = 2; i < n; i++)
+            if (isPrim[i]) count++;
+
+        return count;
+    }
+
+    /**
+     * 你有两个字符串，即pattern和value。 pattern字符串由字母"a"和"b"组成，用于描述字符串中的模式。
+     * 例如，字符串"catcatgocatgo"匹配模式"aabab"（其中"cat"是"a"，"go"是"b"），该字符串也匹配像"a"、"ab"和"b"这样的模式。
+     * 但需注意"a"和"b"不能同时表示相同的字符串。编写一个方法判断value字符串是否匹配pattern字符串。
+     *
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode-cn.com/problems/pattern-matching-lcci
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     * @param pattern
+     * @param value
+     * @return
+     */
+    public boolean patternMatching(String pattern, String value) {
+        // 先判断一些特殊情况
+        if (pattern.equals("a") || pattern.equals("b")) {
+            return true;
+        }
+        if (pattern.length() == 0) {
+            return value.length() == 0;
+        }
+        char[] pChars = pattern.toCharArray();
+        char[] vChars = value.toCharArray();
+        // value为空时，判断pattern是否只有a或只有b
+        if (value.length() == 0) {
+            boolean aExist = false;
+            boolean bExist = false;
+            for (char c: pChars) {
+                if (c == 'a') {
+                    aExist = true;
+                }
+                else {
+                    bExist = true;
+                }
+                if (aExist && bExist) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        // 计算pattern里a和b的个数
+        int countA = 0;
+        int countB = 0;
+        for (char c: pChars) {
+            if (c == 'a') {
+                countA ++;
+            }
+            else {
+                countB ++;
+            }
+        }
+        int lenV = vChars.length;
+        // a或b的数量为0，判断value能否被等分
+        if (countA * countB == 0) {
+            int count = countA + countB;
+            if (lenV % count != 0) {
+                return false;
+            }
+            else {
+                int len = lenV / count;
+                for (int i = len; i < lenV; i += len) {
+                    if (!stringEquals(vChars, 0, i, len)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        // i代表a字符串的长度
+        for (int i = 0; i <= lenV; i ++) {
+            // a字符串过长就break
+            if (lenV - countA * i < 0) {
+                break;
+            }
+            int lenB = (lenV - countA * i) / countB;
+            // lenB满足条件才进行判断
+            if (lenB * countB + i * countA == lenV) {
+                int index = 0;
+                int[] ab = new int[2];
+                // 初始化a和b的初始索引之前设置为-1
+                ab[0] = -1;
+                ab[1] = -1;
+                boolean notMatch = false;
+                for (char c: pChars) {
+                    if (c == 'a') {
+                        if (ab[0] == -1) {
+                            ab[0] = index;
+                        }
+                        else {
+                            // 每次为a都和初始的字符串比较
+                            if (!stringEquals(vChars, ab[0], index, i)) {
+                                notMatch = true;
+                                break;
+                            }
+                        }
+                        index += i;
+                    }
+                    else {
+                        if (ab[1] == -1) {
+                            ab[1] = index;
+                        }
+                        else {
+                            if (!stringEquals(vChars, ab[1], index, lenB)) {
+                                notMatch = true;
+                                break;
+                            }
+                        }
+                        index += lenB;
+                    }
+                    // 判断a和b是否相同
+                    if (lenB == i) {
+                        if (ab[0] != -1 && ab[1] != -1) {
+                            if (stringEquals(vChars, ab[0], ab[1], lenB)) {
+                                notMatch = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                // notMatch为false说明之前的几个判断里面都不是因为break跳出
+                if (!notMatch) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // 判断字符串是否相等
+    private boolean stringEquals(char[] chars, int i, int j, int len) {
+        for (int k = 0; k < len; k ++) {
+            if (chars[i+k] != chars[j+k]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
