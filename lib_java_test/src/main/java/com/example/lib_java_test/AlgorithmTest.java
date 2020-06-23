@@ -763,20 +763,21 @@ public class AlgorithmTest {
 
     /**
      * 可以进行优化
-     *
-     *
+     * <p>
+     * <p>
      * 换句话说，i 不需要遍历到 n，而只需要到 sqrt(n) 即可。为什么呢，我们举个例子，假设 n = 12。
-     *
+     * <p>
      * 12 = 2 × 6
      * 12 = 3 × 4
      * 12 = sqrt(12) × sqrt(12)
      * 12 = 4 × 3
      * 12 = 6 × 2
-     *
+     * <p>
      * 作者：labuladong
      * 链接：https://leetcode-cn.com/problems/count-primes/solution/ru-he-gao-xiao-pan-ding-shai-xuan-su-shu-by-labula/
      * 来源：力扣（LeetCode）
      * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
      * @param n
      * @return
      */
@@ -803,6 +804,7 @@ public class AlgorithmTest {
 
     /**
      * 最优解法
+     *
      * @param n
      * @return
      */
@@ -825,10 +827,11 @@ public class AlgorithmTest {
      * 你有两个字符串，即pattern和value。 pattern字符串由字母"a"和"b"组成，用于描述字符串中的模式。
      * 例如，字符串"catcatgocatgo"匹配模式"aabab"（其中"cat"是"a"，"go"是"b"），该字符串也匹配像"a"、"ab"和"b"这样的模式。
      * 但需注意"a"和"b"不能同时表示相同的字符串。编写一个方法判断value字符串是否匹配pattern字符串。
-     *
+     * <p>
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode-cn.com/problems/pattern-matching-lcci
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     *
      * @param pattern
      * @param value
      * @return
@@ -847,11 +850,10 @@ public class AlgorithmTest {
         if (value.length() == 0) {
             boolean aExist = false;
             boolean bExist = false;
-            for (char c: pChars) {
+            for (char c : pChars) {
                 if (c == 'a') {
                     aExist = true;
-                }
-                else {
+                } else {
                     bExist = true;
                 }
                 if (aExist && bExist) {
@@ -863,12 +865,11 @@ public class AlgorithmTest {
         // 计算pattern里a和b的个数
         int countA = 0;
         int countB = 0;
-        for (char c: pChars) {
+        for (char c : pChars) {
             if (c == 'a') {
-                countA ++;
-            }
-            else {
-                countB ++;
+                countA++;
+            } else {
+                countB++;
             }
         }
         int lenV = vChars.length;
@@ -877,8 +878,7 @@ public class AlgorithmTest {
             int count = countA + countB;
             if (lenV % count != 0) {
                 return false;
-            }
-            else {
+            } else {
                 int len = lenV / count;
                 for (int i = len; i < lenV; i += len) {
                     if (!stringEquals(vChars, 0, i, len)) {
@@ -889,7 +889,7 @@ public class AlgorithmTest {
             }
         }
         // i代表a字符串的长度
-        for (int i = 0; i <= lenV; i ++) {
+        for (int i = 0; i <= lenV; i++) {
             // a字符串过长就break
             if (lenV - countA * i < 0) {
                 break;
@@ -903,12 +903,11 @@ public class AlgorithmTest {
                 ab[0] = -1;
                 ab[1] = -1;
                 boolean notMatch = false;
-                for (char c: pChars) {
+                for (char c : pChars) {
                     if (c == 'a') {
                         if (ab[0] == -1) {
                             ab[0] = index;
-                        }
-                        else {
+                        } else {
                             // 每次为a都和初始的字符串比较
                             if (!stringEquals(vChars, ab[0], index, i)) {
                                 notMatch = true;
@@ -916,12 +915,10 @@ public class AlgorithmTest {
                             }
                         }
                         index += i;
-                    }
-                    else {
+                    } else {
                         if (ab[1] == -1) {
                             ab[1] = index;
-                        }
-                        else {
+                        } else {
                             if (!stringEquals(vChars, ab[1], index, lenB)) {
                                 notMatch = true;
                                 break;
@@ -950,12 +947,56 @@ public class AlgorithmTest {
 
     // 判断字符串是否相等
     private boolean stringEquals(char[] chars, int i, int j, int len) {
-        for (int k = 0; k < len; k ++) {
-            if (chars[i+k] != chars[j+k]) {
+        for (int k = 0; k < len; k++) {
+            if (chars[i + k] != chars[j + k]) {
                 return false;
             }
         }
         return true;
+    }
+
+
+    /**
+     * 题目：
+     * 给你两个二进制字符串，返回它们的和（用二进制表示）。
+     * <p>
+     * 输入为 非空 字符串且只包含数字 1 和 0。
+     * <p>
+     * 解题方案
+     * 思路
+     * <p>
+     * 整体思路是将两个字符串较短的用 000 补齐，使得两个字符串长度一致，然后从末尾进行遍历计算，得到最终结果。
+     * <p>
+     * 本题解中大致思路与上述一致，但由于字符串操作原因，不确定最后的结果是否会多出一位进位，所以会有 2 种处理方式：
+     * <p>
+     * 第一种，在进行计算时直接拼接字符串，会得到一个反向字符，需要最后再进行翻转
+     * 第二种，按照位置给结果字符赋值，最后如果有进位，则在前方进行字符串拼接添加进位
+     * <p>
+     * 时间复杂度：O(n)
+     */
+    public String addBinary(String a, String b) {
+        StringBuilder ans = new StringBuilder();
+        int ca = 0;
+        for (int i = a.length() - 1, j = b.length() - 1; i >= 0 || j >= 0; i--, j--) {
+            int sum = ca;
+            sum += i >= 0 ? a.charAt(i) - '0' : 0;
+            sum += j >= 0 ? b.charAt(j) - '0' : 0;
+            ans.append(sum % 2);
+            ca = sum / 2;
+        }
+        ans.append(ca == 1 ? ca : "");
+        return ans.reverse().toString();
+    }
+
+
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        if (nums1.length == 0 || nums2.length == 0) {
+            return;
+        }
+        //nums1的最大值小于numbs2的最小值
+        if (nums1[m - 1] <= nums2[0]) {
+
+        }
     }
 
 }
