@@ -1134,8 +1134,25 @@ public class AlgorithmTest {
         System.arraycopy(nums2, 0, nums1, 0, p2 + 1);
     }
 
+
+    /**
+     * 这种解法不对  可能一个升序一个降序
+     * @param nums1
+     * @param m
+     * @param nums2
+     * @param n
+     */
     public void merge4(int[] nums1, int m, int[] nums2, int n) {
-        if (m <= 0 || n <= 0) {
+        if (m <= 0 && n <= 0) {
+            return;
+        }
+        if (m == 0 && n != 0) {
+            for (int i = 0; i < n; i++) {
+                nums1[i] = nums2[i];
+            }
+            return;
+        }
+        if (m != 0 && n == 0) {
             return;
         }
         //nums1的最大值小于numbs2的最小值
@@ -1147,8 +1164,8 @@ public class AlgorithmTest {
         }
         if (nums2[n - 1] <= nums1[0]) {
             //先移动nums1里面的元素
-            for (int i = m - 1; i < m; i--) {
-                nums1[n + i] = nums1[i];
+            for (int i = m - 1; i >= 0; i--) {
+                nums1[m + n - 1 - i] = nums1[i];
             }
             for (int i = 0; i < n; i++) {
                 nums1[i] = nums2[i];
