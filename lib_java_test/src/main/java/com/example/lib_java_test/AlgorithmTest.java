@@ -41,6 +41,9 @@ public class AlgorithmTest {
         list.add("leet");
         list.add("code");
         System.out.println(wordBreak("leetcode", list));
+
+
+        System.out.println(search(new int[]{2, 3, 4, 6, 7, 8, 9, 10}, 5));
     }
 
 
@@ -1410,9 +1413,9 @@ public class AlgorithmTest {
         ListNode result = head;
         ListNode pre = null;
         while (head != null) {
-            if (set.add(head.val)){
+            if (set.add(head.val)) {
                 pre = head;
-            }else{
+            } else {
                 ListNode next = head.next;
                 pre.next = next;
                 head = next;
@@ -1420,6 +1423,55 @@ public class AlgorithmTest {
         }
         return result;
 
+    }
+
+    /**
+     * 二分查找
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int search(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left != right) {
+            int middle = (left + right) / 2;
+            if (nums[middle] > target) {
+                right = middle;
+            } else if (nums[middle] < target) {
+                left = middle;
+            } else {
+                return middle;
+            }
+        }
+        return 0;
+    }
+
+    public int search2(int[] nums, int target) {
+        int pivot, left = 0, right = nums.length - 1;
+        while (left <= right) {
+            pivot = left + (right - left) / 2;
+            if (nums[pivot] == target) return pivot;
+            if (target < nums[pivot]) right = pivot - 1;
+            else left = pivot + 1;
+        }
+        return -1;
+    }
+
+
+    /**
+     * 给定由一些正数（代表长度）组成的数组 A，返回由其中三个长度组成的、面积不为零的三角形的最大周长。
+     *
+     * 如果不能形成任何面积不为零的三角形，返回 0。
+     * @param A
+     * @return
+     */
+    public int largestPerimeter(int[] A) {
+        Arrays.sort(A);
+        for (int i = A.length - 3; i >= 0; --i)
+            if (A[i] + A[i+1] > A[i+2])
+                return A[i] + A[i+1] + A[i+2];
+        return 0;
     }
 
 }
