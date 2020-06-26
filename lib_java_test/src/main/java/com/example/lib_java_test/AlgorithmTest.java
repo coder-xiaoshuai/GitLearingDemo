@@ -2,8 +2,10 @@ package com.example.lib_java_test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -34,7 +36,11 @@ public class AlgorithmTest {
 //        node2.next = node3;
 //        node3.next = node4;
 //        reverseList2(node1);
-        System.out.println(countPrimes(10));
+//        System.out.println(countPrimes(10));
+        List<String> list = new ArrayList<>();
+        list.add("leet");
+        list.add("code");
+        System.out.println(wordBreak("leetcode", list));
     }
 
 
@@ -1251,5 +1257,169 @@ public class AlgorithmTest {
         return nums.length;
     }
 
+    /**
+     * 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。
+     *
+     * @param s
+     * @param wordDict
+     * @return
+     */
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        if (s == null || s.length() == 0 || wordDict == null || wordDict.size() == 0) {
+            return false;
+        }
+        int size = wordDict.size();
+        boolean flag = false;
+        out:
+        while (s.length() != 0) {
+            for (int i = 0; i < size; i++) {
+                if (s.length() == 0) {
+                    break;
+                }
+                if (s.contains(wordDict.get(i))) {
+                    flag = true;
+                    s = s.substring(0, s.indexOf(wordDict.get(i))) + s.substring(s.indexOf(wordDict.get(i)) + wordDict.get(i).length());
+                } else {
+                    flag = false;
+                    break out;
+                }
+            }
+        }
+        return flag;
+    }
+
+
+    /**
+     * 两数之和
+     * 方法一：暴力法
+     * <p>
+     * 暴力法很简单，遍历每个元素 xxx，并查找是否存在一个值与 target−xtarget - xtarget−x 相等的目标元素。
+     */
+
+    public int[] twoSum1(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] == target - nums[i]) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+
+    /**
+     * 方法二：两遍哈希表
+     * <p>
+     * 为了对运行时间复杂度进行优化，我们需要一种更有效的方法来检查数组中是否存在目标元素。如果存在，我们需要找出它的索引。保持数组中的每个元素与其索引相互对应的最好方法是什么？哈希表。
+     * <p>
+     * 通过以空间换取速度的方式，我们可以将查找时间从 O(n)O(n)O(n) 降低到 O(1)O(1)O(1)。哈希表正是为此目的而构建的，它支持以 近似 恒定的时间进行快速查找。我用“近似”来描述，是因为一旦出现冲突，查找用时可能会退化到 O(n)O(n)O(n)。但只要你仔细地挑选哈希函数，在哈希表中进行查找的用时应当被摊销为 O(1)O(1)O(1)。
+     * <p>
+     * 一个简单的实现使用了两次迭代。在第一次迭代中，我们将每个元素的值和它的索引添加到表中。然后，在第二次迭代中，我们将检查每个元素所对应的目标元素（target−nums[i]target - nums[i]target−nums[i]）是否存在于表中。注意，该目标元素不能是 nums[i]nums[i]nums[i] 本身！
+     * <p>
+     * 作者：LeetCode
+     * 链接：https://leetcode-cn.com/problems/two-sum/solution/liang-shu-zhi-he-by-leetcode-2/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSum2(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement) && map.get(complement) != i) {
+                return new int[]{i, map.get(complement)};
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+
+
+    public int[] twoSum3(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement) && map.get(complement) != i) {
+                return new int[]{i, map.get(complement)};
+            }
+            map.put(nums[i], i);
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+
+
+    /**
+     * 解题方案
+     * 思路
+     * <p>
+     * 标签：数组遍历
+     * 首先对数组进行排序，排序后固定一个数 nums[i]nums[i]nums[i]，再使用左右指针指向 nums[i]nums[i]nums[i]后面的两端，数字分别为 nums[L]nums[L]nums[L] 和 nums[R]nums[R]nums[R]，
+     * 计算三个数的和 sumsumsum 判断是否满足为 000，满足则添加进结果集
+     * 如果 nums[i]nums[i]nums[i]大于 000，则三数之和必然无法等于 000，结束循环
+     * 如果 nums[i]nums[i]nums[i] == nums[i−1]nums[i-1]nums[i−1]，则说明该数字重复，会导致结果重复，所以应该跳过
+     * 当 sumsumsum == 000 时，nums[L]nums[L]nums[L] == nums[L+1]nums[L+1]nums[L+1] 则会导致结果重复，应该跳过，L++L++L++
+     * 当 sumsumsum == 000 时，nums[R]nums[R]nums[R] == nums[R−1]nums[R-1]nums[R−1] 则会导致结果重复，应该跳过，R−−R--R−−
+     * 时间复杂度：O(n2)O(n^2)O(n2)，nnn 为数组长度
+     * <p>
+     * 作者：guanpengchn
+     * 链接：https://leetcode-cn.com/problems/3sum/solution/hua-jie-suan-fa-15-san-shu-zhi-he-by-guanpengchn/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     * @param nums
+     * @return
+     */
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ans = new ArrayList();
+        int len = nums.length;
+        if (nums == null || len < 3) return ans;
+        Arrays.sort(nums); // 排序
+        for (int i = 0; i < len; i++) {
+            if (nums[i] > 0) break; // 如果当前数字大于0，则三数之和一定大于0，所以结束循环
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // 去重
+            int L = i + 1;
+            int R = len - 1;
+            while (L < R) {
+                int sum = nums[i] + nums[L] + nums[R];
+                if (sum == 0) {
+                    ans.add(Arrays.asList(nums[i], nums[L], nums[R]));
+                    while (L < R && nums[L] == nums[L + 1]) L++; // 去重
+                    while (L < R && nums[R] == nums[R - 1]) R--; // 去重
+                    L++;
+                    R--;
+                } else if (sum < 0) L++;
+                else if (sum > 0) R--;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。
+     *
+     * @param head
+     * @return
+     */
+    public ListNode removeDuplicateNodes(ListNode head) {
+        Set<Integer> set = new HashSet<>();
+        ListNode result = head;
+        ListNode pre = null;
+        while (head != null) {
+            if (set.add(head.val)){
+                pre = head;
+            }else{
+                ListNode next = head.next;
+                pre.next = next;
+                head = next;
+            }
+        }
+        return result;
+
+    }
 
 }
