@@ -1,9 +1,11 @@
 package com.example.lib_java_test;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1427,6 +1429,7 @@ public class AlgorithmTest {
 
     /**
      * 二分查找
+     *
      * @param nums
      * @param target
      * @return
@@ -1461,17 +1464,215 @@ public class AlgorithmTest {
 
     /**
      * 给定由一些正数（代表长度）组成的数组 A，返回由其中三个长度组成的、面积不为零的三角形的最大周长。
-     *
+     * <p>
      * 如果不能形成任何面积不为零的三角形，返回 0。
+     *
      * @param A
      * @return
      */
     public int largestPerimeter(int[] A) {
         Arrays.sort(A);
         for (int i = A.length - 3; i >= 0; --i)
-            if (A[i] + A[i+1] > A[i+2])
-                return A[i] + A[i+1] + A[i+2];
+            if (A[i] + A[i + 1] > A[i + 2])
+                return A[i] + A[i + 1] + A[i + 2];
         return 0;
+    }
+
+
+    /**
+     * 滑动窗口最大值 暴力法
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] maxSlidingWindow1(int[] nums, int k) {
+        int n = nums.length;
+        if (n * k == 0) {
+            return new int[0];
+        }
+        int[] output = new int[n - k + 1];
+        for (int i = 0; i < n - k + 1; i++) {
+            int max = Integer.MAX_VALUE;
+            for (int j = i; j < i + k; j++) {
+                max = Math.max(max, nums[j]);
+                output[i] = max;
+
+            }
+
+        }
+        return output;
+    }
+
+    ArrayDeque<Integer> deq = new ArrayDeque<>();
+    int[] nums;
+
+    public void clean_deque(int i, int k) {
+        if (!deq.isEmpty() && deq.getFirst() == i - k) {
+            deq.removeFirst();
+        }
+        while (!deq.isEmpty() && nums[i] > nums[deq.getLast()])
+            deq.removeLast();
+    }
+
+    /**
+     * 如何优化时间复杂度呢？首先想到的是使用堆，因为在最大堆中 heap[0] 永远是最大的元素。在大小为 k 的堆中插入一个元素消耗 log⁡(k)\log(k)log(k) 时间，因此算法的时间复杂度为 O(Nlog⁡(k)){O}(N \log(k))O(Nlog(k))。
+     *
+     *     能否得到只要 O(N){O}(N)O(N) 的算法？
+     *
+     * 我们可以使用双向队列，该数据结构可以从两端以常数时间压入/弹出元素。
+     *
+     * 存储双向队列的索引比存储元素更方便，因为两者都能在数组解析中使用。
+     *
+     * 算法
+     *
+     * 算法非常直截了当：
+     *
+     *     处理前 k 个元素，初始化双向队列。
+     *
+     *     遍历整个数组。在每一步 :
+     *
+     *     清理双向队列 :
+     *
+     *       - 只保留当前滑动窗口中有的元素的索引。
+     *
+     *       - 移除比当前元素小的所有元素，它们不可能是最大的。
+     *
+     *     将当前元素添加到双向队列中。
+     *     将 deque[0] 添加到输出中。
+     *     返回输出数组。
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] maxSlidingWindow2(int[] nums, int k) {
+        int n = nums.length;
+        if (n * k == 0) {
+            return new int[0];
+        }
+        if (k == 1) {
+            return nums;
+        }
+        //int deque and output
+        this.nums = nums;
+        int max_idx = 0;
+        for (int i = 0; i < k; i++) {
+            clean_deque(i, k);
+            deq.addLast(i);
+            if (nums[i] > nums[max_idx]) {
+                max_idx = i;
+            }
+        }
+        int[] output = new int[n - k + 1];
+        output[0] = nums[max_idx];
+        //build output
+        for (int i = k; i < n; i++) {
+            clean_deque(i, k);
+            deq.addLast(i);
+            output[i - k + 1] = nums[deq.getFirst()];
+        }
+        return output;
+    }
+
+
+    /***
+     * 直觉
+     *
+     * 这是另一个 O(N){O}(N)O(N) 的算法。本算法的优点是不需要使用 数组 / 列表 之外的任何数据结构。
+     *
+     * 算法的思想是将输入数组分割成有 k 个元素的块。
+     * 若 n % k != 0，则最后一块的元素个数可能更少。
+     *
+     * image.png
+     *
+     * 开头元素为 i ，结尾元素为 j 的当前滑动窗口可能在一个块内，也可能在两个块中。
+     *
+     * image.png
+     *
+     * 情况 1 比较简单。 建立数组 left， 其中 left[j] 是从块的开始到下标 j 最大的元素，方向 左->右。
+     *
+     * image.png
+     *
+     * 为了处理更复杂的情况 2，我们需要数组 right，其中 right[j] 是从块的结尾到下标 j 最大的元素，方向 右->左。right 数组和 left 除了方向不同以外基本一致。
+     *
+     * image.png
+     *
+     * 两数组一起可以提供两个块内元素的全部信息。考虑从下标 i 到下标 j的滑动窗口。 根据定义，right[i] 是左侧块内的最大元素， left[j] 是右侧块内的最大元素。因此滑动窗口中的最大元素为 max(right[i], left[j])。
+     *
+     * image.png
+     *
+     * 算法
+     *
+     * 算法十分直截了当：
+     *
+     *     从左到右遍历数组，建立数组 left。
+     *
+     *     从右到左遍历数组，建立数组 right。
+     *
+     *     建立输出数组 max(right[i], left[i + k - 1])，其中 i 取值范围为 (0, n - k + 1)。
+     *
+     * 作者：LeetCode
+     * 链接：https://leetcode-cn.com/problems/sliding-window-maximum/solution/hua-dong-chuang-kou-zui-da-zhi-by-leetcode-3/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] maxSlidingWindow3(int[] nums, int k) {
+        int n = nums.length;
+        if (n * k == 0) return new int[0];
+        if (k == 1) return nums;
+
+        int [] left = new int[n];
+        left[0] = nums[0];
+        int [] right = new int[n];
+        right[n - 1] = nums[n - 1];
+        for (int i = 1; i < n; i++) {
+            // from left to right
+            if (i % k == 0) left[i] = nums[i];  // block_start
+            else left[i] = Math.max(left[i - 1], nums[i]);
+
+            // from right to left
+            int j = n - i - 1;
+            if ((j + 1) % k == 0) right[j] = nums[j];  // block_end
+            else right[j] = Math.max(right[j + 1], nums[j]);
+        }
+
+        int [] output = new int[n - k + 1];
+        for (int i = 0; i < n - k + 1; i++)
+            output[i] = Math.max(left[i + k - 1], right[i]);
+
+        return output;
+    }
+
+
+    /**
+     * 给你一个未排序的整数数组，请你找出其中没有出现的最小的正整数。
+     * @param nums
+     * @return
+     */
+    public int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] <= 0) {
+                nums[i] = n + 1;
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+            int num = Math.abs(nums[i]);
+            if (num <= n) {
+                nums[num - 1] = -Math.abs(nums[num - 1]);
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] > 0) {
+                return i + 1;
+            }
+        }
+        return n + 1;
     }
 
 }
