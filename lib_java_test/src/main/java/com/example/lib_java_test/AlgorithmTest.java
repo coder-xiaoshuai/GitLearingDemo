@@ -1517,30 +1517,30 @@ public class AlgorithmTest {
 
     /**
      * 如何优化时间复杂度呢？首先想到的是使用堆，因为在最大堆中 heap[0] 永远是最大的元素。在大小为 k 的堆中插入一个元素消耗 log⁡(k)\log(k)log(k) 时间，因此算法的时间复杂度为 O(Nlog⁡(k)){O}(N \log(k))O(Nlog(k))。
-     *
-     *     能否得到只要 O(N){O}(N)O(N) 的算法？
-     *
+     * <p>
+     * 能否得到只要 O(N){O}(N)O(N) 的算法？
+     * <p>
      * 我们可以使用双向队列，该数据结构可以从两端以常数时间压入/弹出元素。
-     *
+     * <p>
      * 存储双向队列的索引比存储元素更方便，因为两者都能在数组解析中使用。
-     *
+     * <p>
      * 算法
-     *
+     * <p>
      * 算法非常直截了当：
-     *
-     *     处理前 k 个元素，初始化双向队列。
-     *
-     *     遍历整个数组。在每一步 :
-     *
-     *     清理双向队列 :
-     *
-     *       - 只保留当前滑动窗口中有的元素的索引。
-     *
-     *       - 移除比当前元素小的所有元素，它们不可能是最大的。
-     *
-     *     将当前元素添加到双向队列中。
-     *     将 deque[0] 添加到输出中。
-     *     返回输出数组。
+     * <p>
+     * 处理前 k 个元素，初始化双向队列。
+     * <p>
+     * 遍历整个数组。在每一步 :
+     * <p>
+     * 清理双向队列 :
+     * <p>
+     * - 只保留当前滑动窗口中有的元素的索引。
+     * <p>
+     * - 移除比当前元素小的所有元素，它们不可能是最大的。
+     * <p>
+     * 将当前元素添加到双向队列中。
+     * 将 deque[0] 添加到输出中。
+     * 返回输出数组。
      *
      * @param nums
      * @param k
@@ -1626,9 +1626,9 @@ public class AlgorithmTest {
         if (n * k == 0) return new int[0];
         if (k == 1) return nums;
 
-        int [] left = new int[n];
+        int[] left = new int[n];
         left[0] = nums[0];
-        int [] right = new int[n];
+        int[] right = new int[n];
         right[n - 1] = nums[n - 1];
         for (int i = 1; i < n; i++) {
             // from left to right
@@ -1641,7 +1641,7 @@ public class AlgorithmTest {
             else right[j] = Math.max(right[j + 1], nums[j]);
         }
 
-        int [] output = new int[n - k + 1];
+        int[] output = new int[n - k + 1];
         for (int i = 0; i < n - k + 1; i++)
             output[i] = Math.max(left[i + k - 1], right[i]);
 
@@ -1651,6 +1651,7 @@ public class AlgorithmTest {
 
     /**
      * 给你一个未排序的整数数组，请你找出其中没有出现的最小的正整数。
+     *
      * @param nums
      * @return
      */
@@ -1674,5 +1675,142 @@ public class AlgorithmTest {
         }
         return n + 1;
     }
+
+    /**
+     * 给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组，并返回其长度。如果不存在符合条件的连续子数组，返回 0。
+     * <p>
+     * <p>
+     * <p>
+     * 示例：
+     * <p>
+     * 输入：s = 7, nums = [2,3,1,2,4,3]
+     * 输出：2
+     * 解释：子数组 [4,3] 是该条件下的长度最小的连续子数组。
+     * <p>
+     * <p>
+     * <p>
+     * 进阶：
+     * <p>
+     * 如果你已经完成了 O(n) 时间复杂度的解法, 请尝试 O(n log n) 时间复杂度的解法。
+     * <p>
+     * 方法一：暴力法
+     * <p>
+     * 暴力法是最直观的方法。初始化子数组的最小长度为无穷大，枚举数组 nums\text{nums}nums 中的每个下标作为子数组的开始下标，对于每个开始下标 iii，需要找到大于或等于 iii 的最小下标 jjj，使得从 nums[i]\text{nums}[i]nums[i] 到 nums[j]\text{nums}[j]nums[j] 的元素和大于或等于 sss，并更新子数组的最小长度（此时子数组的长度是 j−i+1j-i+1j−i+1）。
+     * <p>
+     * 注意：使用 Python 语言实现方法一会超出时间限制。
+     *
+     * @param s
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen(int s, int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) {
+                sum += nums[j];
+                if (sum >= s) {
+                    ans = Math.min(ans, j - i + 1);
+                    break;
+                }
+            }
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+
+
+    /**
+     * 方法二：前缀和 + 二分查找
+     * <p>
+     * 方法一的时间复杂度是 O(n2)O(n^2)O(n2)，因为在确定每个子数组的开始下标后，找到长度最小的子数组需要 O(n)O(n)O(n) 的时间。如果使用二分查找，则可以将时间优化到 O(log⁡n)O(\log n)O(logn)。
+     * <p>
+     * 为了使用二分查找，需要额外创建一个数组 sums\text{sums}sums 用于存储数组 nums\text{nums}nums 的前缀和，其中 sums[i]\text{sums}[i]sums[i] 表示从 nums[0]\text{nums}[0]nums[0] 到 nums[i−1]\text{nums}[i-1]nums[i−1] 的元素和。得到前缀和之后，对于每个开始下标 iii，可通过二分查找得到大于或等于 iii 的最小下标 bound\textit{bound}bound，使得 sums[bound]−sums[i−1]≥s\text{sums}[\textit{bound}]-\text{sums}[i-1] \ge ssums[bound]−sums[i−1]≥s，并更新子数组的最小长度（此时子数组的长度是 bound−(i−1)\textit{bound}-(i-1)bound−(i−1)）。
+     * <p>
+     * 因为这道题保证了数组中每个元素都为正，所以前缀和一定是递增的，这一点保证了二分的正确性。如果题目没有说明数组中每个元素都为正，这里就不能使用二分来查找这个位置了。
+     * <p>
+     * 在很多语言中，都有现成的库和函数来为我们实现这里二分查找大于等于某个数的第一个位置的功能，比如 C++ 的 lower_bound，Java 中的 Arrays.binarySearch，C# 中的 Array.BinarySearch，Python 中的 bisect.bisect_left。但是有时面试官可能会让我们自己实现一个这样的二分查找函数，这里给出一个 C# 的版本，供读者参考：
+     * <p>
+     * 作者：LeetCode-Solution
+     * 链接：https://leetcode-cn.com/problems/minimum-size-subarray-sum/solution/chang-du-zui-xiao-de-zi-shu-zu-by-leetcode-solutio/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     * @param s
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen2(int s, int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int ans = Integer.MAX_VALUE;
+        int[] sums = new int[n + 1];
+        // 为了方便计算，令 size = n + 1
+        // sums[0] = 0 意味着前 0 个元素的前缀和为 0
+        // sums[1] = A[0] 前 1 个元素的前缀和为 A[0]
+        // 以此类推
+        for (int i = 1; i <= n; i++) {
+            sums[i] = sums[i - 1] + nums[i - 1];
+        }
+        for (int i = 1; i <= n; i++) {
+            int target = s + sums[i - 1];
+            int bound = Arrays.binarySearch(sums, target);
+            if (bound < 0) {
+                bound = -bound - 1;
+            }
+            if (bound <= n) {
+                ans = Math.min(ans, bound - (i - 1));
+            }
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+
+    /**
+     * 方法三：双指针
+     * <p>
+     * 在方法一和方法二中，都是每次确定子数组的开始下标，然后得到长度最小的子数组，因此时间复杂度较高。为了降低时间复杂度，可以使用双指针的方法。
+     * <p>
+     * 定义两个指针 start\textit{start}start 和 end\textit{end}end 分别表示子数组的开始位置和结束位置，维护变量 sum\textit{sum}sum 存储子数组中的元素和（即从 nums[start]\text{nums}[\textit{start}]nums[start] 到 nums[end]\text{nums}[\textit{end}]nums[end] 的元素和）。
+     * <p>
+     * 初始状态下，start\textit{start}start 和 end\textit{end}end 都指向下标 000，sum\textit{sum}sum 的值为 000。
+     * <p>
+     * 每一轮迭代，将 nums[end]\text{nums}[end]nums[end] 加到 sum\textit{sum}sum，如果 sum≥s\textit{sum} \ge ssum≥s，则更新子数组的最小长度（此时子数组的长度是 end−start+1\textit{end}-\textit{start}+1end−start+1），然后将 nums[start]\text{nums}[start]nums[start] 从 sum\textit{sum}sum 中减去并将 start\textit{start}start 右移，直到 sum<s\textit{sum} < ssum<s，在此过程中同样更新子数组的最小长度。在每一轮迭代的最后，将 end\textit{end}end 右移。
+     * <p>
+     * <p>
+     * <p>
+     * 作者：LeetCode-Solution
+     * 链接：https://leetcode-cn.com/problems/minimum-size-subarray-sum/solution/chang-du-zui-xiao-de-zi-shu-zu-by-leetcode-solutio/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     * @param s
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen3(int s, int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int ans = Integer.MAX_VALUE;
+        int start = 0, end = 0;
+        int sum = 0;
+        while (end < n) {
+            sum += nums[end];
+            while (sum >= s) {
+                ans = Math.min(ans, end - start + 1);
+                sum -= nums[start];
+                start++;
+            }
+            end++;
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+
 
 }
