@@ -123,6 +123,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_final_test.setOnClickListener {
+            val intent = Intent(MainActivity@ this, FinalTestActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun nullTest(string: String) {

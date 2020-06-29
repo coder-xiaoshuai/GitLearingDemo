@@ -175,6 +175,13 @@
                 android:layout_height="wrap_content"
                 android:text="presenter test"
                 />
+
+            <Button
+                android:id="@+id/btn_final_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="presenter test"
+                />
         </LinearLayout>
 
     </ScrollView>
