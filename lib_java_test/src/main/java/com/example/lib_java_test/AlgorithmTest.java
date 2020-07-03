@@ -1819,8 +1819,8 @@ public class AlgorithmTest {
     Random random = new Random();
 
     /**
+     * 在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
      *
-     在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
      * @param nums
      * @param k
      * @return
@@ -1877,17 +1877,18 @@ public class AlgorithmTest {
 
     /**
      * 思路及算法
-     *
+     * <p>
      * 由题目给出的性质可知，这个矩阵的每一行均为一个有序数组。问题即转化为从这 nnn 个有序数组中找第 kkk 大的数，可以想到利用归并排序的做法，归并到第 kkk 个数即可停止。
-     *
+     * <p>
      * 一般归并排序是两个数组归并，而本题是 nnn 个数组归并，所以需要用小根堆维护，以优化时间复杂度。
-     *
+     * <p>
      * 具体如何归并，可以参考力扣 23. 合并K个排序链表。
-     *
+     * <p>
      * 作者：LeetCode-Solution
      * 链接：https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/solution/you-xu-ju-zhen-zhong-di-kxiao-de-yuan-su-by-leetco/
      * 来源：力扣（LeetCode）
      * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
      * @param matrix
      * @param k
      * @return
@@ -1912,55 +1913,54 @@ public class AlgorithmTest {
     }
 
     /**
-     *
-     *
      * 思路及算法
-     *
+     * <p>
      * 由题目给出的性质可知，这个矩阵内的元素是从左上到右下递增的（假设矩阵左上角为 matrix[0][0]matrix[0][0]matrix[0][0]）。以下图为例：
-     *
+     * <p>
      * fig1
-     *
+     * <p>
      * 我们知道整个二维数组中 matrix[0][0]matrix[0][0]matrix[0][0] 为最小值，matrix[n−1][n−1]matrix[n - 1][n - 1]matrix[n−1][n−1] 为最大值，现在我们将其分别记作 lll 和 rrr。
-     *
+     * <p>
      * 可以发现一个性质：任取一个数 midmidmid 满足 l≤mid≤rl\leq mid \leq rl≤mid≤r，那么矩阵中不大于 midmidmid 的数，肯定全部分布在矩阵的左上角。
-     *
+     * <p>
      * 例如下图，取 mid=8mid=8mid=8：
-     *
+     * <p>
      * fig2
-     *
+     * <p>
      * 我们可以看到，矩阵中大于 midmidmid 的数就和不大于 midmidmid 的数分别形成了两个板块，沿着一条锯齿线将这个矩形分开。其中左上角板块的大小即为矩阵中不大于 midmidmid 的数的数量。
-     *
+     * <p>
      * 读者也可以自己取一些 midmidmid 值，通过画图以加深理解。
-     *
+     * <p>
      * 我们只要沿着这条锯齿线走一遍即可计算出这两个板块的大小，也自然就统计出了这个矩阵中不大于 midmidmid 的数的个数了。
-     *
+     * <p>
      * 走法演示如下，依然取 mid=8mid=8mid=8：
-     *
+     * <p>
      * fig3
-     *
+     * <p>
      * 可以这样描述走法：
-     *
-     *     初始位置在 matrix[n−1][0]matrix[n - 1][0]matrix[n−1][0]（即左下角）；
-     *
-     *     设当前位置为 matrix[i][j]matrix[i][j]matrix[i][j]。若 matrix[i][j]≤midmatrix[i][j] \leq midmatrix[i][j]≤mid，则将当前所在列的不大于 midmidmid 的数的数量（即 i+1i + 1i+1）累加到答案中，并向右移动，否则向上移动；
-     *
-     *     不断移动直到走出格子为止。
-     *
+     * <p>
+     * 初始位置在 matrix[n−1][0]matrix[n - 1][0]matrix[n−1][0]（即左下角）；
+     * <p>
+     * 设当前位置为 matrix[i][j]matrix[i][j]matrix[i][j]。若 matrix[i][j]≤midmatrix[i][j] \leq midmatrix[i][j]≤mid，则将当前所在列的不大于 midmidmid 的数的数量（即 i+1i + 1i+1）累加到答案中，并向右移动，否则向上移动；
+     * <p>
+     * 不断移动直到走出格子为止。
+     * <p>
      * 我们发现这样的走法时间复杂度为 O(n)O(n)O(n)，即我们可以线性计算对于任意一个 midmidmid，矩阵中有多少数不大于它。这满足了二分查找的性质。
-     *
+     * <p>
      * 不妨假设答案为 xxx，那么可以知道 l≤x≤rl\leq x\leq rl≤x≤r，这样就确定了二分查找的上下界。
-     *
+     * <p>
      * 每次对于「猜测」的答案 midmidmid，计算矩阵中有多少数不大于 midmidmid ：
-     *
-     *     如果数量不少于 kkk，那么说明最终答案 xxx 不大于 midmidmid；
-     *     如果数量少于 kkk，那么说明最终答案 xxx 大于 midmidmid。
-     *
+     * <p>
+     * 如果数量不少于 kkk，那么说明最终答案 xxx 不大于 midmidmid；
+     * 如果数量少于 kkk，那么说明最终答案 xxx 大于 midmidmid。
+     * <p>
      * 这样我们就可以计算出最终的结果 xxx 了。
-     *
+     * <p>
      * 作者：LeetCode-Solution
      * 链接：https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/solution/you-xu-ju-zhen-zhong-di-kxiao-de-yuan-su-by-leetco/
      * 来源：力扣（LeetCode）
      * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
      * @param matrix
      * @param k
      * @return
@@ -1994,5 +1994,73 @@ public class AlgorithmTest {
         }
         return num >= k;
     }
+
+//    public class TreeNode{
+//        int val;
+//        private TreeNode left;
+//        private TreeNode right;
+//
+//        public TreeNode(int val) {
+//            this.val = val;
+//        }
+//    }
+
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return null;
+    }
+
+    /**
+     * 中序遍历，总是选择中间位置左边的数字作为根节点
+     * 选择中间位置左边的数字作为根节点，则根节点的下标为 \textit{mid}=(\textit{left}+\textit{right})/2mid=(left+right)/2，此处的除法为整数除法。
+     * <p>
+     * 作者：LeetCode-Solution
+     * 链接：https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/solution/jiang-you-xu-shu-zu-zhuan-huan-wei-er-cha-sou-s-33/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     * @param nums
+     * @param left
+     * @param right
+     * @return
+     */
+    public TreeNode helper1(int[] nums, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+        int middle = (left + right) / 2;
+        TreeNode root = new TreeNode(nums[middle]);
+        root.left = helper1(nums, left, middle - 1);
+        root.right = helper1(nums, middle + 1, right);
+        return root;
+    }
+
+    public TreeNode helper2(int[] nums, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+        // 总是选择中间位置右边的数字作为根节点
+        int mid = (left + right + 1) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = helper2(nums, left, mid - 1);
+        root.right = helper2(nums, mid + 1, right);
+        return root;
+    }
+
+    private Random random3 = new Random();
+
+    public TreeNode helper3(int[] nums, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+
+        // 选择任意一个中间位置数字作为根节点
+        int mid = (left + right + random3.nextInt(2)) / 2;
+
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = helper3(nums, left, mid - 1);
+        root.right = helper3(nums, mid + 1, right);
+        return root;
+    }
+
 
 }
