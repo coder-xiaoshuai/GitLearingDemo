@@ -53,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.test:rules:1.3.0-rc01'
     def dependencies = rootProject.ext.dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -67,6 +68,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:' + rootProject.ext.runnerVersion
     androidTestImplementation 'androidx.test.espresso:espresso-core:' + rootProject.ext.espressoVersion
     androidTestImplementation 'androidx.test.espresso:espresso-accessibility:' + rootProject.ext.espressoVersion
+//    androidTestImplementation 'androidx.test:rules:'+ rootProject.ext.espressoVersion
+    androidTestImplementation 'androidx.test:rules:1.3.0-rc01'
 
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -103,7 +106,7 @@ dependencies {
     // Required -- JUnit 4 framework
 //    testImplementation 'junit:junit:4.12'
     // Optional -- Mockito framework（可选，用于模拟一些依赖对象，以达到隔离依赖的效果）
-    testImplementation 'org.mockito:mockito-core:2.19.0'
+//    testImplementation 'org.mockito:mockito-core:2.19.0'
 }
 sonarqube {
     properties {
