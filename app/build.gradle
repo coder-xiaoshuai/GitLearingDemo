@@ -69,7 +69,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:' + rootProject.ext.espressoVersion
     androidTestImplementation 'androidx.test.espresso:espresso-accessibility:' + rootProject.ext.espressoVersion
 //    androidTestImplementation 'androidx.test:rules:'+ rootProject.ext.espressoVersion
-    androidTestImplementation 'androidx.test:rules:1.3.0-rc01'
+//    androidTestImplementation 'androidx.test:rules:1.3.0-rc01'
 
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

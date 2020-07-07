@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
@@ -2062,5 +2063,73 @@ public class AlgorithmTest {
         return root;
     }
 
+    /**
+     * 广度优先
+     * <p>
+     * 作者：LeetCode-Solution
+     * 链接：https://leetcode-cn.com/problems/path-sum/solution/lu-jing-zong-he-by-leetcode-solution/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     * @param root
+     * @param sum
+     * @return
+     */
+
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+        Queue<TreeNode> queNode = new LinkedList<>();
+        Queue<Integer> queVal = new LinkedList<>();
+        queNode.offer(root);
+        queVal.offer(root.val);
+        while (!queNode.isEmpty()) {
+            TreeNode now = queNode.poll();
+            int temp = queVal.poll();
+            if (now.left == null && now.right == null) {
+                if (temp == sum) {
+                    return true;
+                }
+                continue;
+            }
+            if (now.left != null) {
+                queNode.offer(now.left);
+                queVal.offer(now.left.val + temp);
+            }
+            if (now.right != null) {
+                queNode.offer(now.right);
+                queVal.offer(now.right.val + temp);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 思路及算法
+     *
+     * 观察要求我们完成的函数，我们可以归纳出它的功能：询问是否存在从当前节点 root 到叶子节点的路径，满足其路径和为 sum。
+     *
+     * 假定从根节点到当前节点的值之和为 val，我们可以将这个大问题转化为一个小问题：是否存在从当前节点的子节点到叶子的路径，满足其路径和为 sum - val。
+     *
+     * 不难发现这满足递归的性质，若当前节点就是叶子节点，那么我们直接判断 sum 是否等于 val 即可（因为路径和已经确定，就是当前节点的值，我们只需要判断该路径和是否满足条件）。若当前节点不是叶子节点，我们只需要递归地询问它的子节点是否能满足条件即可。
+     *
+     * 作者：LeetCode-Solution
+     * 链接：https://leetcode-cn.com/problems/path-sum/solution/lu-jing-zong-he-by-leetcode-solution/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     * @param root
+     * @param sum
+     * @return
+     */
+    public boolean hasPathSum2(TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+        if (root.left == null && root.right == null) {
+            return sum == root.val;
+        }
+        return hasPathSum2(root.left, sum - root.val) || hasPathSum2(root.right, sum - root.val);
+    }
 
 }

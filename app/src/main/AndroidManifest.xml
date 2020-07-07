@@ -67,6 +67,8 @@
 
         <activity android:name="com.example.zhangshuai.activity.FinalTestActivity" />
 
+        <activity android:name="com.example.zhangshuai.activity.HelloWorldActivity" />
+
     </application>
 
 </manifest>
