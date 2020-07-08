@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -27,9 +28,24 @@ public class RvActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rv);
+
+        findViewById(R.id.btn_title).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(RvActivity.this, "你点击了标题", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         mRecyclerView = findViewById(R.id.recyclerview);
         initData();
         MyAdapter myAdapter = new MyAdapter(R.layout.item_rv_text, mDatas);
+        myAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(RvActivity.this, "你点击了第" + (position + 1) + "个item", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(myAdapter);
 
@@ -40,7 +56,7 @@ public class RvActivity extends AppCompatActivity {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
                     Log.e("zs", "最后一个可见的position" + linearLayoutManager.findLastVisibleItemPosition() + "header="
-                        + myAdapter.getHeaderLayoutCount() + ",footer" + myAdapter.getFooterLayoutCount());
+                            + myAdapter.getHeaderLayoutCount() + ",footer" + myAdapter.getFooterLayoutCount());
                 }
             }
         });

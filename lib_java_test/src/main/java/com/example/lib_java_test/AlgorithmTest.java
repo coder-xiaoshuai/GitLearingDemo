@@ -2107,17 +2107,18 @@ public class AlgorithmTest {
 
     /**
      * 思路及算法
-     *
+     * <p>
      * 观察要求我们完成的函数，我们可以归纳出它的功能：询问是否存在从当前节点 root 到叶子节点的路径，满足其路径和为 sum。
-     *
+     * <p>
      * 假定从根节点到当前节点的值之和为 val，我们可以将这个大问题转化为一个小问题：是否存在从当前节点的子节点到叶子的路径，满足其路径和为 sum - val。
-     *
+     * <p>
      * 不难发现这满足递归的性质，若当前节点就是叶子节点，那么我们直接判断 sum 是否等于 val 即可（因为路径和已经确定，就是当前节点的值，我们只需要判断该路径和是否满足条件）。若当前节点不是叶子节点，我们只需要递归地询问它的子节点是否能满足条件即可。
-     *
+     * <p>
      * 作者：LeetCode-Solution
      * 链接：https://leetcode-cn.com/problems/path-sum/solution/lu-jing-zong-he-by-leetcode-solution/
      * 来源：力扣（LeetCode）
      * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
      * @param root
      * @param sum
      * @return
@@ -2130,6 +2131,21 @@ public class AlgorithmTest {
             return sum == root.val;
         }
         return hasPathSum2(root.left, sum - root.val) || hasPathSum2(root.right, sum - root.val);
+    }
+
+    public int[] divingBoard(int shorter, int longer, int k) {
+        if (k < 2) {
+            return new int[0];
+        }
+        if (shorter == longer) {
+            return new int[]{shorter * k};
+        }
+        int result[] = new int[k + 1];
+        int index = 0;
+        for (int i = k; i >= 0; i--, index++) {
+            result[index] = shorter * i + longer * (k - i);
+        }
+        return result;
     }
 
 }
