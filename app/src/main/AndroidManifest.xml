@@ -69,6 +69,8 @@
 
         <activity android:name="com.example.zhangshuai.activity.HelloWorldActivity" />
 
+        <activity android:name="com.example.zhangshuai.activity.HumanbenchmarkTestActivity" />
+
     </application>
 
 </manifest>
