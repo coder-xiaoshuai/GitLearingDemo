@@ -1,15 +1,24 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply plugin: "org.sonarqube"
 buildscript {
-    ext.kotlin_version = '1.3.10'
+    ext.kotlin_version = '1.3.50'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
+        if (project.hasProperty('GRADLE_3') && GRADLE_3.equalsIgnoreCase('TRUE')) {
+            classpath 'com.android.tools.build:gradle:3.5.3'
+        } else {
+            classpath 'com.android.tools.build:gradle:2.3.3'
+        }
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7"
+
+        classpath("com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}") {
+            changing = TINKER_VERSION?.endsWith("-SNAPSHOT")
+            exclude group: 'com.android.tools.build', module: 'gradle'
+        }
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -55,6 +64,10 @@ ext {
             jsBridge   : 'com.github.lzyzsd:jsbridge:1.0.4',
             coroutines : 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     ]
+}
+
+def is_gradle_3() {
+    return hasProperty('GRADLE_3') && GRADLE_3.equalsIgnoreCase('TRUE')
 }
 
 

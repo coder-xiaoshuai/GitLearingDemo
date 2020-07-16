@@ -2,6 +2,7 @@ package com.example.zhangshuai.kotlin
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
@@ -9,7 +10,9 @@ import com.example.zhangshuai.activity.*
 import com.example.zhangshuai.dialog.JoinTeamGuideDialog
 import com.example.zhangshuai.gitlearingdemo.R
 import com.example.zhangshuai.mvp.PresenterTestActivity
+import com.tencent.tinker.lib.tinker.TinkerInstaller
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -133,11 +136,35 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_tinker_test.setOnClickListener {
+            val  intent = Intent(MainActivity@this,TinkerTestActivity::class.java)
+            startActivity(intent)
+        }
+
+        loadPatch()
+        Log.i("zs",Environment.getExternalStorageDirectory().absolutePath.toString())
+
     }
 
     fun nullTest(string: String) {
         Log.i("zs", string)
     }
 
+
+    private fun loadPatch() {
+        val path = "${Environment.getExternalStorageDirectory().absolutePath}/Tinker/";
+        val dir = File(path);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        //patch_signed_7zip.apk为我们要打的补丁包
+        val file = File(path, "patch_signed_7zip.apk");
+        if (file.exists()) {
+            if (file.length() > 0) {
+                Log.e("我就想看看路径", file.absolutePath)
+                TinkerInstaller.onReceiveUpgradePatch(MainActivity@ this, file.absolutePath)
+            }
+        }
+    }
 
 }
