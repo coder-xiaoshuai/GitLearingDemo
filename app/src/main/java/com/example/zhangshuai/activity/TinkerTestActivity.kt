@@ -11,7 +11,7 @@ class TinkerTestActivity :AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tinker_test)
         btn_toast.setOnClickListener {
-            ToastUtils.show("错误！！！！")
+            ToastUtils.show("正确！！！！")
         }
     }
 }

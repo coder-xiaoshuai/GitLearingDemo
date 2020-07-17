@@ -1,0 +1,7 @@
+
+-keep class com.oneapm.** { *; }
+
+# 主Dex保留过多类会导致Dex过大，热更新无法插入代码到主Dex
+# -keep class com.igexin.push.** { *; }
+# -keep class com.bumptech.glide.** { *; }
+# -keep class com.google.android.exoplayer2.** { *; }
